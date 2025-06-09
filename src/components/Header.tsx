@@ -12,7 +12,7 @@ const Header = () => {
           {/* Logo */}
           <div className="flex items-center">
             <img 
-              src="/lovable-uploads/b2c8e5dc-f2dd-4f28-87d8-a0b7fb49b5b1.png" 
+              src="/lovable-uploads/b5b93f05-f98a-4fa9-887e-ceb54e5c52a8.png" 
               alt="CorrectDentistry Logo" 
               className="h-8 w-auto"
             />

@@ -18,7 +18,7 @@ const FacultySection = () => {
               {/* Faculty Photo */}
               <div className="flex-shrink-0">
                 <img 
-                  src="/lovable-uploads/1f2e3d4c-5b6a-7c8d-9e0f-1a2b3c4d5e6f.png"
+                  src="/lovable-uploads/be0a9319-69c6-47c3-9019-671d5ffc8fd6.png"
                   alt="Dr. Michael Mandikos"
                   className="w-48 h-48 object-cover rounded-lg shadow-lg"
                 />

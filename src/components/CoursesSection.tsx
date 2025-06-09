@@ -9,7 +9,7 @@ const CoursesSection = () => {
       duration: "1-2 days",
       participants: "500+ enrolled",
       status: 'available' as const,
-      thumbnailImage: "/lovable-uploads/8e9c93e2-08b7-40b0-a5b6-8a4d2a3b4ce5.png"
+      thumbnailImage: "/lovable-uploads/d3f9d18e-a4a3-4a86-9438-219134d851a6.png"
     },
     {
       title: "Short Courses",
@@ -17,7 +17,7 @@ const CoursesSection = () => {
       duration: "30-60 min",
       participants: "800+ enrolled",
       status: 'available' as const,
-      thumbnailImage: "/lovable-uploads/5e8ef82a-a99c-4fbc-9736-2dc3c8c7a896.png"
+      thumbnailImage: "/lovable-uploads/d3f9d18e-a4a3-4a86-9438-219134d851a6.png"
     },
     {
       title: "5-Minute Refresh",
@@ -25,7 +25,7 @@ const CoursesSection = () => {
       duration: "5 min",
       participants: "1200+ enrolled",
       status: 'available' as const,
-      thumbnailImage: "/lovable-uploads/c8efb1cd-a0d7-4b35-97c7-b9f5c678a7c9.png"
+      thumbnailImage: "/lovable-uploads/bfd7b331-42d8-440c-849d-0d9900e7cfed.png"
     },
     {
       title: "Product Use",
@@ -33,7 +33,7 @@ const CoursesSection = () => {
       duration: "10-20 min",
       participants: "Coming soon",
       status: 'coming-soon' as const,
-      thumbnailImage: "/lovable-uploads/7d4c5e2f-9b8a-4c6d-8e7f-3a2b1c9d8e7f.png"
+      thumbnailImage: "/lovable-uploads/a8e38ffd-605d-41e7-940a-ca2bdd3d19f5.png"
     }
   ];
 
