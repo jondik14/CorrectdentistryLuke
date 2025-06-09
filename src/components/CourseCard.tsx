@@ -13,7 +13,7 @@ interface CourseCardProps {
 const CourseCard = ({ title, description, duration, participants, status = 'available', delay = 0 }: CourseCardProps) => {
   return (
     <div 
-      className="card-course fade-in"
+      className="card-course group fade-in"
       style={{ animationDelay: `${delay}ms` }}
     >
       {/* Course thumbnail */}
