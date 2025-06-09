@@ -10,8 +10,12 @@ const Header = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="text-2xl font-bold text-primary">
-            CorrectDentistry
+          <div className="flex items-center">
+            <img 
+              src="/lovable-uploads/b2c8e5dc-f2dd-4f28-87d8-a0b7fb49b5b1.png" 
+              alt="CorrectDentistry Logo" 
+              className="h-8 w-auto"
+            />
           </div>
 
           {/* Desktop Navigation */}

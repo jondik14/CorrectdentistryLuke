@@ -8,16 +8,26 @@ interface CourseCardProps {
   participants: string;
   status?: 'available' | 'coming-soon';
   delay?: number;
+  thumbnailImage?: string;
 }
 
-const CourseCard = ({ title, description, duration, participants, status = 'available', delay = 0 }: CourseCardProps) => {
+const CourseCard = ({ title, description, duration, participants, status = 'available', delay = 0, thumbnailImage }: CourseCardProps) => {
   return (
     <div 
       className="card-course group fade-in"
       style={{ animationDelay: `${delay}ms` }}
     >
       {/* Course thumbnail */}
-      <div className="aspect-video bg-gradient-to-br from-dental-blue to-dental-blue-dark relative overflow-hidden">
+      <div className="aspect-video relative overflow-hidden">
+        {thumbnailImage ? (
+          <img 
+            src={thumbnailImage}
+            alt={title}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-dental-blue to-dental-blue-dark"></div>
+        )}
         <div className="absolute inset-0 bg-black/20"></div>
         {status === 'available' && (
           <div className="absolute inset-0 flex items-center justify-center group-hover:bg-black/30 transition-all duration-300">

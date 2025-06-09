@@ -1,70 +1,47 @@
 
 const FacultySection = () => {
   return (
-    <section id="faculty" className="py-20 bg-dental-blue-light">
+    <section id="faculty" className="py-20 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="mb-6 text-dental-blue fade-in">
-            Learn from the Best
+          <h2 className="text-dental-blue mb-4 fade-in">
+            Faculty Spotlight
           </h2>
-          <p className="text-lg text-dental-gray max-w-3xl mx-auto fade-in" style={{ animationDelay: '0.2s' }}>
-            Our faculty consists of globally recognized specialists with decades of clinical and academic experience.
+          <p className="text-xl text-dental-gray max-w-3xl mx-auto fade-in" style={{ animationDelay: '0.2s' }}>
+            Learn from globally respected specialists with decades of clinical and academic experience.
           </p>
         </div>
 
         <div className="max-w-4xl mx-auto">
           <div className="card-faculty fade-in" style={{ animationDelay: '0.4s' }}>
-            <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
-              {/* Faculty photo placeholder */}
-              <div className="w-48 h-48 bg-gradient-to-br from-dental-blue to-dental-blue-dark rounded-lg flex-shrink-0 relative overflow-hidden">
-                <div className="absolute inset-0 bg-black/10"></div>
-                <div className="absolute bottom-4 left-4 right-4 text-center">
-                  <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full mx-auto mb-2 flex items-center justify-center">
-                    <div className="w-8 h-8 bg-white rounded-full"></div>
-                  </div>
-                </div>
+            <div className="flex flex-col md:flex-row items-center gap-8">
+              {/* Faculty Photo */}
+              <div className="flex-shrink-0">
+                <img 
+                  src="/lovable-uploads/1f2e3d4c-5b6a-7c8d-9e0f-1a2b3c4d5e6f.png"
+                  alt="Dr. Michael Mandikos"
+                  className="w-48 h-48 object-cover rounded-lg shadow-lg"
+                />
               </div>
 
-              {/* Faculty info */}
+              {/* Faculty Info */}
               <div className="flex-1 text-center md:text-left">
-                <h3 className="text-2xl font-bold text-dental-blue mb-2">
+                <h3 className="text-2xl font-semibold text-dental-blue mb-2">
                   Dr. Michael Mandikos
                 </h3>
-                
-                <p className="text-dental-gray text-lg mb-4">
+                <p className="text-dental-gray font-medium mb-4">
                   BDSc (Hons), MS, Cert Pros, FRACDS, FICD, FPFA
                 </p>
-
-                <div className="space-y-4 text-dental-gray leading-relaxed">
-                  <p>
-                    Dr. Mandikos is a Specialist Prosthodontist with over 25 years of clinical and academic experience. He's a globally respected educator, journal reviewer, and founder of the CorrectDentistry library.
-                  </p>
-                  
-                  <p>
-                    His expertise in advanced prosthodontics and commitment to evidence-based practice has made him a sought-after speaker at international conferences and a trusted mentor to dental professionals worldwide.
-                  </p>
-                </div>
-
-                <div className="mt-6 flex flex-col sm:flex-row gap-4">
-                  <button className="btn-primary">
-                    View Faculty Profile
-                  </button>
-                  <button className="btn-secondary">
-                    Browse Dr. Mandikos' Courses
-                  </button>
-                </div>
+                <p className="text-dental-gray leading-relaxed mb-6">
+                  Dr. Mandikos is a Specialist Prosthodontist with over 25 years of clinical and academic experience. 
+                  He's a globally respected educator, journal reviewer, and founder of the CorrectDentistry library. 
+                  His expertise spans advanced restorative procedures, dental implants, and full mouth rehabilitation.
+                </p>
+                <button className="btn-secondary">
+                  Learn More About Dr. Mandikos
+                </button>
               </div>
             </div>
-          </div>
-
-          {/* Additional faculty teaser */}
-          <div className="text-center mt-12 fade-in" style={{ animationDelay: '0.6s' }}>
-            <p className="text-dental-gray mb-4">
-              More world-class faculty joining our platform soon.
-            </p>
-            <button className="btn-secondary">
-              Meet the Full Faculty
-            </button>
           </div>
         </div>
       </div>

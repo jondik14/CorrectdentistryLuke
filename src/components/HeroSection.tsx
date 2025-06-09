@@ -3,9 +3,16 @@ import { Play } from 'lucide-react';
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-dental-blue via-dental-blue-dark to-dental-gray overflow-hidden">
-      {/* Background overlay */}
-      <div className="absolute inset-0 bg-black/20"></div>
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background image */}
+      <div className="absolute inset-0">
+        <img 
+          src="/lovable-uploads/8e9c93e2-08b7-40b0-a5b6-8a4d2a3b4ce5.png"
+          alt="Dental Education"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-dental-blue/70"></div>
+      </div>
       
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-10">
