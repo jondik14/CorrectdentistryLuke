@@ -2,6 +2,15 @@
 import { Play } from 'lucide-react';
 
 const HeroSection = () => {
+  const handleExploreCourses = () => {
+    document.getElementById('courses')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleWatchDemo = () => {
+    // You can add demo video functionality here
+    console.log('Watch demo clicked');
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background image */}
@@ -11,7 +20,7 @@ const HeroSection = () => {
           alt="Dental Education"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-dental-blue/70"></div>
+        <div className="absolute inset-0 bg-dental-blue/20"></div>
       </div>
       
       {/* Background pattern */}
@@ -24,21 +33,27 @@ const HeroSection = () => {
       <div className="relative z-10 container mx-auto px-4 text-center text-white">
         <div className="max-w-4xl mx-auto">
           {/* Main Headline */}
-          <h1 className="mb-6 animate-fadeInUp">
+          <h1 className="mb-6 animate-fadeInUp text-white drop-shadow-lg">
             The Way the Specialists Do It
           </h1>
           
           {/* Subtext */}
-          <p className="text-xl md:text-2xl mb-8 text-white/90 animate-fadeInUp" style={{ animationDelay: '0.2s' }}>
+          <p className="text-xl md:text-2xl mb-8 text-white drop-shadow-md animate-fadeInUp" style={{ animationDelay: '0.2s' }}>
             Elevate your dental expertise with CorrectDentistry's trusted online learning platform.
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fadeInUp" style={{ animationDelay: '0.4s' }}>
-            <button className="btn-primary text-lg px-8 py-4 bg-white text-dental-blue hover:bg-white/90">
+            <button 
+              onClick={handleExploreCourses}
+              className="btn-primary text-lg px-8 py-4 bg-white text-dental-blue hover:bg-white/90"
+            >
               Explore Courses
             </button>
-            <button className="btn-secondary text-lg px-8 py-4 border-white text-white hover:bg-white hover:text-dental-blue flex items-center gap-2">
+            <button 
+              onClick={handleWatchDemo}
+              className="text-lg px-8 py-4 text-white hover:text-white/80 flex items-center gap-2 transition-colors duration-200"
+            >
               <Play size={20} />
               Watch Demo
             </button>
@@ -46,19 +61,19 @@ const HeroSection = () => {
 
           {/* Trust indicators */}
           <div className="mt-12 animate-fadeInUp" style={{ animationDelay: '0.6s' }}>
-            <p className="text-white/70 text-sm mb-4">Trusted by dental professionals worldwide</p>
-            <div className="flex justify-center items-center space-x-8 text-white/60">
+            <p className="text-white drop-shadow-md text-sm mb-4 font-medium">Trusted by dental professionals worldwide</p>
+            <div className="flex justify-center items-center space-x-8 text-white">
               <div className="text-center">
-                <div className="text-2xl font-bold">25+</div>
-                <div className="text-sm">Years Experience</div>
+                <div className="text-2xl font-bold drop-shadow-md">25+</div>
+                <div className="text-sm drop-shadow-md">Years Experience</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold">500+</div>
-                <div className="text-sm">CPD Hours</div>
+                <div className="text-2xl font-bold drop-shadow-md">500+</div>
+                <div className="text-sm drop-shadow-md">CPD Hours</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold">10k+</div>
-                <div className="text-sm">Practitioners</div>
+                <div className="text-2xl font-bold drop-shadow-md">10k+</div>
+                <div className="text-sm drop-shadow-md">Practitioners</div>
               </div>
             </div>
           </div>
