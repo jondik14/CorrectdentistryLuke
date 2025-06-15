@@ -1,6 +1,7 @@
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { Microscope, GraduationCap, Target } from 'lucide-react';
 
 const About = () => {
   return (
@@ -104,8 +105,10 @@ const About = () => {
             
             <div className="grid md:grid-cols-3 gap-8 mt-12">
               <div className="bg-white p-8 rounded-lg shadow-md">
-                <div className="w-16 h-16 bg-dental-blue rounded-full flex items-center justify-center mx-auto mb-6">
-                  <div className="w-8 h-8 bg-white rounded-full"></div>
+                <div className="flex justify-center mb-6">
+                  <div className="bg-blue-100/50 rounded-full p-4">
+                    <Microscope className="text-blue-600" size={48} />
+                  </div>
                 </div>
                 <h4 className="text-dental-blue font-semibold mb-4">Evidence-Based Learning</h4>
                 <p className="text-dental-gray">
@@ -115,8 +118,10 @@ const About = () => {
               </div>
               
               <div className="bg-white p-8 rounded-lg shadow-md">
-                <div className="w-16 h-16 bg-dental-blue rounded-full flex items-center justify-center mx-auto mb-6">
-                  <div className="w-8 h-8 bg-white rounded-full"></div>
+                <div className="flex justify-center mb-6">
+                  <div className="bg-blue-100/50 rounded-full p-4">
+                    <GraduationCap className="text-blue-600" size={48} />
+                  </div>
                 </div>
                 <h4 className="text-dental-blue font-semibold mb-4">Specialist Expertise</h4>
                 <p className="text-dental-gray">
@@ -126,8 +131,10 @@ const About = () => {
               </div>
               
               <div className="bg-white p-8 rounded-lg shadow-md">
-                <div className="w-16 h-16 bg-dental-blue rounded-full flex items-center justify-center mx-auto mb-6">
-                  <div className="w-8 h-8 bg-white rounded-full"></div>
+                <div className="flex justify-center mb-6">
+                  <div className="bg-blue-100/50 rounded-full p-4">
+                    <Target className="text-blue-600" size={48} />
+                  </div>
                 </div>
                 <h4 className="text-dental-blue font-semibold mb-4">Practical Application</h4>
                 <p className="text-dental-gray">

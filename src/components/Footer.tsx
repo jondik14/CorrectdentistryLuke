@@ -24,11 +24,15 @@ const Footer = () => {
           {/* Brand */}
           <div className="md:col-span-2">
             <div 
-              className="mb-4 cursor-pointer transition-opacity inline-block"
+              className="mb-4 cursor-pointer inline-block"
               onClick={handleLogoClick}
             >
-              <div className="bg-white/90 p-2 rounded-lg hover:opacity-80">
-                <img src="/lovable-uploads/b5b93f05-f98a-4fa9-887e-ceb54e5c52a8.png" alt="CorrectDentistry Logo" className="h-8 w-auto" />
+              <div className="bg-white/5 rounded-md p-1.5">
+                <img 
+                  src="/lovable-uploads/b5b93f05-f98a-4fa9-887e-ceb54e5c52a8.png" 
+                  alt="CorrectDentistry Logo" 
+                  className="h-8 w-auto filter brightness-[1.4] contrast-[1.2] drop-shadow-sm" 
+                />
               </div>
             </div>
             <p className="text-white/80 mb-6 max-w-md">

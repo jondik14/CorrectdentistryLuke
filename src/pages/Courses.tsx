@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Search, Filter, Clock, Users } from 'lucide-react';
 import Header from '../components/Header';
@@ -120,7 +119,7 @@ const Courses = () => {
           />
           <div className="absolute inset-0 bg-black/50" />
         </div>
-        <div className="relative container mx-auto px-4 py-28 md:py-40">
+        <div className="relative container mx-auto px-4 py-40 md:py-56">
           <div className="text-center max-w-3xl mx-auto">
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
               Professional Development Courses
