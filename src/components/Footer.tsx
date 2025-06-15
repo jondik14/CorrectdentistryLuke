@@ -27,7 +27,7 @@ const Footer = () => {
               className="mb-4 cursor-pointer hover:opacity-80 transition-opacity inline-block"
               onClick={handleLogoClick}
             >
-              <img src="/lovable-uploads/b5b93f05-f98a-4fa9-887e-ceb54e5c52a8.png" alt="CorrectDentistry Logo" className="h-8 w-auto" />
+              <img src="/lovable-uploads/b5b93f05-f98a-4fa9-887e-ceb54e5c52a8.png" alt="CorrectDentistry Logo" className="h-8 w-auto filter invert" />
             </div>
             <p className="text-white/80 mb-6 max-w-md">
               Elevating dental expertise through evidence-based, specialist-delivered continuing education.

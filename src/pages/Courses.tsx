@@ -96,13 +96,21 @@ const Courses = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="bg-white border-b">
-        <div className="container mx-auto px-4 py-16">
+      <section className="relative border-b">
+        <div className="absolute inset-0">
+          <img
+            src="/lovable-uploads/b209c229-5f67-414c-8002-904abde37021.png"
+            alt="Dental seminar"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/50" />
+        </div>
+        <div className="relative container mx-auto px-4 py-24 md:py-32">
           <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold text-dental-blue mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
               Professional Development Courses
             </h1>
-            <p className="text-xl text-dental-gray mb-8">
+            <p className="text-xl text-white/90 mb-8">
               Advance your dental expertise with courses designed by specialists for practicing professionals.
             </p>
           </div>
@@ -110,7 +118,7 @@ const Courses = () => {
       </section>
 
       {/* Search and Filter Bar */}
-      <div className="sticky top-20 z-40 bg-white/95 backdrop-blur-sm border-b shadow-sm">
+      <div className="bg-white/95 backdrop-blur-sm border-b shadow-sm">
         <div className="container mx-auto px-4 py-4">
           <div className="flex gap-4 items-center max-w-4xl mx-auto">
             <div className="relative flex-1">
@@ -137,7 +145,7 @@ const Courses = () => {
             {filteredCourses.map((course, index) => (
               <div
                 key={course.id}
-                className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden cursor-pointer group"
+                className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden cursor-pointer group flex flex-col"
                 onClick={() => setSelectedCourse(course)}
                 style={{ animationDelay: `${index * 100}ms` }}
               >
@@ -161,7 +169,7 @@ const Courses = () => {
                 </div>
 
                 {/* Course Content */}
-                <div className="p-6">
+                <div className="p-6 flex flex-col flex-1">
                   <h3 className="text-xl font-semibold text-dental-blue mb-3 group-hover:text-dental-blue-dark transition-colors">
                     {course.title}
                   </h3>
@@ -171,7 +179,7 @@ const Courses = () => {
                   </p>
 
                   {/* Course Metadata */}
-                  <div className="flex items-center justify-between text-sm text-dental-gray mb-4">
+                  <div className="flex items-center justify-between text-sm text-dental-gray mt-auto mb-4">
                     <div className="flex items-center gap-1">
                       <Clock size={16} />
                       <span>{course.duration}</span>
