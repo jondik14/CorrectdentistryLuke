@@ -6,6 +6,13 @@ import Footer from '../components/Footer';
 import CourseDetailModal from '../components/CourseDetailModal';
 import { Input } from '../components/ui/input';
 import { Button } from '../components/ui/button';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../components/ui/select';
 
 interface Course {
   id: string;
@@ -21,6 +28,7 @@ interface Course {
 const Courses = () => {
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All');
 
   const courses: Course[] = [
     {
@@ -85,11 +93,18 @@ const Courses = () => {
     }
   ];
 
-  const filteredCourses = courses.filter(course =>
-    course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    course.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    course.category.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const categories = ['All', ...Array.from(new Set(courses.map(course => course.category)))];
+
+  const filteredCourses = courses.filter(course => {
+    const categoryMatch = selectedCategory === 'All' || course.category === selectedCategory;
+    
+    const searchTermMatch = !searchTerm ||
+      course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      course.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      course.category.toLowerCase().includes(searchTerm.toLowerCase());
+
+    return categoryMatch && searchTermMatch;
+  });
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -105,7 +120,7 @@ const Courses = () => {
           />
           <div className="absolute inset-0 bg-black/50" />
         </div>
-        <div className="relative container mx-auto px-4 py-24 md:py-32">
+        <div className="relative container mx-auto px-4 py-28 md:py-40">
           <div className="text-center max-w-3xl mx-auto">
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
               Professional Development Courses
@@ -118,22 +133,33 @@ const Courses = () => {
       </section>
 
       {/* Search and Filter Bar */}
-      <div className="bg-white/95 backdrop-blur-sm border-b shadow-sm">
+      <div className="bg-white/95 backdrop-blur-sm border-b shadow-sm sticky top-0 z-40">
         <div className="container mx-auto px-4 py-4">
-          <div className="flex gap-4 items-center max-w-4xl mx-auto">
-            <div className="relative flex-1">
+          <div className="flex flex-col md:flex-row gap-4 items-center max-w-4xl mx-auto">
+            <div className="relative flex-1 w-full">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
               <Input
                 placeholder="Search courses by title, category, or specialty..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 h-12"
+                className="pl-10 h-12 w-full"
               />
             </div>
-            <Button variant="outline" className="h-12 px-6">
-              <Filter size={20} className="mr-2" />
-              Filter
-            </Button>
+            <div className="w-full md:w-auto">
+              <Select onValueChange={setSelectedCategory} defaultValue="All">
+                <SelectTrigger className="h-12 w-full md:w-[220px]">
+                  <Filter size={18} className="mr-2 text-gray-500" />
+                  <SelectValue placeholder="Filter by category" />
+                </SelectTrigger>
+                <SelectContent>
+                  {categories.map((category) => (
+                    <SelectItem key={category} value={category}>
+                      {category}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
         </div>
       </div>
