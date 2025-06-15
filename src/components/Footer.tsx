@@ -87,8 +87,10 @@ const Footer = () => {
             Professional dental education for the modern practitioner.
           </p>
           <div className="text-xs space-y-1">
-            <p>© 2024 CorrectDentistry. All rights reserved.</p>
-            <a href="https://lordicon.com/" className="underline hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">Icons by Lordicon.com</a>
+            <p>© 2025 CorrectDentistry. All rights reserved.</p>
+            <p>
+              Icons by <a href="https://lucide.dev/" className="underline hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">Lucide</a>. Licensed under ISC.
+            </p>
           </div>
         </div>
       </div>

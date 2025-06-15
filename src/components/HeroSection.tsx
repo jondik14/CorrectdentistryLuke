@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Play, Award, BookOpenCheck, Users } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -62,15 +61,6 @@ const HeroSection = () => {
               className="bg-blue-600 hover:bg-blue-700 text-white text-lg px-8 py-6 shadow-lg"
             >
               Explore Courses
-            </Button>
-            <Button
-              onClick={handleWatchDemo}
-              variant="outline"
-              size="lg"
-              className="bg-transparent hover:bg-white/10 text-white border-white/80 hover:text-white text-lg px-8 py-6"
-            >
-              <Play className="mr-2 h-5 w-5" />
-              Watch Demo
             </Button>
           </div>
 
