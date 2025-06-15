@@ -115,7 +115,7 @@ const Courses = () => {
           <img
             src="/lovable-uploads/b209c229-5f67-414c-8002-904abde37021.png"
             alt="Dental seminar"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-top"
           />
           <div className="absolute inset-0 bg-black/50" />
         </div>
