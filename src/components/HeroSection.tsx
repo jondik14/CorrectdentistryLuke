@@ -23,7 +23,7 @@ const HeroSection = () => {
           alt="Dental Education"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-dental-blue/10"></div>
+        <div className="absolute inset-0 bg-dental-blue/5"></div>
       </div>
       
       {/* Background pattern */}
@@ -36,17 +36,17 @@ const HeroSection = () => {
       <div className="relative z-10 container mx-auto px-4 text-center text-white">
         <div className="max-w-4xl mx-auto">
           {/* Main Headline */}
-          <h1 className="mb-6 animate-fadeInUp text-white drop-shadow-lg">
+          <h1 className="mb-6 text-white drop-shadow-lg opacity-0 animate-fadeInUp">
             The Way the Specialists Do It
           </h1>
           
           {/* Subtext */}
-          <p className="text-xl md:text-2xl mb-8 text-white drop-shadow-md animate-fadeInUp" style={{ animationDelay: '0.2s' }}>
+          <p className="text-xl md:text-2xl mb-8 text-white drop-shadow-md opacity-0 animate-fadeInUp [animation-delay:200ms]">
             Elevate your dental expertise with CorrectDentistry's trusted online learning platform.
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fadeInUp" style={{ animationDelay: '0.4s' }}>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center opacity-0 animate-fadeInUp [animation-delay:400ms]">
             <button 
               onClick={handleExploreCourses}
               className="btn-primary text-lg px-8 py-4 bg-white text-dental-blue hover:bg-white/90"
@@ -56,7 +56,7 @@ const HeroSection = () => {
           </div>
 
           {/* Trust indicators */}
-          <div className="mt-12 animate-fadeInUp" style={{ animationDelay: '0.6s' }}>
+          <div className="mt-12 opacity-0 animate-fadeInUp [animation-delay:600ms]">
             <p className="text-white drop-shadow-lg text-sm mb-4 font-medium">Trusted by dental professionals worldwide</p>
             <div className="flex justify-center items-center space-x-8 text-white">
               <div className="text-center">
