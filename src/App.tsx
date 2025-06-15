@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Courses from "./pages/Courses";
+import About from "./pages/About";
 import CourseSubscription from "./pages/CourseSubscription";
 import NotFound from "./pages/NotFound";
 

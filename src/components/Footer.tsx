@@ -1,12 +1,31 @@
 
+import { useNavigate } from 'react-router-dom';
+
 const Footer = () => {
+  const navigate = useNavigate();
+
+  const handleLogoClick = () => {
+    navigate('/');
+  };
+
+  const handleCoursesClick = () => {
+    navigate('/courses');
+  };
+
+  const handleAboutClick = () => {
+    navigate('/about');
+  };
+
   return (
     <footer className="bg-dental-gray text-white py-12">
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="md:col-span-2">
-            <div className="text-2xl font-bold mb-4">
+            <div 
+              className="text-2xl font-bold mb-4 cursor-pointer hover:opacity-80 transition-opacity"
+              onClick={handleLogoClick}
+            >
               CorrectDentistry
             </div>
             <p className="text-white/80 mb-6 max-w-md">
@@ -21,18 +40,21 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4">Platform</h4>
             <div className="space-y-3 text-white/80">
-              <a href="#courses" className="block hover:text-white transition-colors">
+              <button 
+                onClick={handleCoursesClick}
+                className="block hover:text-white transition-colors text-left"
+              >
                 Courses
-              </a>
-              <a href="#faculty" className="block hover:text-white transition-colors">
-                Faculty
-              </a>
-              <a href="#about" className="block hover:text-white transition-colors">
+              </button>
+              <button 
+                onClick={handleAboutClick}
+                className="block hover:text-white transition-colors text-left"
+              >
                 About
-              </a>
-              <a href="#" className="block hover:text-white transition-colors">
+              </button>
+              <button className="block hover:text-white transition-colors text-left">
                 Log In
-              </a>
+              </button>
             </div>
           </div>
 
@@ -40,18 +62,18 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4">Support</h4>
             <div className="space-y-3 text-white/80">
-              <a href="#" className="block hover:text-white transition-colors">
+              <button className="block hover:text-white transition-colors text-left">
                 Help Center
-              </a>
-              <a href="#" className="block hover:text-white transition-colors">
+              </button>
+              <button className="block hover:text-white transition-colors text-left">
                 Contact Us
-              </a>
-              <a href="#" className="block hover:text-white transition-colors">
+              </button>
+              <button className="block hover:text-white transition-colors text-left">
                 Privacy Policy
-              </a>
-              <a href="#" className="block hover:text-white transition-colors">
+              </button>
+              <button className="block hover:text-white transition-colors text-left">
                 Terms of Service
-              </a>
+              </button>
             </div>
           </div>
         </div>
