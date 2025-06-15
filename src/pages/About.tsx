@@ -2,8 +2,15 @@
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Microscope, GraduationCap, Target } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const About = () => {
+  const navigate = useNavigate();
+
+  const handleExploreCoursesClick = () => {
+    navigate('/courses');
+  };
+
   return (
     <div className="min-h-screen">
       <Header />
@@ -157,7 +164,10 @@ const About = () => {
             <p className="text-dental-gray mb-8">
               Join thousands of dental professionals who trust CorrectDentistry for their continuing education needs.
             </p>
-            <button className="btn-primary text-lg px-8 py-4">
+            <button 
+              onClick={handleExploreCoursesClick}
+              className="btn-primary text-lg px-8 py-4"
+            >
               Explore Our Courses
             </button>
           </div>
