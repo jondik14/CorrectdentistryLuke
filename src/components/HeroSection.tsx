@@ -41,12 +41,12 @@ const HeroSection = () => {
           </h1>
           
           {/* Subtext */}
-          <p className="text-xl md:text-2xl mb-8 text-white drop-shadow-md opacity-0 animate-fadeInUp [animation-delay:200ms]">
+          <p className="text-xl md:text-2xl mb-8 text-white drop-shadow-md opacity-0 animate-fadeInUp animate-delay-200">
             Elevate your dental expertise with CorrectDentistry's trusted online learning platform.
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center opacity-0 animate-fadeInUp [animation-delay:400ms]">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 opacity-0 animate-fadeInUp animate-delay-400">
             <button 
               onClick={handleExploreCourses}
               className="btn-primary text-lg px-8 py-4 bg-white text-dental-blue hover:bg-white/90"
@@ -56,7 +56,7 @@ const HeroSection = () => {
           </div>
 
           {/* Trust indicators */}
-          <div className="mt-12 opacity-0 animate-fadeInUp [animation-delay:600ms]">
+          <div className="opacity-0 animate-fadeInUp animate-delay-600">
             <p className="text-white drop-shadow-lg text-sm mb-4 font-medium">Trusted by dental professionals worldwide</p>
             <div className="flex justify-center items-center space-x-8 text-white">
               <div className="text-center">
