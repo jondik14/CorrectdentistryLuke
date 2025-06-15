@@ -9,10 +9,10 @@ const About = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="pt-24 pb-16 bg-dental-blue-light">
+      <section className="pt-32 pb-24 bg-dental-blue-light">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-dental-blue mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold text-dental-blue mb-8">
               Meet Our Expert Faculty
             </h1>
             <p className="text-xl text-dental-gray leading-relaxed">
