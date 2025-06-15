@@ -1,9 +1,12 @@
 
 import { Play } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const HeroSection = () => {
+  const navigate = useNavigate();
+
   const handleExploreCourses = () => {
-    document.getElementById('courses')?.scrollIntoView({ behavior: 'smooth' });
+    navigate('/courses');
   };
 
   const handleWatchDemo = () => {
@@ -20,7 +23,7 @@ const HeroSection = () => {
           alt="Dental Education"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-dental-blue/20"></div>
+        <div className="absolute inset-0 bg-dental-blue/10"></div>
       </div>
       
       {/* Background pattern */}
@@ -50,30 +53,23 @@ const HeroSection = () => {
             >
               Explore Courses
             </button>
-            <button 
-              onClick={handleWatchDemo}
-              className="text-lg px-8 py-4 text-white hover:text-white/80 flex items-center gap-2 transition-colors duration-200"
-            >
-              <Play size={20} />
-              Watch Demo
-            </button>
           </div>
 
           {/* Trust indicators */}
           <div className="mt-12 animate-fadeInUp" style={{ animationDelay: '0.6s' }}>
-            <p className="text-white drop-shadow-md text-sm mb-4 font-medium">Trusted by dental professionals worldwide</p>
+            <p className="text-white drop-shadow-lg text-sm mb-4 font-medium">Trusted by dental professionals worldwide</p>
             <div className="flex justify-center items-center space-x-8 text-white">
               <div className="text-center">
-                <div className="text-2xl font-bold drop-shadow-md">25+</div>
-                <div className="text-sm drop-shadow-md">Years Experience</div>
+                <div className="text-2xl font-bold drop-shadow-lg">25+</div>
+                <div className="text-sm drop-shadow-lg">Years Experience</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold drop-shadow-md">500+</div>
-                <div className="text-sm drop-shadow-md">CPD Hours</div>
+                <div className="text-2xl font-bold drop-shadow-lg">500+</div>
+                <div className="text-sm drop-shadow-lg">CPD Hours</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold drop-shadow-md">10k+</div>
-                <div className="text-sm drop-shadow-md">Practitioners</div>
+                <div className="text-2xl font-bold drop-shadow-lg">10k+</div>
+                <div className="text-sm drop-shadow-lg">Practitioners</div>
               </div>
             </div>
           </div>
