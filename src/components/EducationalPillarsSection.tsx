@@ -18,14 +18,15 @@ const EducationalPillarsSection = () => {
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {/* Evidence-Based Pillar */}
           <div className="bg-white rounded-xl shadow-lg p-8 text-center hover:shadow-xl transition-shadow duration-300">
-            {/* Lordicon - Evidence-Based */}
+            {/* Icon Placeholder */}
             <div className="mb-6 flex justify-center">
-              <lord-icon 
-                src="https://cdn.lordicon.com/wjyqkiew.json" 
-                trigger="hover" 
-                colors="primary:#9cc2f4,secondary:#0066cc" 
-                style={{width: '80px', height: '80px'}}
-              />
+              <div 
+                className="w-48 h-48 bg-dental-blue-light rounded-full flex items-center justify-center"
+                data-lordicon="evidence-based"
+              >
+                {/* Placeholder for Evidence-Based Lordicon */}
+                <div className="text-6xl text-dental-blue">🧪</div>
+              </div>
             </div>
             
             <h3 className="text-dental-blue font-bold mb-4">Evidence-Based</h3>
@@ -38,14 +39,15 @@ const EducationalPillarsSection = () => {
 
           {/* Specialist-Led Pillar */}
           <div className="bg-white rounded-xl shadow-lg p-8 text-center hover:shadow-xl transition-shadow duration-300">
-            {/* Lordicon - Specialist-Led */}
+            {/* Icon Placeholder */}
             <div className="mb-6 flex justify-center">
-              <lord-icon 
-                src="https://cdn.lordicon.com/shcfcebj.json" 
-                trigger="hover" 
-                colors="primary:#9cc2f4,secondary:#0066cc" 
-                style={{width: '80px', height: '80px'}}
-              />
+              <div 
+                className="w-48 h-48 bg-dental-blue-light rounded-full flex items-center justify-center"
+                data-lordicon="specialist-led"
+              >
+                {/* Placeholder for Specialist-Led Lordicon */}
+                <div className="text-6xl text-dental-blue">👨‍⚕️</div>
+              </div>
             </div>
             
             <h3 className="text-dental-blue font-bold mb-4">Specialist-Led</h3>
@@ -58,14 +60,15 @@ const EducationalPillarsSection = () => {
 
           {/* Practical Focus Pillar */}
           <div className="bg-white rounded-xl shadow-lg p-8 text-center hover:shadow-xl transition-shadow duration-300">
-            {/* Lordicon - Practical Focus */}
+            {/* Icon Placeholder */}
             <div className="mb-6 flex justify-center">
-              <lord-icon 
-                src="https://cdn.lordicon.com/weqkkuwt.json" 
-                trigger="hover" 
-                colors="primary:#9cc2f4,secondary:#0066cc" 
-                style={{width: '80px', height: '80px'}}
-              />
+              <div 
+                className="w-48 h-48 bg-dental-blue-light rounded-full flex items-center justify-center"
+                data-lordicon="practical-focus"
+              >
+                {/* Placeholder for Practical Focus Lordicon */}
+                <div className="text-6xl text-dental-blue">🎯</div>
+              </div>
             </div>
             
             <h3 className="text-dental-blue font-bold mb-4">Practical Focus</h3>
