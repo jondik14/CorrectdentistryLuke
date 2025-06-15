@@ -110,7 +110,7 @@ const Courses = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative border-b">
+      <section className="relative border-b flex items-center justify-center min-h-[550px]">
         <div className="absolute inset-0">
           <img
             src="/lovable-uploads/b209c229-5f67-414c-8002-904abde37021.png"
@@ -119,7 +119,7 @@ const Courses = () => {
           />
           <div className="absolute inset-0 bg-black/50" />
         </div>
-        <div className="relative container mx-auto px-4 py-40 md:py-56">
+        <div className="relative container mx-auto px-4 py-12">
           <div className="text-center max-w-3xl mx-auto">
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
               Professional Development Courses

@@ -9,7 +9,7 @@ const About = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="pt-32 pb-24 bg-dental-blue-light">
+      <section className="pt-40 pb-32 bg-dental-blue-light">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold text-dental-blue mb-8">
