@@ -1,4 +1,6 @@
 
+import { Button } from "@/components/ui/button";
+
 const FacultySection = () => {
   return (
     <section id="faculty" className="py-20 bg-background">
@@ -12,15 +14,15 @@ const FacultySection = () => {
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto">
-          <div className="card-faculty fade-in" style={{ animationDelay: '0.4s' }}>
-            <div className="flex flex-col md:flex-row items-center gap-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="bg-secondary rounded-xl shadow-md p-8 md:p-12 border border-border/50 fade-in" style={{ animationDelay: '0.4s' }}>
+            <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
               {/* Faculty Photo */}
               <div className="flex-shrink-0">
                 <img 
                   src="/lovable-uploads/be0a9319-69c6-47c3-9019-671d5ffc8fd6.png"
                   alt="Dr. Michael Mandikos"
-                  className="w-48 h-48 object-cover rounded-lg shadow-lg"
+                  className="w-48 h-48 md:w-56 md:h-56 object-cover rounded-lg shadow-lg"
                 />
               </div>
 
@@ -37,9 +39,15 @@ const FacultySection = () => {
                   He's a globally respected educator, journal reviewer, and founder of the CorrectDentistry library. 
                   His expertise spans advanced restorative procedures, dental implants, and full mouth rehabilitation.
                 </p>
-                <button className="btn-secondary">
+
+                <div className="flex justify-center md:justify-start gap-x-6 gap-y-2 flex-wrap mb-8 text-dental-gray font-medium">
+                    <span>✓ 25+ years teaching</span>
+                    <span>✓ Founder of CorrectDentistry</span>
+                </div>
+
+                <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white shadow-md">
                   Learn More About Dr. Mandikos
-                </button>
+                </Button>
               </div>
             </div>
           </div>

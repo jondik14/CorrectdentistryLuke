@@ -1,7 +1,8 @@
 
 import { useState } from 'react';
-import { Play } from 'lucide-react';
+import { Play, Award, BookOpenCheck, Users } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 
 const HeroSection = () => {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ const HeroSection = () => {
           className="w-full h-full object-cover"
           onLoad={() => setImageLoaded(true)}
         />
-        <div className="absolute inset-0 bg-dental-blue/5"></div>
+        <div className="absolute inset-0 bg-black/40"></div>
       </div>
       
       {/* Background pattern */}
@@ -38,41 +39,64 @@ const HeroSection = () => {
 
       <div className="relative z-10 container mx-auto px-4 text-center text-white">
         <div className="max-w-4xl mx-auto">
+          {/* Supporting Text */}
+          <p className={`text-sm md:text-base mb-4 text-white/80 drop-shadow-md opacity-0 ${imageLoaded ? 'animate-fadeInUp' : ''}`}>
+            Accredited by top specialists. Trusted by 10,000+ dental professionals.
+          </p>
+
           {/* Main Headline */}
-          <h1 className={`mb-6 text-white drop-shadow-lg opacity-0 ${imageLoaded ? 'animate-fadeInUp' : ''}`}>
+          <h1 className={`mb-6 text-white drop-shadow-lg opacity-0 ${imageLoaded ? 'animate-fadeInUp animate-delay-200' : ''}`}>
             The Way the Specialists Do It
           </h1>
           
           {/* Subtext */}
-          <p className={`text-xl md:text-2xl mb-8 text-white drop-shadow-md opacity-0 ${imageLoaded ? 'animate-fadeInUp animate-delay-200' : ''}`}>
+          <p className={`text-xl md:text-2xl mb-10 text-white drop-shadow-md opacity-0 ${imageLoaded ? 'animate-fadeInUp animate-delay-400' : ''}`}>
             Elevate your dental expertise with CorrectDentistry's trusted online learning platform.
           </p>
 
           {/* CTA Buttons */}
-          <div className={`flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 opacity-0 ${imageLoaded ? 'animate-fadeInUp animate-delay-400' : ''}`}>
-            <button 
+          <div className={`flex flex-col sm:flex-row gap-4 justify-center items-center mb-16 opacity-0 ${imageLoaded ? 'animate-fadeInUp animate-delay-600' : ''}`}>
+            <Button
               onClick={handleExploreCourses}
-              className="btn-primary text-lg px-8 py-4 bg-white text-dental-blue hover:bg-white/90"
+              size="lg"
+              className="bg-blue-600 hover:bg-blue-700 text-white text-lg px-8 py-6 shadow-lg"
             >
               Explore Courses
-            </button>
+            </Button>
+            <Button
+              onClick={handleWatchDemo}
+              variant="outline"
+              size="lg"
+              className="bg-transparent hover:bg-white/10 text-white border-white/80 hover:text-white text-lg px-8 py-6"
+            >
+              <Play className="mr-2 h-5 w-5" />
+              Watch Demo
+            </Button>
           </div>
 
           {/* Trust indicators */}
-          <div className={`opacity-0 ${imageLoaded ? 'animate-fadeInUp animate-delay-600' : ''}`}>
-            <p className="text-white drop-shadow-lg text-sm mb-4 font-medium">Trusted by dental professionals worldwide</p>
-            <div className="flex justify-center items-center space-x-8 text-white">
-              <div className="text-center">
-                <div className="text-2xl font-bold drop-shadow-lg">25+</div>
-                <div className="text-sm drop-shadow-lg">Years Experience</div>
+          <div className={`flex justify-center items-center opacity-0 ${imageLoaded ? 'animate-fadeInUp animate-delay-800' : ''}`}>
+            <div className="flex flex-col sm:flex-row justify-center items-center space-y-6 sm:space-y-0 sm:space-x-12 text-white">
+              <div className="flex items-center gap-3">
+                <Award className="h-7 w-7 text-white/80" />
+                <div className="text-left">
+                  <div className="text-2xl font-bold drop-shadow-lg">25+</div>
+                  <div className="text-sm drop-shadow-lg text-white/80">Years Experience</div>
+                </div>
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold drop-shadow-lg">500+</div>
-                <div className="text-sm drop-shadow-lg">CPD Hours</div>
+              <div className="flex items-center gap-3">
+                <BookOpenCheck className="h-7 w-7 text-white/80" />
+                <div className="text-left">
+                  <div className="text-2xl font-bold drop-shadow-lg">500+</div>
+                  <div className="text-sm drop-shadow-lg text-white/80">CPD Hours</div>
+                </div>
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold drop-shadow-lg">10k+</div>
-                <div className="text-sm drop-shadow-lg">Practitioners</div>
+              <div className="flex items-center gap-3">
+                <Users className="h-7 w-7 text-white/80" />
+                <div className="text-left">
+                  <div className="text-2xl font-bold drop-shadow-lg">10k+</div>
+                  <div className="text-sm drop-shadow-lg text-white/80">Practitioners</div>
+                </div>
               </div>
             </div>
           </div>
