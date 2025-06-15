@@ -1,9 +1,11 @@
 
+import { useState } from 'react';
 import { Play } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const HeroSection = () => {
   const navigate = useNavigate();
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const handleExploreCourses = () => {
     navigate('/courses');
@@ -22,6 +24,7 @@ const HeroSection = () => {
           src="/lovable-uploads/49ac1a3e-4bba-442e-a648-00c73776b5b1.png"
           alt="Dental Education"
           className="w-full h-full object-cover"
+          onLoad={() => setImageLoaded(true)}
         />
         <div className="absolute inset-0 bg-dental-blue/5"></div>
       </div>
@@ -36,17 +39,17 @@ const HeroSection = () => {
       <div className="relative z-10 container mx-auto px-4 text-center text-white">
         <div className="max-w-4xl mx-auto">
           {/* Main Headline */}
-          <h1 className="mb-6 text-white drop-shadow-lg opacity-0 animate-fadeInUp">
+          <h1 className={`mb-6 text-white drop-shadow-lg opacity-0 ${imageLoaded ? 'animate-fadeInUp' : ''}`}>
             The Way the Specialists Do It
           </h1>
           
           {/* Subtext */}
-          <p className="text-xl md:text-2xl mb-8 text-white drop-shadow-md opacity-0 animate-fadeInUp animate-delay-200">
+          <p className={`text-xl md:text-2xl mb-8 text-white drop-shadow-md opacity-0 ${imageLoaded ? 'animate-fadeInUp animate-delay-200' : ''}`}>
             Elevate your dental expertise with CorrectDentistry's trusted online learning platform.
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 opacity-0 animate-fadeInUp animate-delay-400">
+          <div className={`flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 opacity-0 ${imageLoaded ? 'animate-fadeInUp animate-delay-400' : ''}`}>
             <button 
               onClick={handleExploreCourses}
               className="btn-primary text-lg px-8 py-4 bg-white text-dental-blue hover:bg-white/90"
@@ -56,7 +59,7 @@ const HeroSection = () => {
           </div>
 
           {/* Trust indicators */}
-          <div className="opacity-0 animate-fadeInUp animate-delay-600">
+          <div className={`opacity-0 ${imageLoaded ? 'animate-fadeInUp animate-delay-600' : ''}`}>
             <p className="text-white drop-shadow-lg text-sm mb-4 font-medium">Trusted by dental professionals worldwide</p>
             <div className="flex justify-center items-center space-x-8 text-white">
               <div className="text-center">
