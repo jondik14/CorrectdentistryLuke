@@ -74,6 +74,16 @@ const Footer = () => {
               <button className="block hover:text-white transition-colors text-left">
                 Terms of Service
               </button>
+              <div className="pt-4 text-xs text-white/50">
+                <a 
+                  href="https://lordicon.com/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:text-white/70 transition-colors"
+                >
+                  Icons by Lordicon.com
+                </a>
+              </div>
             </div>
           </div>
         </div>
