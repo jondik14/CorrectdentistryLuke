@@ -1,13 +1,14 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Play, Lock, Clock, Users, Award, Tag } from 'lucide-react';
+import { ArrowLeft, Play, Lock, Clock, Users, Award, Tag, CheckCircle } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { ScrollArea } from '../components/ui/scroll-area';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../components/ui/collapsible';
 
 interface Course {
   id: string;
@@ -21,6 +22,7 @@ interface Course {
   cpdHours: number;
   chapters: Chapter[];
   summary: string[];
+  totalRuntime: string;
 }
 
 interface Chapter {
@@ -35,6 +37,7 @@ const CourseOverview = () => {
   const navigate = useNavigate();
   const [course, setCourse] = useState<Course | null>(null);
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const [mobileChaptersOpen, setMobileChaptersOpen] = useState(false);
 
   useEffect(() => {
     // Check subscription status
@@ -52,17 +55,20 @@ const CourseOverview = () => {
       category: 'Restorative',
       level: 'Intermediate',
       cpdHours: 2,
+      totalRuntime: '45:32',
       chapters: [
-        { id: '1', title: 'Introduction to Veneer Impressions', duration: '8 min', isLocked: !loggedIn },
-        { id: '2', title: 'Material Selection and Preparation', duration: '12 min', isLocked: !loggedIn },
-        { id: '3', title: 'Impression Techniques', duration: '15 min', isLocked: !loggedIn },
-        { id: '4', title: 'Common Mistakes and Solutions', duration: '10 min', isLocked: !loggedIn },
+        { id: '1', title: 'Introduction to Veneer Impressions', duration: '8:45', isLocked: !loggedIn },
+        { id: '2', title: 'Material Selection and Preparation', duration: '12:30', isLocked: !loggedIn },
+        { id: '3', title: 'Advanced Impression Techniques', duration: '15:20', isLocked: !loggedIn },
+        { id: '4', title: 'Common Mistakes and Solutions', duration: '8:57', isLocked: !loggedIn },
       ],
       summary: [
         'Learn advanced impression techniques for optimal veneer fit',
         'Master material selection for different clinical scenarios',
         'Understand troubleshooting common impression issues',
-        'Gain confidence in complex veneer cases'
+        'Gain confidence in complex veneer cases',
+        'Apply evidence-based protocols in your practice',
+        'Achieve predictable aesthetic outcomes'
       ]
     };
     setCourse(mockCourse);
@@ -126,6 +132,22 @@ const CourseOverview = () => {
                     <Play className="text-white ml-1" size={32} />
                   </div>
                 </div>
+                
+                {/* Course Title Overlay */}
+                <div className="absolute bottom-4 left-4">
+                  <h2 className="text-white/90 text-sm font-medium bg-black/30 backdrop-blur-sm px-3 py-1 rounded">
+                    {course.title}
+                  </h2>
+                </div>
+                
+                {/* Runtime Badge */}
+                <div className="absolute bottom-4 right-4">
+                  <span className="bg-black/60 backdrop-blur-sm text-white px-2 py-1 rounded text-sm">
+                    {course.totalRuntime}
+                  </span>
+                </div>
+                
+                {/* Preview Badge */}
                 {!isSubscribed && (
                   <div className="absolute top-4 right-4">
                     <Badge className="bg-yellow-500 text-white">
@@ -143,43 +165,92 @@ const CourseOverview = () => {
               </p>
             </div>
 
-            {/* Chapter List Sidebar */}
-            <div className="lg:col-span-1">
+            {/* Chapter List Sidebar - Desktop */}
+            <div className="lg:col-span-1 hidden lg:block">
               <Card className="sticky top-24">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Play size={20} />
+                <CardHeader className="pb-4">
+                  <CardTitle className="flex items-center gap-2 text-lg">
+                    <Play size={18} />
                     Course Content
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="p-0">
                   <ScrollArea className="h-[400px]">
-                    <div className="space-y-2 p-6 pt-0">
+                    <div className="space-y-1 p-6 pt-0">
                       {course.chapters.map((chapter, index) => (
                         <div
                           key={chapter.id}
-                          className={`flex items-center justify-between p-3 rounded-lg border transition-colors ${
+                          className={`group flex items-center justify-between p-3 rounded-lg border transition-all duration-200 ${
                             chapter.isLocked
-                              ? 'bg-gray-50 text-gray-400 cursor-not-allowed'
-                              : 'bg-white hover:bg-dental-blue-light/10 cursor-pointer'
+                              ? 'bg-gray-50/80 text-gray-400 cursor-not-allowed border-gray-200'
+                              : 'bg-white hover:bg-dental-blue-light/10 hover:border-dental-blue/30 cursor-pointer border-gray-200 hover:shadow-sm'
                           }`}
                         >
-                          <div className="flex items-center gap-3 flex-1">
-                            <span className="text-sm font-medium text-dental-blue">
-                              {index + 1}
-                            </span>
-                            <div className="flex-1">
-                              <div className="font-medium text-sm">{chapter.title}</div>
-                              <div className="text-xs text-dental-gray">{chapter.duration}</div>
+                          <div className="flex items-center gap-3 flex-1 min-w-0">
+                            <div className="flex-shrink-0 w-6 h-6 rounded-full bg-dental-blue-light/20 flex items-center justify-center">
+                              <span className="text-xs font-medium text-dental-blue">
+                                {index + 1}
+                              </span>
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="font-medium text-sm truncate group-hover:text-dental-blue-dark transition-colors">
+                                {chapter.title}
+                              </div>
+                              <div className="text-xs text-dental-gray mt-1">{chapter.duration}</div>
                             </div>
                           </div>
-                          {chapter.isLocked && <Lock size={16} />}
+                          {chapter.isLocked && (
+                            <Lock size={14} className="flex-shrink-0 text-gray-400" />
+                          )}
                         </div>
                       ))}
                     </div>
                   </ScrollArea>
                 </CardContent>
               </Card>
+            </div>
+
+            {/* Chapter List - Mobile Collapsible */}
+            <div className="lg:hidden col-span-full">
+              <Collapsible open={mobileChaptersOpen} onOpenChange={setMobileChaptersOpen}>
+                <CollapsibleTrigger asChild>
+                  <Button variant="outline" className="w-full justify-between">
+                    <span className="flex items-center gap-2">
+                      <Play size={18} />
+                      Course Content ({course.chapters.length} chapters)
+                    </span>
+                  </Button>
+                </CollapsibleTrigger>
+                <CollapsibleContent className="mt-4">
+                  <Card>
+                    <CardContent className="p-4">
+                      <div className="space-y-2">
+                        {course.chapters.map((chapter, index) => (
+                          <div
+                            key={chapter.id}
+                            className={`flex items-center justify-between p-3 rounded-lg border transition-colors ${
+                              chapter.isLocked
+                                ? 'bg-gray-50 text-gray-400 cursor-not-allowed'
+                                : 'bg-white hover:bg-dental-blue-light/10 cursor-pointer'
+                            }`}
+                          >
+                            <div className="flex items-center gap-3 flex-1">
+                              <span className="text-sm font-medium text-dental-blue w-6">
+                                {index + 1}
+                              </span>
+                              <div className="flex-1">
+                                <div className="font-medium text-sm">{chapter.title}</div>
+                                <div className="text-xs text-dental-gray">{chapter.duration}</div>
+                              </div>
+                            </div>
+                            {chapter.isLocked && <Lock size={16} />}
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </CollapsibleContent>
+              </Collapsible>
             </div>
           </div>
         </div>
@@ -188,39 +259,42 @@ const CourseOverview = () => {
       {/* Course Details Section */}
       <div className="py-12">
         <div className="container mx-auto px-4 max-w-7xl">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            <Card>
-              <CardContent className="p-6 text-center">
-                <Clock className="mx-auto mb-3 text-dental-blue" size={32} />
-                <div className="font-semibold text-lg">{course.duration}</div>
-                <div className="text-sm text-dental-gray">Total Duration</div>
+          {/* Course Info - Two Rows */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+            {/* Row 1: Duration & CPD */}
+            <Card className="hover:shadow-md transition-shadow">
+              <CardContent className="p-4 text-center">
+                <Clock className="mx-auto mb-2 text-dental-blue" size={24} />
+                <div className="font-semibold">{course.duration}</div>
+                <div className="text-xs text-dental-gray">Duration</div>
               </CardContent>
             </Card>
             
-            <Card>
-              <CardContent className="p-6 text-center">
-                <Award className="mx-auto mb-3 text-dental-blue" size={32} />
-                <div className="font-semibold text-lg">{course.cpdHours} Hours</div>
-                <div className="text-sm text-dental-gray">CPD Credit</div>
+            <Card className="hover:shadow-md transition-shadow">
+              <CardContent className="p-4 text-center">
+                <Award className="mx-auto mb-2 text-dental-blue" size={24} />
+                <div className="font-semibold">{course.cpdHours} Hours</div>
+                <div className="text-xs text-dental-gray">CPD Credit</div>
               </CardContent>
             </Card>
             
-            <Card>
-              <CardContent className="p-6 text-center">
-                <Users className="mx-auto mb-3 text-dental-blue" size={32} />
-                <div className="font-semibold text-lg">{course.enrolled}</div>
-                <div className="text-sm text-dental-gray">Enrolled</div>
+            {/* Row 2: Enrolled & Tags */}
+            <Card className="hover:shadow-md transition-shadow">
+              <CardContent className="p-4 text-center">
+                <Users className="mx-auto mb-2 text-dental-blue" size={24} />
+                <div className="font-semibold">{course.enrolled}</div>
+                <div className="text-xs text-dental-gray">Enrolled</div>
               </CardContent>
             </Card>
             
-            <Card>
-              <CardContent className="p-6 text-center">
-                <Tag className="mx-auto mb-3 text-dental-blue" size={32} />
+            <Card className="hover:shadow-md transition-shadow">
+              <CardContent className="p-4 text-center">
+                <Tag className="mx-auto mb-2 text-dental-blue" size={24} />
                 <div className="flex flex-col items-center gap-2">
-                  <Badge className={getLevelColor(course.level)}>
+                  <Badge className={getLevelColor(course.level)} variant="secondary">
                     {course.level}
                   </Badge>
-                  <Badge variant="outline">
+                  <Badge variant="outline" className="text-xs">
                     {course.category}
                   </Badge>
                 </div>
@@ -228,41 +302,46 @@ const CourseOverview = () => {
             </Card>
           </div>
 
-          {/* Course Summary */}
+          {/* What You'll Learn */}
           <Card className="mb-8">
             <CardHeader>
               <CardTitle>What You'll Learn</CardTitle>
             </CardHeader>
             <CardContent>
-              <ul className="space-y-3">
+              <div className="grid md:grid-cols-2 gap-3">
                 {course.summary.map((point, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-dental-blue rounded-full mt-2 flex-shrink-0" />
-                    <span className="text-dental-gray">{point}</span>
-                  </li>
+                  <div key={index} className="flex items-start gap-3">
+                    <CheckCircle size={18} className="text-dental-blue flex-shrink-0 mt-0.5" />
+                    <span className="text-dental-gray text-sm leading-relaxed">{point}</span>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </CardContent>
           </Card>
 
-          {/* CTA Section */}
-          <Card className="bg-gradient-to-r from-dental-blue-light/40 to-dental-blue-light/20 border-dental-blue/20">
+          {/* Enhanced CTA Section */}
+          <Card className="bg-gradient-to-br from-dental-blue-light/30 via-dental-blue-light/20 to-dental-blue-light/10 border-dental-blue/20 shadow-lg">
             <CardContent className="p-8 text-center">
-              <h3 className="text-2xl font-bold text-dental-blue mb-4">
+              <h3 className="text-2xl font-bold text-dental-blue mb-3">
                 {isSubscribed ? 'Ready to Start Learning?' : 'Unlock This Course'}
               </h3>
-              <p className="text-dental-gray mb-6 text-lg">
+              <p className="text-dental-gray mb-2 text-lg">
                 {isSubscribed
                   ? 'Begin your journey with this comprehensive course'
-                  : 'Subscribe to CorrectDentistry to access this course and our entire library of professional development content'
+                  : 'Subscribe to CorrectDentistry to access this course and our entire library'
                 }
               </p>
+              {!isSubscribed && (
+                <p className="text-sm text-dental-blue mb-6 font-medium">
+                  Get unlimited access to all CPD-certified dental courses
+                </p>
+              )}
               <Button
                 size="lg"
-                className="bg-dental-blue text-white hover:bg-dental-blue-dark px-8"
+                className="bg-dental-blue text-white hover:bg-dental-blue-dark px-8 py-3 text-lg shadow-md hover:shadow-lg transition-all"
                 onClick={isSubscribed ? handleStartLearning : handleSubscribe}
               >
-                {isSubscribed ? 'Start Learning' : 'Subscribe to Begin Learning'}
+                {isSubscribed ? 'Start Learning' : 'Subscribe to Access This Course'}
               </Button>
             </CardContent>
           </Card>
