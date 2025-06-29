@@ -14,8 +14,8 @@ const AnimatedGradientBackground = ({ className = '' }: AnimatedGradientBackgrou
       className={`absolute inset-0 ${className}`}
       style={{ 
         zIndex: 1,
-        background: 'linear-gradient(135deg, #64748b 0%, #94a3b8 25%, #cbd5e1 50%, #e2e8f0 75%, #ffffff 100%)',
-        opacity: 0.6
+        background: 'linear-gradient(135deg, #475569 0%, #64748b 20%, #94a3b8 40%, #cbd5e1 60%, #e2e8f0 80%, #ffffff 100%)',
+        opacity: 0.7
       }}
     />
   );
