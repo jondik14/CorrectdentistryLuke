@@ -43,52 +43,53 @@ const AnimatedGradientBackground = ({ className = '' }: AnimatedGradientBackgrou
         // White background
         p.background(255, 255, 255);
         
-        // Create subtle moving blob gradients
+        // Create very subtle moving blob gradients - much slower movement
         p.noStroke();
         
-        // Main blue color: #2563eb (37, 99, 235 in RGB)
+        // Main blue color: #2563eb (37, 99, 235 in RGB) - much more subtle
         const mainBlue = [37, 99, 235];
         
-        // Create multiple moving blobs
-        for (let i = 0; i < 3; i++) {
-          const offsetX = p.sin(time * 0.0008 + i * 2) * 100;
-          const offsetY = p.cos(time * 0.0006 + i * 1.5) * 80;
-          
-          const centerX = (p.width / 4) * (i + 1) + offsetX;
-          const centerY = p.height * 0.5 + offsetY;
-          
-          // Create radial gradient effect for each blob
-          const maxRadius = 200 + p.sin(time * 0.001 + i) * 30;
-          
-          for (let r = maxRadius; r > 0; r -= 8) {
-            const alpha = p.map(r, 0, maxRadius, 15, 0);
-            const size = r * 2;
-            
-            p.fill(mainBlue[0], mainBlue[1], mainBlue[2], alpha);
-            p.ellipse(centerX, centerY, size, size * 0.8);
-          }
-        }
-        
-        // Add some smaller moving accents
+        // Create fewer, larger, more subtle blobs with very slow movement
         for (let i = 0; i < 2; i++) {
-          const offsetX = p.cos(time * 0.001 + i * 3) * 150;
-          const offsetY = p.sin(time * 0.0012 + i * 2.5) * 100;
+          // Much slower movement - reduced speed by ~75%
+          const offsetX = p.sin(time * 0.0002 + i * 2) * 60;
+          const offsetY = p.cos(time * 0.00015 + i * 1.5) * 40;
           
-          const centerX = p.width * 0.3 + offsetX;
-          const centerY = p.height * 0.7 + offsetY;
+          const centerX = (p.width / 3) * (i + 1) + offsetX;
+          const centerY = p.height * 0.6 + offsetY;
           
-          const maxRadius = 120;
+          // Create very subtle radial gradient effect for each blob
+          const maxRadius = 300 + p.sin(time * 0.0003 + i) * 20;
           
-          for (let r = maxRadius; r > 0; r -= 6) {
-            const alpha = p.map(r, 0, maxRadius, 8, 0);
-            const size = r * 1.5;
+          for (let r = maxRadius; r > 0; r -= 12) {
+            // Much lower opacity for subtlety
+            const alpha = p.map(r, 0, maxRadius, 6, 0);
+            const size = r * 1.8;
             
             p.fill(mainBlue[0], mainBlue[1], mainBlue[2], alpha);
-            p.ellipse(centerX, centerY, size, size * 1.2);
+            p.ellipse(centerX, centerY, size, size * 0.7);
           }
         }
         
-        time += 16; // Increment time for animation
+        // Add one central very subtle accent
+        const offsetX = p.cos(time * 0.0001) * 80;
+        const offsetY = p.sin(time * 0.00008) * 60;
+        
+        const centerX = p.width * 0.5 + offsetX;
+        const centerY = p.height * 0.4 + offsetY;
+        
+        const maxRadius = 200;
+        
+        for (let r = maxRadius; r > 0; r -= 10) {
+          const alpha = p.map(r, 0, maxRadius, 4, 0);
+          const size = r * 1.2;
+          
+          p.fill(mainBlue[0], mainBlue[1], mainBlue[2], alpha);
+          p.ellipse(centerX, centerY, size, size);
+        }
+        
+        // Much slower time increment - about 50% of original speed
+        time += 8;
       };
 
       // Animation loop

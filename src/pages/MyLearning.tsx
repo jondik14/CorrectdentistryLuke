@@ -55,7 +55,7 @@ const MyLearning = () => {
         title: 'Digital Dentistry Workflows',
         description: 'Learn modern digital workflows for enhanced precision.',
         progress: 30,
-        duration: '2 hours',
+        duration: '3.5 hrs',
         durationType: 'medium' as const,
         thumbnail: '/lovable-uploads/368c6b6a-e95a-4dd2-b51a-e03063a74279.png',
         category: 'Digital',
@@ -95,11 +95,11 @@ const MyLearning = () => {
   const getDurationTypeColor = (durationType: string) => {
     switch (durationType) {
       case 'short':
-        return 'border-emerald-500 text-emerald-700 bg-emerald-50';
+        return 'bg-emerald-50 text-emerald-700 border-emerald-200';
       case 'medium':
-        return 'border-blue-500 text-blue-700 bg-blue-50';
+        return 'bg-amber-50 text-amber-700 border-amber-200';
       case 'long':
-        return 'border-purple-500 text-purple-700 bg-purple-50';
+        return 'bg-blue-50 text-blue-700 border-blue-200';
       default:
         return 'border-gray-500 text-gray-700 bg-gray-50';
     }
@@ -110,44 +110,44 @@ const MyLearning = () => {
       <Header />
       
       {/* Hero Section with Animated Blue Gradient Background */}
-      <section className="relative pt-24 pb-12 bg-white border-b overflow-hidden">
+      <section className="relative pt-24 pb-16 bg-white border-b overflow-hidden">
         {/* Animated gradient background */}
         <AnimatedGradientBackground />
         
-        {/* Overlay for better text readability */}
-        <div className="absolute inset-0 bg-black/5" style={{ zIndex: 2 }}></div>
+        {/* Enhanced overlay for better text readability */}
+        <div className="absolute inset-0 bg-white/40 backdrop-blur-[1px]" style={{ zIndex: 2 }}></div>
         
-        <div className="relative container mx-auto px-4" style={{ zIndex: 3 }}>
+        <div className="relative container mx-auto px-6" style={{ zIndex: 3 }}>
           <div className="max-w-6xl mx-auto text-center">
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4 drop-shadow-lg">
+            <h1 className="text-4xl md:text-5xl font-bold text-dental-blue mb-4 drop-shadow-sm">
               My Learning Dashboard
             </h1>
-            <p className="text-xl text-white/90 mb-8 drop-shadow-md">
+            <p className="text-xl text-dental-gray mb-12 drop-shadow-sm max-w-2xl mx-auto">
               Continue your professional development journey
             </p>
             
-            {/* Stats - Non-interactive informational cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
-              <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg shadow-sm border border-white/20">
-                <div className="flex items-center justify-center mb-3">
-                  <BookOpen className="text-white" size={24} />
+            {/* Stats - Enhanced with better spacing and contrast */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+              <div className="bg-white/90 backdrop-blur-sm p-8 rounded-xl shadow-sm border border-white/50">
+                <div className="flex items-center justify-center mb-4">
+                  <BookOpen className="text-dental-blue" size={28} />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-1 drop-shadow-md">2</h3>
-                <p className="text-white/80 text-sm font-semibold drop-shadow-sm">Courses Enrolled</p>
+                <h3 className="text-3xl font-bold text-dental-blue mb-2">2</h3>
+                <p className="text-dental-gray text-base font-medium">Courses Enrolled</p>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg shadow-sm border border-white/20">
-                <div className="flex items-center justify-center mb-3">
-                  <Clock className="text-white" size={24} />
+              <div className="bg-white/90 backdrop-blur-sm p-8 rounded-xl shadow-sm border border-white/50">
+                <div className="flex items-center justify-center mb-4">
+                  <Clock className="text-dental-blue" size={28} />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-1 drop-shadow-md">3.2</h3>
-                <p className="text-white/80 text-sm font-semibold drop-shadow-sm">Hours Completed</p>
+                <h3 className="text-3xl font-bold text-dental-blue mb-2">4.25</h3>
+                <p className="text-dental-gray text-base font-medium">Hours Available</p>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg shadow-sm border border-white/20">
-                <div className="flex items-center justify-center mb-3">
-                  <Award className="text-white" size={24} />
+              <div className="bg-white/90 backdrop-blur-sm p-8 rounded-xl shadow-sm border border-white/50">
+                <div className="flex items-center justify-center mb-4">
+                  <Award className="text-dental-blue" size={28} />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-1 drop-shadow-md">1</h3>
-                <p className="text-white/80 text-sm font-semibold drop-shadow-sm">Certificates Earned</p>
+                <h3 className="text-3xl font-bold text-dental-blue mb-2">0</h3>
+                <p className="text-dental-gray text-base font-medium">Certificates Earned</p>
               </div>
             </div>
           </div>
@@ -155,18 +155,18 @@ const MyLearning = () => {
       </section>
 
       {/* Enrolled Courses */}
-      <section className="py-12">
-        <div className="container mx-auto px-4">
+      <section className="py-16">
+        <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
-            <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
-              <h2 className="text-3xl font-bold text-dental-blue">Continue Learning</h2>
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-10 gap-6">
+              <h2 className="text-4xl font-bold text-dental-blue">Continue Learning</h2>
               <Button 
                 variant="outline"
                 onClick={() => navigate('/courses')}
-                className="border-dental-blue text-dental-blue hover:bg-dental-blue hover:text-white font-medium px-4 py-2 rounded-lg transition-all duration-200 md:self-start flex items-center gap-2"
+                className="border-dental-blue text-dental-blue hover:bg-dental-blue hover:text-white font-medium px-6 py-3 rounded-lg transition-all duration-200 lg:self-start flex items-center gap-2"
               >
                 Browse More Courses
-                <ArrowRight size={16} />
+                <ArrowRight size={18} />
               </Button>
             </div>
 
@@ -176,22 +176,22 @@ const MyLearning = () => {
               onFilterChange={setSelectedFilter}
             />
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {filteredCourses.map((course, index) => (
-                <Card key={course.id} className="overflow-hidden hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-dental-blue/20">
+                <Card key={course.id} className="overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-dental-blue/30 bg-white">
                   <div className="aspect-video relative">
                     <img
                       src={course.thumbnail}
                       alt={course.title}
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute top-3 left-3 flex gap-2">
-                      <Badge className="bg-dental-blue text-white border-none text-xs font-medium px-2 py-1 shadow-sm">
+                    <div className="absolute top-4 left-4 flex gap-2">
+                      <Badge className="bg-dental-blue text-white border-none text-sm font-medium px-3 py-1.5 shadow-sm">
                         {course.category}
                       </Badge>
                       <Badge 
                         variant="outline" 
-                        className={`text-xs font-medium px-2 py-1 shadow-sm border ${getDurationTypeColor(course.durationType)}`}
+                        className={`text-sm font-medium px-3 py-1.5 shadow-sm border ${getDurationTypeColor(course.durationType)}`}
                       >
                         {getDurationTypeLabel(course.durationType)}
                       </Badge>
@@ -199,40 +199,43 @@ const MyLearning = () => {
                     <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
                       <Button
                         onClick={() => handleContinueCourse(course.id)}
-                        className="bg-white text-dental-blue hover:bg-gray-100 font-medium shadow-lg"
+                        className="bg-white text-dental-blue hover:bg-gray-100 font-medium shadow-lg px-6 py-3"
                       >
-                        <Play size={16} className="mr-2" />
+                        <Play size={18} className="mr-2" />
                         Continue
                       </Button>
                     </div>
                   </div>
                   
-                  <CardHeader className="pb-4">
-                    <div className="flex items-start justify-between mb-2">
-                      <CardTitle className="text-xl text-dental-blue leading-tight">{course.title}</CardTitle>
-                      <span className="text-sm text-dental-gray font-medium ml-4 whitespace-nowrap">{course.duration}</span>
+                  <CardHeader className="pb-4 px-6 pt-6">
+                    <div className="flex items-start justify-between mb-3">
+                      <CardTitle className="text-2xl text-dental-blue leading-tight pr-4">{course.title}</CardTitle>
+                      <Badge variant="outline" className="text-sm text-dental-gray font-medium whitespace-nowrap border-gray-200">
+                        <Clock size={14} className="mr-1.5" />
+                        {course.duration}
+                      </Badge>
                     </div>
-                    <p className="text-dental-gray text-sm leading-relaxed">{course.description}</p>
+                    <p className="text-dental-gray text-base leading-relaxed">{course.description}</p>
                   </CardHeader>
                   
-                  <CardContent className="pt-0">
+                  <CardContent className="pt-0 px-6 pb-6">
                     <div className="space-y-4">
                       <div className="flex items-center justify-between text-sm">
                         <span className="text-dental-gray font-medium">Progress</span>
-                        <span className="font-semibold text-dental-blue">{course.progress}%</span>
+                        <span className="font-semibold text-dental-blue text-lg">{course.progress}%</span>
                       </div>
                       <div className="relative">
                         <Progress 
                           value={course.progress} 
-                          className="h-2"
+                          className="h-3"
                         />
                       </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs text-dental-gray">Last accessed: {course.lastAccessed}</span>
+                      <div className="flex items-center justify-between pt-2">
+                        <span className="text-sm text-dental-gray">Last accessed: {course.lastAccessed}</span>
                         <Button
                           onClick={() => handleContinueCourse(course.id)}
                           size="sm"
-                          className="bg-dental-blue hover:bg-dental-blue-dark text-white font-medium px-4 py-2 rounded-md shadow-sm"
+                          className="bg-dental-blue hover:bg-dental-blue-dark text-white font-medium px-6 py-2.5 rounded-md shadow-sm"
                         >
                           Continue
                         </Button>
@@ -244,12 +247,12 @@ const MyLearning = () => {
             </div>
 
             {filteredCourses.length === 0 && (
-              <div className="text-center py-12">
-                <p className="text-dental-gray text-lg mb-4">No courses found for the selected filter.</p>
+              <div className="text-center py-16">
+                <p className="text-dental-gray text-xl mb-6">No courses found for the selected filter.</p>
                 <Button 
                   onClick={() => setSelectedFilter('all')}
                   variant="outline"
-                  className="border-dental-blue text-dental-blue hover:bg-dental-blue hover:text-white"
+                  className="border-dental-blue text-dental-blue hover:bg-dental-blue hover:text-white px-6 py-3"
                 >
                   Show All Courses
                 </Button>
