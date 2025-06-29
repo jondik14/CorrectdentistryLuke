@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
@@ -45,9 +44,6 @@ const Profile = () => {
                   Manage your personal and account details
                 </p>
               </div>
-              <div className="hidden md:flex items-center justify-center w-20 h-20 bg-white/90 backdrop-blur-sm rounded-full shadow-lg border border-white/50">
-                <User className="text-dental-blue" size={32} />
-              </div>
             </div>
           </div>
         </div>
@@ -60,7 +56,7 @@ const Profile = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
               
               {/* Personal Information Card */}
-              <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-dental-blue/30 bg-white">
+              <Card className="overflow-hidden border border-gray-100 bg-white shadow-sm">
                 <CardHeader className="pb-4 px-6 pt-6">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
@@ -101,7 +97,7 @@ const Profile = () => {
               </Card>
 
               {/* Subscription Details Card */}
-              <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-dental-blue/30 bg-white">
+              <Card className="overflow-hidden border border-gray-100 bg-white shadow-sm">
                 <CardHeader className="pb-4 px-6 pt-6">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
@@ -142,7 +138,7 @@ const Profile = () => {
               </Card>
 
               {/* Payment History Card */}
-              <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-dental-blue/30 bg-white lg:col-span-2 xl:col-span-1">
+              <Card className="overflow-hidden border border-gray-100 bg-white shadow-sm lg:col-span-2 xl:col-span-1">
                 <CardHeader className="pb-4 px-6 pt-6">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
