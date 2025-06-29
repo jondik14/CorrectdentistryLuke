@@ -1,8 +1,8 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Search, Filter, Clock, Users } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import CourseDetailModal from '../components/CourseDetailModal';
 import { Input } from '../components/ui/input';
 import { Button } from '../components/ui/button';
 import {
@@ -25,7 +25,7 @@ interface Course {
 }
 
 const Courses = () => {
-  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
 
@@ -105,6 +105,10 @@ const Courses = () => {
     return categoryMatch && searchTermMatch;
   });
 
+  const handleCourseClick = (courseId: string) => {
+    navigate(`/course/${courseId}`);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -171,7 +175,7 @@ const Courses = () => {
               <div
                 key={course.id}
                 className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden cursor-pointer group flex flex-col"
-                onClick={() => setSelectedCourse(course)}
+                onClick={() => handleCourseClick(course.id)}
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 {/* Course Thumbnail */}
@@ -233,15 +237,6 @@ const Courses = () => {
       </section>
 
       <Footer />
-
-      {/* Course Detail Modal */}
-      {selectedCourse && (
-        <CourseDetailModal
-          course={selectedCourse}
-          isOpen={!!selectedCourse}
-          onClose={() => setSelectedCourse(null)}
-        />
-      )}
     </div>
   );
 };
