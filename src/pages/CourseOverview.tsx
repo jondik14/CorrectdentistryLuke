@@ -121,7 +121,7 @@ const CourseOverview = () => {
           <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {/* Video Player Section */}
             <div className="lg:col-span-2">
-              <div className="aspect-video bg-black rounded-xl overflow-hidden relative group">
+              <div className="aspect-video bg-black rounded-xl overflow-hidden relative group border-2 border-dental-blue/20">
                 <img
                   src={course.thumbnail}
                   alt={course.title}
@@ -157,17 +157,20 @@ const CourseOverview = () => {
                 )}
               </div>
               
-              <h1 className="text-3xl font-bold text-dental-blue mt-6 mb-4">
+              <h1 className="text-3xl font-bold text-dental-blue mt-6 mb-3">
                 {course.title}
               </h1>
-              <p className="text-dental-gray text-lg leading-relaxed">
+              <p className="text-dental-gray text-lg leading-relaxed mb-2">
+                This comprehensive course provides hands-on training in creating perfect impressions for veneer cases. Learn from industry experts using proven techniques that ensure optimal fit and patient satisfaction.
+              </p>
+              <p className="text-dental-gray leading-relaxed">
                 {course.description}
               </p>
             </div>
 
             {/* Chapter List Sidebar - Desktop */}
             <div className="lg:col-span-1 hidden lg:block">
-              <Card className="sticky top-24">
+              <Card className="sticky top-24 border-2 border-dental-blue/20">
                 <CardHeader className="pb-4">
                   <CardTitle className="flex items-center gap-2 text-lg">
                     <Play size={18} />
@@ -182,7 +185,7 @@ const CourseOverview = () => {
                           key={chapter.id}
                           className={`group flex items-center justify-between p-3 rounded-lg border transition-all duration-200 ${
                             chapter.isLocked
-                              ? 'bg-gray-50/80 text-gray-400 cursor-not-allowed border-gray-200'
+                              ? 'bg-gray-50/80 text-gray-400 cursor-not-allowed border-gray-200 opacity-60'
                               : 'bg-white hover:bg-dental-blue-light/10 hover:border-dental-blue/30 cursor-pointer border-gray-200 hover:shadow-sm'
                           }`}
                         >
@@ -193,7 +196,11 @@ const CourseOverview = () => {
                               </span>
                             </div>
                             <div className="flex-1 min-w-0">
-                              <div className="font-medium text-sm truncate group-hover:text-dental-blue-dark transition-colors">
+                              <div className={`font-medium text-sm truncate transition-colors ${
+                                chapter.isLocked 
+                                  ? 'text-gray-400' 
+                                  : 'group-hover:text-dental-blue-dark'
+                              }`}>
                                 {chapter.title}
                               </div>
                               <div className="text-xs text-dental-gray mt-1">{chapter.duration}</div>
@@ -214,7 +221,7 @@ const CourseOverview = () => {
             <div className="lg:hidden col-span-full">
               <Collapsible open={mobileChaptersOpen} onOpenChange={setMobileChaptersOpen}>
                 <CollapsibleTrigger asChild>
-                  <Button variant="outline" className="w-full justify-between">
+                  <Button variant="outline" className="w-full justify-between border-2 border-dental-blue/20">
                     <span className="flex items-center gap-2">
                       <Play size={18} />
                       Course Content ({course.chapters.length} chapters)
@@ -222,7 +229,7 @@ const CourseOverview = () => {
                   </Button>
                 </CollapsibleTrigger>
                 <CollapsibleContent className="mt-4">
-                  <Card>
+                  <Card className="border-2 border-dental-blue/20">
                     <CardContent className="p-4">
                       <div className="space-y-2">
                         {course.chapters.map((chapter, index) => (
@@ -230,7 +237,7 @@ const CourseOverview = () => {
                             key={chapter.id}
                             className={`flex items-center justify-between p-3 rounded-lg border transition-colors ${
                               chapter.isLocked
-                                ? 'bg-gray-50 text-gray-400 cursor-not-allowed'
+                                ? 'bg-gray-50 text-gray-400 cursor-not-allowed opacity-60'
                                 : 'bg-white hover:bg-dental-blue-light/10 cursor-pointer'
                             }`}
                           >
@@ -239,11 +246,15 @@ const CourseOverview = () => {
                                 {index + 1}
                               </span>
                               <div className="flex-1">
-                                <div className="font-medium text-sm">{chapter.title}</div>
+                                <div className={`font-medium text-sm ${
+                                  chapter.isLocked ? 'text-gray-400' : ''
+                                }`}>
+                                  {chapter.title}
+                                </div>
                                 <div className="text-xs text-dental-gray">{chapter.duration}</div>
                               </div>
                             </div>
-                            {chapter.isLocked && <Lock size={16} />}
+                            {chapter.isLocked && <Lock size={16} className="text-gray-400" />}
                           </div>
                         ))}
                       </div>
@@ -278,26 +289,21 @@ const CourseOverview = () => {
               </CardContent>
             </Card>
             
-            {/* Row 2: Enrolled & Tags */}
+            {/* Row 2: Category & Level */}
             <Card className="hover:shadow-md transition-shadow">
               <CardContent className="p-4 text-center">
-                <Users className="mx-auto mb-2 text-dental-blue" size={24} />
-                <div className="font-semibold">{course.enrolled}</div>
-                <div className="text-xs text-dental-gray">Enrolled</div>
+                <Tag className="mx-auto mb-2 text-dental-blue" size={24} />
+                <div className="font-semibold">{course.category}</div>
+                <div className="text-xs text-dental-gray">Category</div>
               </CardContent>
             </Card>
             
             <Card className="hover:shadow-md transition-shadow">
               <CardContent className="p-4 text-center">
-                <Tag className="mx-auto mb-2 text-dental-blue" size={24} />
-                <div className="flex flex-col items-center gap-2">
-                  <Badge className={getLevelColor(course.level)} variant="secondary">
-                    {course.level}
-                  </Badge>
-                  <Badge variant="outline" className="text-xs">
-                    {course.category}
-                  </Badge>
-                </div>
+                <Badge className={`${getLevelColor(course.level)} mx-auto mb-1`} variant="secondary">
+                  {course.level}
+                </Badge>
+                <div className="text-xs text-dental-gray">Level</div>
               </CardContent>
             </Card>
           </div>
@@ -319,8 +325,8 @@ const CourseOverview = () => {
             </CardContent>
           </Card>
 
-          {/* Enhanced CTA Section */}
-          <Card className="bg-gradient-to-br from-dental-blue-light/30 via-dental-blue-light/20 to-dental-blue-light/10 border-dental-blue/20 shadow-lg">
+          {/* Enhanced CTA Section - Removed shadow */}
+          <Card className="bg-gradient-to-br from-dental-blue-light/20 via-dental-blue-light/15 to-dental-blue-light/10 border-dental-blue/20">
             <CardContent className="p-8 text-center">
               <h3 className="text-2xl font-bold text-dental-blue mb-3">
                 {isSubscribed ? 'Ready to Start Learning?' : 'Unlock This Course'}
@@ -338,10 +344,10 @@ const CourseOverview = () => {
               )}
               <Button
                 size="lg"
-                className="bg-dental-blue text-white hover:bg-dental-blue-dark px-8 py-3 text-lg shadow-md hover:shadow-lg transition-all"
+                className="bg-dental-blue text-white hover:bg-dental-blue-dark px-8 py-3 text-lg transition-all"
                 onClick={isSubscribed ? handleStartLearning : handleSubscribe}
               >
-                {isSubscribed ? 'Start Learning' : 'Subscribe to Access This Course'}
+                {isSubscribed ? 'Start Learning' : 'Subscribe to Begin Learning'}
               </Button>
             </CardContent>
           </Card>
