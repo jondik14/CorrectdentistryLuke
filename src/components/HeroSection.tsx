@@ -19,15 +19,15 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Blurry blue gradient background */}
+      {/* Dental training background image */}
       <div className="absolute inset-0">
         <img 
-          src="/lovable-uploads/2c1ad50a-4066-4519-afcd-f6f16071ea8d.png"
-          alt="Background gradient"
+          src="/lovable-uploads/a040261a-5ae0-465d-83f0-430b2c67b064.png"
+          alt="Dental training session"
           className="w-full h-full object-cover"
           onLoad={() => setImageLoaded(true)}
         />
-        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="absolute inset-0 bg-black/60"></div>
       </div>
       
       {/* Background pattern */}

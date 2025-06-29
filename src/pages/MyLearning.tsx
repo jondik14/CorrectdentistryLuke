@@ -64,39 +64,49 @@ const MyLearning = () => {
     <div className="min-h-screen bg-gray-50">
       <Header />
       
-      {/* Hero Section */}
-      <section className="pt-24 pb-12 bg-white border-b">
-        <div className="container mx-auto px-4">
+      {/* Hero Section with Blue Gradient Background */}
+      <section className="relative pt-24 pb-12 bg-white border-b overflow-hidden">
+        {/* Blue gradient background */}
+        <div className="absolute inset-0">
+          <img 
+            src="/lovable-uploads/2c1ad50a-4066-4519-afcd-f6f16071ea8d.png"
+            alt="Background gradient"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/10"></div>
+        </div>
+        
+        <div className="relative container mx-auto px-4">
           <div className="max-w-6xl mx-auto text-center">
-            <h1 className="text-3xl md:text-4xl font-bold text-dental-blue mb-4">
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4 drop-shadow-lg">
               My Learning Dashboard
             </h1>
-            <p className="text-xl text-dental-gray mb-8">
+            <p className="text-xl text-white/90 mb-8 drop-shadow-md">
               Continue your professional development journey
             </p>
             
             {/* Stats - Non-interactive informational cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
-              <div className="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100">
+              <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg shadow-sm border border-white/20">
                 <div className="flex items-center justify-center mb-3">
-                  <BookOpen className="text-dental-blue" size={24} />
+                  <BookOpen className="text-white" size={24} />
                 </div>
-                <h3 className="text-2xl font-bold text-dental-blue mb-1">2</h3>
-                <p className="text-dental-gray text-sm font-semibold">Courses Enrolled</p>
+                <h3 className="text-2xl font-bold text-white mb-1 drop-shadow-md">2</h3>
+                <p className="text-white/80 text-sm font-semibold drop-shadow-sm">Courses Enrolled</p>
               </div>
-              <div className="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100">
+              <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg shadow-sm border border-white/20">
                 <div className="flex items-center justify-center mb-3">
-                  <Clock className="text-dental-blue" size={24} />
+                  <Clock className="text-white" size={24} />
                 </div>
-                <h3 className="text-2xl font-bold text-dental-blue mb-1">3.2</h3>
-                <p className="text-dental-gray text-sm font-semibold">Hours Completed</p>
+                <h3 className="text-2xl font-bold text-white mb-1 drop-shadow-md">3.2</h3>
+                <p className="text-white/80 text-sm font-semibold drop-shadow-sm">Hours Completed</p>
               </div>
-              <div className="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100">
+              <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg shadow-sm border border-white/20">
                 <div className="flex items-center justify-center mb-3">
-                  <Award className="text-dental-blue" size={24} />
+                  <Award className="text-white" size={24} />
                 </div>
-                <h3 className="text-2xl font-bold text-dental-blue mb-1">1</h3>
-                <p className="text-dental-gray text-sm font-semibold">Certificates Earned</p>
+                <h3 className="text-2xl font-bold text-white mb-1 drop-shadow-md">1</h3>
+                <p className="text-white/80 text-sm font-semibold drop-shadow-sm">Certificates Earned</p>
               </div>
             </div>
           </div>
@@ -112,7 +122,7 @@ const MyLearning = () => {
               <Button 
                 variant="outline"
                 onClick={() => navigate('/courses')}
-                className="border-dental-blue text-dental-blue hover:bg-dental-blue hover:text-white font-medium px-6 py-3 rounded-lg transition-all duration-200 md:self-start flex items-center gap-2"
+                className="border-dental-blue text-dental-blue hover:bg-dental-blue hover:text-white font-medium px-4 py-2 rounded-lg transition-all duration-200 md:self-start flex items-center gap-2"
               >
                 Browse More Courses
                 <ArrowRight size={16} />
