@@ -104,7 +104,7 @@ const CourseOverview = () => {
   const getLevelIcon = (level: string) => {
     switch (level) {
       case 'Intermediate':
-        return <BarChart3 size={14} className="mr-1" />;
+        return <TrendingUp size={14} className="mr-1" />;
       default:
         return null;
     }
@@ -115,22 +115,22 @@ const CourseOverview = () => {
       <Header />
       
       {/* Hero Section */}
-      <div className="pt-20 pb-8 bg-gradient-to-br from-dental-blue-light/20 to-white">
-        <div className="container mx-auto px-4">
+      <div className="pt-20 pb-16 bg-gradient-to-br from-dental-blue-light/20 to-white">
+        <div className="container mx-auto px-4 max-w-6xl">
           <Button
             variant="ghost"
             onClick={() => navigate('/courses')}
-            className="mb-6 text-dental-blue hover:text-dental-blue-dark"
+            className="mb-8 text-dental-blue hover:text-dental-blue-dark"
           >
             <ArrowLeft size={20} className="mr-2" />
             Back to Courses
           </Button>
           
-          <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-3 gap-8">
             {/* Video Player Section */}
             <div className="lg:col-span-2">
-              {/* Video Player with Border */}
-              <div className="aspect-video bg-black rounded-xl overflow-hidden relative group border-2 border-dental-blue/20">
+              {/* Video Player */}
+              <div className="aspect-video bg-black rounded-xl overflow-hidden relative group mb-8">
                 <img
                   src={course.thumbnail}
                   alt={course.title}
@@ -156,18 +156,16 @@ const CourseOverview = () => {
                   </span>
                 </div>
                 
-                {/* Preview Badge */}
-                {!isSubscribed && (
-                  <div className="absolute top-4 right-4">
-                    <Badge className="bg-yellow-500 text-white">
-                      Free Preview
-                    </Badge>
-                  </div>
-                )}
+                {/* Free Preview Badge */}
+                <div className="absolute top-4 left-4">
+                  <Badge className="bg-blue-600 text-white">
+                    Free Preview
+                  </Badge>
+                </div>
               </div>
               
               {/* Course Title and Description */}
-              <div className="mt-6">
+              <div className="mb-8">
                 <h1 className="text-3xl font-bold text-dental-blue mb-4">
                   {course.title}
                 </h1>
@@ -179,52 +177,15 @@ const CourseOverview = () => {
                     {course.description}
                   </p>
                 </div>
-
-                {/* Moved Metadata Cards Here - More Compact */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-                  <div className="flex items-center gap-2 bg-white p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
-                    <Clock className="text-dental-blue flex-shrink-0" size={18} />
-                    <div>
-                      <div className="font-semibold text-sm">{course.duration}</div>
-                      <div className="text-xs text-dental-gray">Duration</div>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center gap-2 bg-white p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
-                    <Award className="text-dental-blue flex-shrink-0" size={18} />
-                    <div>
-                      <div className="font-semibold text-sm">{course.cpdHours} Hours</div>
-                      <div className="text-xs text-dental-gray">CPD Credit</div>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center gap-2 bg-white p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
-                    <Tag className="text-dental-blue flex-shrink-0" size={18} />
-                    <div>
-                      <div className="font-semibold text-sm">{course.category}</div>
-                      <div className="text-xs text-dental-gray">Category</div>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center gap-2 bg-white p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
-                    <div className="flex-shrink-0">
-                      <Badge className={`${getLevelColor(course.level)} flex items-center`} variant="secondary">
-                        {getLevelIcon(course.level)}
-                        {course.level}
-                      </Badge>
-                    </div>
-                    <div className="text-xs text-dental-gray">Level</div>
-                  </div>
-                </div>
               </div>
             </div>
 
             {/* Course Content Sidebar - Desktop */}
-            <div className="lg:col-span-1 hidden lg:block">
-              <Card className="sticky top-24 border-2 border-dental-blue/20">
+            <div className="lg:col-span-1">
+              <Card className="border-2 border-dental-blue/20 mb-8">
                 <CardHeader className="pb-4">
                   <CardTitle className="flex items-center gap-2 text-lg">
-                    <Play size={18} />
+                    <Lock size={18} className="text-dental-blue" />
                     Course Content
                   </CardTitle>
                 </CardHeader>
@@ -234,16 +195,8 @@ const CourseOverview = () => {
                       {course.chapters.map((chapter, index) => (
                         <Tooltip key={chapter.id}>
                           <TooltipTrigger asChild>
-                            <div
-                              className={`group flex items-center justify-between p-3 rounded-lg border transition-all duration-200 relative ${
-                                chapter.isLocked
-                                  ? 'bg-gray-50/80 text-gray-400 cursor-not-allowed border-gray-200 opacity-70'
-                                  : 'bg-white hover:bg-dental-blue-light/10 hover:border-dental-blue/30 cursor-pointer border-gray-200 hover:shadow-sm'
-                              }`}
-                            >
-                              {chapter.isLocked && (
-                                <div className="absolute inset-0 bg-yellow-50/30 rounded-lg border border-yellow-200/50" />
-                              )}
+                            <div className="group flex items-center justify-between p-3 rounded-lg border transition-all duration-200 relative bg-gray-50/80 text-gray-400 cursor-not-allowed border-gray-200 opacity-70">
+                              <div className="absolute inset-0 bg-yellow-50/30 rounded-lg border border-yellow-200/50" />
                               <div className="flex items-center gap-3 flex-1 min-w-0 relative z-10">
                                 <div className="flex-shrink-0 w-6 h-6 rounded-full bg-dental-blue-light/20 flex items-center justify-center">
                                   <span className="text-xs font-medium text-dental-blue">
@@ -251,84 +204,156 @@ const CourseOverview = () => {
                                   </span>
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                  <div className={`font-medium text-sm truncate transition-colors ${
-                                    chapter.isLocked 
-                                      ? 'text-gray-400' 
-                                      : 'group-hover:text-dental-blue-dark'
-                                  }`}>
+                                  <div className="font-medium text-sm truncate transition-colors text-gray-400">
                                     {chapter.title}
                                   </div>
                                   <div className="text-xs text-dental-gray mt-1">{chapter.duration}</div>
                                 </div>
                               </div>
-                              {chapter.isLocked && (
-                                <Lock size={14} className="flex-shrink-0 text-gray-400 relative z-10" />
-                              )}
+                              <Lock size={14} className="flex-shrink-0 text-gray-400 relative z-10" />
                             </div>
                           </TooltipTrigger>
-                          {chapter.isLocked && (
-                            <TooltipContent>
-                              <p>Subscribe to unlock this chapter</p>
-                            </TooltipContent>
-                          )}
+                          <TooltipContent>
+                            <p>Subscribe to unlock this chapter</p>
+                          </TooltipContent>
                         </Tooltip>
                       ))}
                     </div>
                   </ScrollArea>
+                  
+                  {/* Subscribe CTA in Course Content */}
+                  <div className="p-6 pt-4 border-t border-gray-200">
+                    <Button
+                      className="w-full bg-dental-blue text-white hover:bg-dental-blue-dark"
+                      onClick={handleSubscribe}
+                    >
+                      Subscribe to Unlock
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
+
+              {/* Metadata Cards - Moved below course content */}
+              <div className="grid grid-cols-1 gap-3">
+                <div className="flex items-center gap-3 bg-white p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
+                  <Clock className="text-dental-blue flex-shrink-0" size={18} />
+                  <div>
+                    <div className="font-semibold text-sm">{course.duration}</div>
+                    <div className="text-xs text-dental-gray">Duration</div>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-3 bg-white p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
+                  <Award className="text-dental-blue flex-shrink-0" size={18} />
+                  <div>
+                    <div className="font-semibold text-sm">{course.cpdHours} Hours</div>
+                    <div className="text-xs text-dental-gray">CPD Credit</div>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-3 bg-white p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
+                  <Tag className="text-dental-blue flex-shrink-0" size={18} />
+                  <div>
+                    <div className="font-semibold text-sm">{course.category}</div>
+                    <div className="text-xs text-dental-gray">Category</div>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-3 bg-white p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
+                  <div className="flex-shrink-0">
+                    <Badge className={`${getLevelColor(course.level)} flex items-center`} variant="secondary">
+                      {getLevelIcon(course.level)}
+                      {course.level}
+                    </Badge>
+                  </div>
+                  <div className="text-xs text-dental-gray">Level</div>
+                </div>
+              </div>
             </div>
 
             {/* Course Content - Mobile Collapsible */}
             <div className="lg:hidden col-span-full">
               <Collapsible open={mobileChaptersOpen} onOpenChange={setMobileChaptersOpen}>
                 <CollapsibleTrigger asChild>
-                  <Button variant="outline" className="w-full justify-between border-2 border-dental-blue/20">
+                  <Button variant="outline" className="w-full justify-between border-2 border-dental-blue/20 mb-4">
                     <span className="flex items-center gap-2">
-                      <Play size={18} />
+                      <Lock size={18} />
                       Course Content ({course.chapters.length} chapters)
                     </span>
                   </Button>
                 </CollapsibleTrigger>
-                <CollapsibleContent className="mt-4">
+                <CollapsibleContent className="mb-8">
                   <Card className="border-2 border-dental-blue/20">
                     <CardContent className="p-4">
-                      <div className="space-y-2">
+                      <div className="space-y-2 mb-4">
                         {course.chapters.map((chapter, index) => (
                           <div
                             key={chapter.id}
-                            className={`flex items-center justify-between p-3 rounded-lg border transition-colors relative ${
-                              chapter.isLocked
-                                ? 'bg-gray-50/80 text-gray-400 cursor-not-allowed border-gray-200 opacity-70'
-                                : 'bg-white hover:bg-dental-blue-light/10 cursor-pointer border-gray-200'
-                            }`}
+                            className="flex items-center justify-between p-3 rounded-lg border transition-colors relative bg-gray-50/80 text-gray-400 cursor-not-allowed border-gray-200 opacity-70"
                           >
-                            {chapter.isLocked && (
-                              <div className="absolute inset-0 bg-yellow-50/30 rounded-lg border border-yellow-200/50" />
-                            )}
+                            <div className="absolute inset-0 bg-yellow-50/30 rounded-lg border border-yellow-200/50" />
                             <div className="flex items-center gap-3 flex-1 relative z-10">
                               <span className="text-sm font-medium text-dental-blue w-6">
                                 {index + 1}
                               </span>
                               <div className="flex-1">
-                                <div className={`font-medium text-sm ${
-                                  chapter.isLocked ? 'text-gray-400' : ''
-                                }`}>
+                                <div className="font-medium text-sm text-gray-400">
                                   {chapter.title}
                                 </div>
                                 <div className="text-xs text-dental-gray">{chapter.duration}</div>
                               </div>
                             </div>
-                            {chapter.isLocked && (
-                              <Lock size={16} className="text-gray-400 relative z-10" />
-                            )}
+                            <Lock size={16} className="text-gray-400 relative z-10" />
                           </div>
                         ))}
                       </div>
+                      <Button
+                        className="w-full bg-dental-blue text-white hover:bg-dental-blue-dark"
+                        onClick={handleSubscribe}
+                      >
+                        Subscribe to Unlock
+                      </Button>
                     </CardContent>
                   </Card>
                 </CollapsibleContent>
               </Collapsible>
+
+              {/* Mobile Metadata Cards */}
+              <div className="grid grid-cols-2 gap-3 mb-8">
+                <div className="flex items-center gap-2 bg-white p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
+                  <Clock className="text-dental-blue flex-shrink-0" size={18} />
+                  <div>
+                    <div className="font-semibold text-sm">{course.duration}</div>
+                    <div className="text-xs text-dental-gray">Duration</div>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-2 bg-white p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
+                  <Award className="text-dental-blue flex-shrink-0" size={18} />
+                  <div>
+                    <div className="font-semibold text-sm">{course.cpdHours} Hours</div>
+                    <div className="text-xs text-dental-gray">CPD Credit</div>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-2 bg-white p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
+                  <Tag className="text-dental-blue flex-shrink-0" size={18} />
+                  <div>
+                    <div className="font-semibold text-sm">{course.category}</div>
+                    <div className="text-xs text-dental-gray">Category</div>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-2 bg-white p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
+                  <div className="flex-shrink-0">
+                    <Badge className={`${getLevelColor(course.level)} flex items-center`} variant="secondary">
+                      {getLevelIcon(course.level)}
+                      {course.level}
+                    </Badge>
+                  </div>
+                  <div className="text-xs text-dental-gray">Level</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -336,7 +361,7 @@ const CourseOverview = () => {
 
       {/* Course Details Section */}
       <div className="py-16">
-        <div className="container mx-auto px-4 max-w-7xl">
+        <div className="container mx-auto px-4 max-w-6xl">
           {/* What You'll Learn */}
           <Card className="mb-12">
             <CardHeader>
