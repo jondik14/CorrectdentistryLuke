@@ -148,10 +148,10 @@ const MyLearning = () => {
                 
                 <div className="relative">
                   <div className="flex items-center justify-center mb-4">
-                    <Clock className="text-dental-blue" size={28} />
+                    <Award className="text-dental-blue" size={28} />
                   </div>
-                  <h3 className="text-3xl font-bold text-dental-blue mb-2">4.25</h3>
-                  <p className="text-dental-gray text-base font-medium">Hours Available</p>
+                  <h3 className="text-3xl font-bold text-dental-blue mb-2">0</h3>
+                  <p className="text-dental-gray text-base font-medium">Courses Completed</p>
                 </div>
               </div>
               
