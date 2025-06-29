@@ -15,26 +15,31 @@ const AnimatedGradientBackground = ({ className = '' }: AnimatedGradientBackgrou
 
     const sketch = (p: p5) => {
       let time = 0;
+      let isSetup = false;
       
       p.setup = () => {
+        if (!containerRef.current) return;
+        
         const canvas = p.createCanvas(
-          containerRef.current!.offsetWidth,
-          containerRef.current!.offsetHeight
+          containerRef.current.offsetWidth || 800,
+          containerRef.current.offsetHeight || 400
         );
-        canvas.parent(containerRef.current!);
-        p.noLoop(); // We'll use draw() manually for better performance
+        canvas.parent(containerRef.current);
+        isSetup = true;
       };
 
       p.windowResized = () => {
-        if (containerRef.current) {
+        if (containerRef.current && isSetup) {
           p.resizeCanvas(
-            containerRef.current.offsetWidth,
-            containerRef.current.offsetHeight
+            containerRef.current.offsetWidth || 800,
+            containerRef.current.offsetHeight || 400
           );
         }
       };
 
       p.draw = () => {
+        if (!isSetup || !p.width || !p.height) return;
+        
         // Create a subtle moving gradient
         for (let y = 0; y < p.height; y += 4) {
           for (let x = 0; x < p.width; x += 4) {
@@ -69,17 +74,27 @@ const AnimatedGradientBackground = ({ className = '' }: AnimatedGradientBackgrou
 
       // Animation loop
       const animate = () => {
-        p.draw();
+        if (isSetup) {
+          p.draw();
+        }
         requestAnimationFrame(animate);
       };
       animate();
     };
 
-    p5InstanceRef.current = new p5(sketch);
+    try {
+      p5InstanceRef.current = new p5(sketch);
+    } catch (error) {
+      console.error('Error initializing p5.js:', error);
+    }
 
     return () => {
       if (p5InstanceRef.current) {
-        p5InstanceRef.current.remove();
+        try {
+          p5InstanceRef.current.remove();
+        } catch (error) {
+          console.error('Error removing p5.js instance:', error);
+        }
       }
     };
   }, []);
