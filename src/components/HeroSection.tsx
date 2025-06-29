@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Play, Award, BookOpenCheck, Users } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -7,6 +7,25 @@ import { Button } from '@/components/ui/button';
 const HeroSection = () => {
   const navigate = useNavigate();
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const heroImages = [
+    {
+      src: "/lovable-uploads/a040261a-5ae0-465d-83f0-430b2c67b064.png",
+      alt: "Dental training session",
+      objectPosition: "center 30%"
+    },
+    {
+      src: "/lovable-uploads/0a7ddcc2-e956-4460-ba74-9f01b86d18e1.png",
+      alt: "Dental seminar and education",
+      objectPosition: "center 40%"
+    },
+    {
+      src: "/lovable-uploads/16b5aafa-0533-4ad2-9897-92b8639ddc5e.png",
+      alt: "Dental X-ray consultation",
+      objectPosition: "center 50%"
+    }
+  ];
 
   const handleExploreCourses = () => {
     navigate('/courses');
@@ -17,15 +36,31 @@ const HeroSection = () => {
     console.log('Watch demo clicked');
   };
 
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+    setImageLoaded(false);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + heroImages.length) % heroImages.length);
+    setImageLoaded(false);
+  };
+
+  // Auto-cycle through images every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(nextImage, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden py-20 md:py-24">
       {/* Dental training background image */}
       <div className="absolute inset-0">
         <img 
-          src="/lovable-uploads/a040261a-5ae0-465d-83f0-430b2c67b064.png"
-          alt="Dental training session"
-          className="w-full h-full object-cover object-center"
-          style={{ objectPosition: 'center 30%' }}
+          src={heroImages[currentImageIndex].src}
+          alt={heroImages[currentImageIndex].alt}
+          className="w-full h-full object-cover object-center transition-opacity duration-500"
+          style={{ objectPosition: heroImages[currentImageIndex].objectPosition }}
           onLoad={() => setImageLoaded(true)}
         />
         <div className="absolute inset-0 bg-black/50"></div>
@@ -39,6 +74,48 @@ const HeroSection = () => {
             mixBlendMode: 'overlay'
           }}
         ></div>
+      </div>
+
+      {/* Image navigation controls */}
+      <div className="absolute top-1/2 left-4 transform -translate-y-1/2 z-20">
+        <button
+          onClick={prevImage}
+          className="bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition-all duration-200"
+          aria-label="Previous image"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+      </div>
+      
+      <div className="absolute top-1/2 right-4 transform -translate-y-1/2 z-20">
+        <button
+          onClick={nextImage}
+          className="bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition-all duration-200"
+          aria-label="Next image"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+
+      {/* Image indicators */}
+      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
+        {heroImages.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => {
+              setCurrentImageIndex(index);
+              setImageLoaded(false);
+            }}
+            className={`w-2 h-2 rounded-full transition-all duration-200 ${
+              index === currentImageIndex ? 'bg-white' : 'bg-white/50'
+            }`}
+            aria-label={`Go to image ${index + 1}`}
+          />
+        ))}
       </div>
       
       {/* Background pattern */}
