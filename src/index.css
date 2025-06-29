@@ -147,6 +147,15 @@
   }
 }
 
+@keyframes progressLoad {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(-${100 - (value || 0)}%);
+  }
+}
+
 .animate-fadeInUp {
   animation: fadeInUp 0.8s ease-out forwards;
 }
