@@ -1,8 +1,8 @@
-
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import AnimatedGradientBackground from '../components/AnimatedGradientBackground';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Progress } from '../components/ui/progress';
@@ -64,19 +64,15 @@ const MyLearning = () => {
     <div className="min-h-screen bg-gray-50">
       <Header />
       
-      {/* Hero Section with Blue Gradient Background */}
+      {/* Hero Section with Animated Blue Gradient Background */}
       <section className="relative pt-24 pb-12 bg-white border-b overflow-hidden">
-        {/* Blue gradient background */}
-        <div className="absolute inset-0">
-          <img 
-            src="/lovable-uploads/2c1ad50a-4066-4519-afcd-f6f16071ea8d.png"
-            alt="Background gradient"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/10"></div>
-        </div>
+        {/* Animated gradient background */}
+        <AnimatedGradientBackground />
         
-        <div className="relative container mx-auto px-4">
+        {/* Overlay for better text readability */}
+        <div className="absolute inset-0 bg-black/5" style={{ zIndex: 2 }}></div>
+        
+        <div className="relative container mx-auto px-4" style={{ zIndex: 3 }}>
           <div className="max-w-6xl mx-auto text-center">
             <h1 className="text-3xl md:text-4xl font-bold text-white mb-4 drop-shadow-lg">
               My Learning Dashboard
