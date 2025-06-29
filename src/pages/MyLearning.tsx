@@ -113,8 +113,8 @@ const MyLearning = () => {
         {/* Animated gradient background */}
         <AnimatedGradientBackground />
         
-        {/* Enhanced overlay for better text readability */}
-        <div className="absolute inset-0 bg-white/40 backdrop-blur-[1px]" style={{ zIndex: 2 }}></div>
+        {/* Enhanced overlay for better text readability with white tint */}
+        <div className="absolute inset-0 bg-white/60 backdrop-blur-[1px]" style={{ zIndex: 2 }}></div>
         
         <div className="relative container mx-auto px-6" style={{ zIndex: 3 }}>
           <div className="max-w-6xl mx-auto text-center">
