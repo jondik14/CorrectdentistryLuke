@@ -1,11 +1,14 @@
+
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import AnimatedGradientBackground from '../components/AnimatedGradientBackground';
+import CourseFilter from '../components/CourseFilter';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Progress } from '../components/ui/progress';
+import { Badge } from '../components/ui/badge';
 import { BookOpen, Clock, Award, Play, ArrowRight } from 'lucide-react';
 
 interface EnrolledCourse {
@@ -14,6 +17,7 @@ interface EnrolledCourse {
   description: string;
   progress: number;
   duration: string;
+  durationType: 'short' | 'medium' | 'long';
   thumbnail: string;
   category: string;
   lastAccessed: string;
@@ -22,6 +26,8 @@ interface EnrolledCourse {
 const MyLearning = () => {
   const navigate = useNavigate();
   const [enrolledCourses, setEnrolledCourses] = useState<EnrolledCourse[]>([]);
+  const [filteredCourses, setFilteredCourses] = useState<EnrolledCourse[]>([]);
+  const [selectedFilter, setSelectedFilter] = useState<string>('all');
 
   useEffect(() => {
     // Check if user is logged in
@@ -31,14 +37,15 @@ const MyLearning = () => {
       return;
     }
 
-    // Mock enrolled courses data
-    setEnrolledCourses([
+    // Mock enrolled courses data with duration types
+    const courses = [
       {
         id: '1',
         title: 'Impressions for Veneers',
         description: 'Master the art of creating precise impressions for veneer procedures.',
         progress: 65,
         duration: '45 min',
+        durationType: 'short' as const,
         thumbnail: '/lovable-uploads/a789cbd9-0692-4db5-9658-3da85ff73e3e.png',
         category: 'Restorative',
         lastAccessed: '2 days ago'
@@ -49,15 +56,53 @@ const MyLearning = () => {
         description: 'Learn modern digital workflows for enhanced precision.',
         progress: 30,
         duration: '2 hours',
+        durationType: 'medium' as const,
         thumbnail: '/lovable-uploads/368c6b6a-e95a-4dd2-b51a-e03063a74279.png',
         category: 'Digital',
         lastAccessed: '1 week ago'
       }
-    ]);
+    ];
+    
+    setEnrolledCourses(courses);
+    setFilteredCourses(courses);
   }, [navigate]);
+
+  useEffect(() => {
+    if (selectedFilter === 'all') {
+      setFilteredCourses(enrolledCourses);
+    } else {
+      setFilteredCourses(enrolledCourses.filter(course => course.durationType === selectedFilter));
+    }
+  }, [selectedFilter, enrolledCourses]);
 
   const handleContinueCourse = (courseId: string) => {
     navigate(`/course-subscription/${courseId}`);
+  };
+
+  const getDurationTypeLabel = (durationType: string) => {
+    switch (durationType) {
+      case 'short':
+        return 'Quick CPD';
+      case 'medium':
+        return 'Core Module';
+      case 'long':
+        return 'Full Program';
+      default:
+        return '';
+    }
+  };
+
+  const getDurationTypeColor = (durationType: string) => {
+    switch (durationType) {
+      case 'short':
+        return 'border-emerald-500 text-emerald-700 bg-emerald-50';
+      case 'medium':
+        return 'border-blue-500 text-blue-700 bg-blue-50';
+      case 'long':
+        return 'border-purple-500 text-purple-700 bg-purple-50';
+      default:
+        return 'border-gray-500 text-gray-700 bg-gray-50';
+    }
   };
 
   return (
@@ -125,8 +170,14 @@ const MyLearning = () => {
               </Button>
             </div>
 
+            {/* Course Filter */}
+            <CourseFilter 
+              selectedFilter={selectedFilter}
+              onFilterChange={setSelectedFilter}
+            />
+
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {enrolledCourses.map((course, index) => (
+              {filteredCourses.map((course, index) => (
                 <Card key={course.id} className="overflow-hidden hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-dental-blue/20">
                   <div className="aspect-video relative">
                     <img
@@ -134,10 +185,16 @@ const MyLearning = () => {
                       alt={course.title}
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute top-3 left-3">
-                      <span className="bg-dental-blue text-white px-2 py-1 rounded-md text-xs font-medium shadow-sm">
+                    <div className="absolute top-3 left-3 flex gap-2">
+                      <Badge className="bg-dental-blue text-white border-none text-xs font-medium px-2 py-1 shadow-sm">
                         {course.category}
-                      </span>
+                      </Badge>
+                      <Badge 
+                        variant="outline" 
+                        className={`text-xs font-medium px-2 py-1 shadow-sm border ${getDurationTypeColor(course.durationType)}`}
+                      >
+                        {getDurationTypeLabel(course.durationType)}
+                      </Badge>
                     </div>
                     <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
                       <Button
@@ -185,6 +242,19 @@ const MyLearning = () => {
                 </Card>
               ))}
             </div>
+
+            {filteredCourses.length === 0 && (
+              <div className="text-center py-12">
+                <p className="text-dental-gray text-lg mb-4">No courses found for the selected filter.</p>
+                <Button 
+                  onClick={() => setSelectedFilter('all')}
+                  variant="outline"
+                  className="border-dental-blue text-dental-blue hover:bg-dental-blue hover:text-white"
+                >
+                  Show All Courses
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       </section>
