@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
@@ -9,7 +8,7 @@ import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Progress } from '../components/ui/progress';
 import { Badge } from '../components/ui/badge';
-import { BookOpen, Clock, Award, Play, ArrowRight } from 'lucide-react';
+import { BookOpen, Clock, Award, Play } from 'lucide-react';
 
 interface EnrolledCourse {
   id: string;
@@ -126,28 +125,48 @@ const MyLearning = () => {
               Continue your professional development journey
             </p>
             
-            {/* Stats - Enhanced with better spacing and contrast */}
+            {/* Stats with Blue Glow Effect */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-              <div className="bg-white/90 backdrop-blur-sm p-8 rounded-xl shadow-sm border border-white/50">
-                <div className="flex items-center justify-center mb-4">
-                  <BookOpen className="text-dental-blue" size={28} />
+              <div className="relative bg-white/90 backdrop-blur-sm p-8 rounded-xl shadow-lg border border-white/50 transition-all duration-300 hover:shadow-xl">
+                {/* Blue glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-blue-600/5 rounded-xl opacity-70"></div>
+                <div className="absolute -inset-1 bg-gradient-to-br from-blue-500/20 to-transparent rounded-xl blur-sm opacity-30"></div>
+                
+                <div className="relative">
+                  <div className="flex items-center justify-center mb-4">
+                    <BookOpen className="text-dental-blue" size={28} />
+                  </div>
+                  <h3 className="text-3xl font-bold text-dental-blue mb-2">2</h3>
+                  <p className="text-dental-gray text-base font-medium">Courses Enrolled</p>
                 </div>
-                <h3 className="text-3xl font-bold text-dental-blue mb-2">2</h3>
-                <p className="text-dental-gray text-base font-medium">Courses Enrolled</p>
               </div>
-              <div className="bg-white/90 backdrop-blur-sm p-8 rounded-xl shadow-sm border border-white/50">
-                <div className="flex items-center justify-center mb-4">
-                  <Clock className="text-dental-blue" size={28} />
+              
+              <div className="relative bg-white/90 backdrop-blur-sm p-8 rounded-xl shadow-lg border border-white/50 transition-all duration-300 hover:shadow-xl">
+                {/* Blue glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-blue-600/5 rounded-xl opacity-70"></div>
+                <div className="absolute -inset-1 bg-gradient-to-br from-blue-500/20 to-transparent rounded-xl blur-sm opacity-30"></div>
+                
+                <div className="relative">
+                  <div className="flex items-center justify-center mb-4">
+                    <Clock className="text-dental-blue" size={28} />
+                  </div>
+                  <h3 className="text-3xl font-bold text-dental-blue mb-2">4.25</h3>
+                  <p className="text-dental-gray text-base font-medium">Hours Available</p>
                 </div>
-                <h3 className="text-3xl font-bold text-dental-blue mb-2">4.25</h3>
-                <p className="text-dental-gray text-base font-medium">Hours Available</p>
               </div>
-              <div className="bg-white/90 backdrop-blur-sm p-8 rounded-xl shadow-sm border border-white/50">
-                <div className="flex items-center justify-center mb-4">
-                  <Award className="text-dental-blue" size={28} />
+              
+              <div className="relative bg-white/90 backdrop-blur-sm p-8 rounded-xl shadow-lg border border-white/50 transition-all duration-300 hover:shadow-xl">
+                {/* Blue glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-blue-600/5 rounded-xl opacity-70"></div>
+                <div className="absolute -inset-1 bg-gradient-to-br from-blue-500/20 to-transparent rounded-xl blur-sm opacity-30"></div>
+                
+                <div className="relative">
+                  <div className="flex items-center justify-center mb-4">
+                    <Award className="text-dental-blue" size={28} />
+                  </div>
+                  <h3 className="text-3xl font-bold text-dental-blue mb-2">0</h3>
+                  <p className="text-dental-gray text-base font-medium">Certificates Earned</p>
                 </div>
-                <h3 className="text-3xl font-bold text-dental-blue mb-2">0</h3>
-                <p className="text-dental-gray text-base font-medium">Certificates Earned</p>
               </div>
             </div>
           </div>
@@ -158,25 +177,19 @@ const MyLearning = () => {
       <section className="py-16">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-10 gap-6">
-              <h2 className="text-4xl font-bold text-dental-blue">Continue Learning</h2>
-              <Button 
-                variant="outline"
-                onClick={() => navigate('/courses')}
-                className="border-dental-blue text-dental-blue hover:bg-dental-blue hover:text-white font-medium px-6 py-3 rounded-lg transition-all duration-200 lg:self-start flex items-center gap-2"
-              >
-                Browse More Courses
-                <ArrowRight size={18} />
-              </Button>
+            <div className="mb-10">
+              <h2 className="text-4xl font-bold text-dental-blue mb-8">Continue Learning</h2>
+              
+              {/* Course Filter with better spacing */}
+              <div className="mb-12">
+                <CourseFilter 
+                  selectedFilter={selectedFilter}
+                  onFilterChange={setSelectedFilter}
+                />
+              </div>
             </div>
 
-            {/* Course Filter */}
-            <CourseFilter 
-              selectedFilter={selectedFilter}
-              onFilterChange={setSelectedFilter}
-            />
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
               {filteredCourses.map((course, index) => (
                 <Card key={course.id} className="overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-dental-blue/30 bg-white">
                   <div className="aspect-video relative">
@@ -244,6 +257,20 @@ const MyLearning = () => {
                   </CardContent>
                 </Card>
               ))}
+            </div>
+
+            {/* Browse More Courses Button - moved below cards and right-aligned */}
+            <div className="flex justify-end">
+              <Button 
+                variant="outline"
+                onClick={() => navigate('/courses')}
+                className="border-dental-blue text-dental-blue hover:bg-dental-blue hover:text-white font-medium px-6 py-3 rounded-lg transition-all duration-200"
+              >
+                Browse More Courses
+                <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Button>
             </div>
 
             {filteredCourses.length === 0 && (
