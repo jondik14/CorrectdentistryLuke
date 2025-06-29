@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Play, Lock, Clock, Users, Award, Tag, CheckCircle, TrendingUp, BarChart3 } from 'lucide-react';
@@ -130,7 +129,7 @@ const CourseOverview = () => {
             {/* Video Player Section */}
             <div className="lg:col-span-2">
               {/* Video Player */}
-              <div className="aspect-video bg-black rounded-xl overflow-hidden relative group mb-8">
+              <div className="aspect-video bg-black rounded-xl overflow-hidden relative group mb-6">
                 <img
                   src={course.thumbnail}
                   alt={course.title}
@@ -140,13 +139,6 @@ const CourseOverview = () => {
                   <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-transform cursor-pointer">
                     <Play className="text-white ml-1" size={32} />
                   </div>
-                </div>
-                
-                {/* Course Title Overlay */}
-                <div className="absolute bottom-4 left-4">
-                  <h2 className="text-white/90 text-sm font-medium bg-black/30 backdrop-blur-sm px-3 py-1 rounded">
-                    {course.title}
-                  </h2>
                 </div>
                 
                 {/* Runtime Badge */}
@@ -165,17 +157,52 @@ const CourseOverview = () => {
               </div>
               
               {/* Course Title and Description */}
-              <div className="mb-8">
-                <h1 className="text-3xl font-bold text-dental-blue mb-4">
+              <div className="mb-6">
+                <h1 className="text-3xl font-bold text-dental-blue mb-2">
                   {course.title}
                 </h1>
-                <div className="mb-6">
-                  <p className="text-dental-gray text-lg leading-relaxed mb-3">
-                    This comprehensive course provides hands-on training in creating perfect impressions for veneer cases. Learn from industry experts using proven techniques that ensure optimal fit and patient satisfaction.
-                  </p>
-                  <p className="text-dental-gray">
-                    {course.description}
-                  </p>
+                <p className="text-dental-gray/80 text-lg mb-4">
+                  Master the art of creating precise impressions for veneer procedures with advanced techniques.
+                </p>
+                <p className="text-dental-gray leading-relaxed">
+                  This comprehensive course provides hands-on training in creating perfect impressions for veneer cases. Learn from industry experts using proven techniques that ensure optimal fit and patient satisfaction.
+                </p>
+              </div>
+
+              {/* Metadata Cards - Horizontal Layout */}
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
+                <div className="flex items-center gap-2 bg-white p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
+                  <Clock className="text-dental-blue flex-shrink-0" size={16} />
+                  <div>
+                    <div className="font-semibold text-sm">{course.duration}</div>
+                    <div className="text-xs text-dental-gray">Duration</div>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-2 bg-white p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
+                  <Award className="text-dental-blue flex-shrink-0" size={16} />
+                  <div>
+                    <div className="font-semibold text-sm">{course.cpdHours} Hours</div>
+                    <div className="text-xs text-dental-gray">CPD Credit</div>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-2 bg-white p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
+                  <Tag className="text-dental-blue flex-shrink-0" size={16} />
+                  <div>
+                    <div className="font-semibold text-sm">{course.category}</div>
+                    <div className="text-xs text-dental-gray">Category</div>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-2 bg-white p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
+                  <div className="flex-shrink-0">
+                    <Badge className={`${getLevelColor(course.level)} flex items-center text-xs`} variant="secondary">
+                      {getLevelIcon(course.level)}
+                      {course.level}
+                    </Badge>
+                  </div>
+                  <div className="text-xs text-dental-gray">Level</div>
                 </div>
               </div>
             </div>
@@ -232,43 +259,6 @@ const CourseOverview = () => {
                   </div>
                 </CardContent>
               </Card>
-
-              {/* Metadata Cards - Moved below course content */}
-              <div className="grid grid-cols-1 gap-3">
-                <div className="flex items-center gap-3 bg-white p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
-                  <Clock className="text-dental-blue flex-shrink-0" size={18} />
-                  <div>
-                    <div className="font-semibold text-sm">{course.duration}</div>
-                    <div className="text-xs text-dental-gray">Duration</div>
-                  </div>
-                </div>
-                
-                <div className="flex items-center gap-3 bg-white p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
-                  <Award className="text-dental-blue flex-shrink-0" size={18} />
-                  <div>
-                    <div className="font-semibold text-sm">{course.cpdHours} Hours</div>
-                    <div className="text-xs text-dental-gray">CPD Credit</div>
-                  </div>
-                </div>
-                
-                <div className="flex items-center gap-3 bg-white p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
-                  <Tag className="text-dental-blue flex-shrink-0" size={18} />
-                  <div>
-                    <div className="font-semibold text-sm">{course.category}</div>
-                    <div className="text-xs text-dental-gray">Category</div>
-                  </div>
-                </div>
-                
-                <div className="flex items-center gap-3 bg-white p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
-                  <div className="flex-shrink-0">
-                    <Badge className={`${getLevelColor(course.level)} flex items-center`} variant="secondary">
-                      {getLevelIcon(course.level)}
-                      {course.level}
-                    </Badge>
-                  </div>
-                  <div className="text-xs text-dental-gray">Level</div>
-                </div>
-              </div>
             </div>
 
             {/* Course Content - Mobile Collapsible */}
@@ -317,43 +307,6 @@ const CourseOverview = () => {
                   </Card>
                 </CollapsibleContent>
               </Collapsible>
-
-              {/* Mobile Metadata Cards */}
-              <div className="grid grid-cols-2 gap-3 mb-8">
-                <div className="flex items-center gap-2 bg-white p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
-                  <Clock className="text-dental-blue flex-shrink-0" size={18} />
-                  <div>
-                    <div className="font-semibold text-sm">{course.duration}</div>
-                    <div className="text-xs text-dental-gray">Duration</div>
-                  </div>
-                </div>
-                
-                <div className="flex items-center gap-2 bg-white p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
-                  <Award className="text-dental-blue flex-shrink-0" size={18} />
-                  <div>
-                    <div className="font-semibold text-sm">{course.cpdHours} Hours</div>
-                    <div className="text-xs text-dental-gray">CPD Credit</div>
-                  </div>
-                </div>
-                
-                <div className="flex items-center gap-2 bg-white p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
-                  <Tag className="text-dental-blue flex-shrink-0" size={18} />
-                  <div>
-                    <div className="font-semibold text-sm">{course.category}</div>
-                    <div className="text-xs text-dental-gray">Category</div>
-                  </div>
-                </div>
-                
-                <div className="flex items-center gap-2 bg-white p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
-                  <div className="flex-shrink-0">
-                    <Badge className={`${getLevelColor(course.level)} flex items-center`} variant="secondary">
-                      {getLevelIcon(course.level)}
-                      {course.level}
-                    </Badge>
-                  </div>
-                  <div className="text-xs text-dental-gray">Level</div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
