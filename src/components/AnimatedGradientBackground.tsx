@@ -40,32 +40,51 @@ const AnimatedGradientBackground = ({ className = '' }: AnimatedGradientBackgrou
       p.draw = () => {
         if (!isSetup || !p.width || !p.height) return;
         
-        // Create a subtle moving gradient
-        for (let y = 0; y < p.height; y += 4) {
-          for (let x = 0; x < p.width; x += 4) {
-            // Calculate distance from center for radial effect
-            const centerX = p.width * 0.5;
-            const centerY = p.height * 0.4;
-            const dist = p.dist(x, y, centerX, centerY);
+        // White background
+        p.background(255, 255, 255);
+        
+        // Create subtle moving blob gradients
+        p.noStroke();
+        
+        // Main blue color: #2563eb (37, 99, 235 in RGB)
+        const mainBlue = [37, 99, 235];
+        
+        // Create multiple moving blobs
+        for (let i = 0; i < 3; i++) {
+          const offsetX = p.sin(time * 0.0008 + i * 2) * 100;
+          const offsetY = p.cos(time * 0.0006 + i * 1.5) * 80;
+          
+          const centerX = (p.width / 4) * (i + 1) + offsetX;
+          const centerY = p.height * 0.5 + offsetY;
+          
+          // Create radial gradient effect for each blob
+          const maxRadius = 200 + p.sin(time * 0.001 + i) * 30;
+          
+          for (let r = maxRadius; r > 0; r -= 8) {
+            const alpha = p.map(r, 0, maxRadius, 15, 0);
+            const size = r * 2;
             
-            // Create subtle wave motion
-            const wave1 = p.sin(time * 0.001 + dist * 0.005) * 10;
-            const wave2 = p.cos(time * 0.0015 + x * 0.01) * 5;
-            const wave3 = p.sin(time * 0.002 + y * 0.008) * 8;
+            p.fill(mainBlue[0], mainBlue[1], mainBlue[2], alpha);
+            p.ellipse(centerX, centerY, size, size * 0.8);
+          }
+        }
+        
+        // Add some smaller moving accents
+        for (let i = 0; i < 2; i++) {
+          const offsetX = p.cos(time * 0.001 + i * 3) * 150;
+          const offsetY = p.sin(time * 0.0012 + i * 2.5) * 100;
+          
+          const centerX = p.width * 0.3 + offsetX;
+          const centerY = p.height * 0.7 + offsetY;
+          
+          const maxRadius = 120;
+          
+          for (let r = maxRadius; r > 0; r -= 6) {
+            const alpha = p.map(r, 0, maxRadius, 8, 0);
+            const size = r * 1.5;
             
-            // Base blue color with subtle variations
-            const baseHue = 210;
-            const hueVariation = wave1 + wave2 + wave3;
-            const finalHue = baseHue + hueVariation * 0.5;
-            
-            // Saturation and brightness variations
-            const saturation = 85 + wave1 * 0.3;
-            const brightness = 65 + (wave2 + wave3) * 0.2;
-            
-            p.colorMode(p.HSB, 360, 100, 100, 100);
-            p.fill(finalHue, saturation, brightness, 80);
-            p.noStroke();
-            p.rect(x, y, 4, 4);
+            p.fill(mainBlue[0], mainBlue[1], mainBlue[2], alpha);
+            p.ellipse(centerX, centerY, size, size * 1.2);
           }
         }
         
