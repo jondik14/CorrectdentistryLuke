@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Play, Award, BookOpenCheck, Users } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -18,15 +19,15 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background image */}
+      {/* Blurry blue gradient background */}
       <div className="absolute inset-0">
         <img 
-          src="/lovable-uploads/49ac1a3e-4bba-442e-a648-00c73776b5b1.png"
-          alt="Dental Education"
+          src="/lovable-uploads/2c1ad50a-4066-4519-afcd-f6f16071ea8d.png"
+          alt="Background gradient"
           className="w-full h-full object-cover"
           onLoad={() => setImageLoaded(true)}
         />
-        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 bg-black/20"></div>
       </div>
       
       {/* Background pattern */}
@@ -39,7 +40,7 @@ const HeroSection = () => {
       <div className="relative z-10 container mx-auto px-4 text-center text-white">
         <div className="max-w-4xl mx-auto">
           {/* Supporting Text */}
-          <p className={`text-sm md:text-base mb-4 text-white/80 drop-shadow-md opacity-0 ${imageLoaded ? 'animate-fadeInUp' : ''}`}>
+          <p className={`text-sm md:text-base mb-4 text-white/90 drop-shadow-md opacity-0 ${imageLoaded ? 'animate-fadeInUp' : ''}`}>
             Accredited by top specialists. Trusted by 10,000+ dental professionals.
           </p>
 
@@ -49,7 +50,7 @@ const HeroSection = () => {
           </h1>
           
           {/* Subtext */}
-          <p className={`text-xl md:text-2xl mb-10 text-white drop-shadow-md opacity-0 ${imageLoaded ? 'animate-fadeInUp animate-delay-400' : ''}`}>
+          <p className={`text-xl md:text-2xl mb-10 text-white/95 drop-shadow-md opacity-0 ${imageLoaded ? 'animate-fadeInUp animate-delay-400' : ''}`}>
             Elevate your dental expertise with CorrectDentistry's trusted online learning platform.
           </p>
 
@@ -58,7 +59,7 @@ const HeroSection = () => {
             <Button
               onClick={handleExploreCourses}
               size="lg"
-              className="bg-blue-600 hover:bg-blue-700 text-white text-lg px-8 py-6 shadow-lg"
+              className="bg-dental-blue hover:bg-dental-blue-dark text-white text-lg px-8 py-6 shadow-lg font-medium rounded-lg"
             >
               Explore Courses
             </Button>
@@ -95,8 +96,8 @@ const HeroSection = () => {
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-white/50 rounded-full mt-2 animate-pulse"></div>
+        <div className="w-6 h-10 border-2 border-white/60 rounded-full flex justify-center">
+          <div className="w-1 h-3 bg-white/60 rounded-full mt-2 animate-pulse"></div>
         </div>
       </div>
     </section>
