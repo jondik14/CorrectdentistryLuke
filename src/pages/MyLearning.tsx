@@ -180,12 +180,23 @@ const MyLearning = () => {
             <div className="mb-10">
               <h2 className="text-4xl font-bold text-dental-blue mb-8">Continue Learning</h2>
               
-              {/* Course Filter with better spacing */}
-              <div className="mb-12">
+              {/* Course Filter with Browse More Courses button inline */}
+              <div className="mb-12 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
                 <CourseFilter 
                   selectedFilter={selectedFilter}
                   onFilterChange={setSelectedFilter}
                 />
+                
+                <Button 
+                  variant="outline"
+                  onClick={() => navigate('/courses')}
+                  className="border-dental-blue text-dental-blue hover:bg-dental-blue hover:text-white font-medium px-6 py-3 rounded-lg transition-all duration-200 shrink-0"
+                >
+                  Browse More Courses
+                  <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Button>
               </div>
             </div>
 
@@ -257,20 +268,6 @@ const MyLearning = () => {
                   </CardContent>
                 </Card>
               ))}
-            </div>
-
-            {/* Browse More Courses Button - moved below cards and right-aligned */}
-            <div className="flex justify-end">
-              <Button 
-                variant="outline"
-                onClick={() => navigate('/courses')}
-                className="border-dental-blue text-dental-blue hover:bg-dental-blue hover:text-white font-medium px-6 py-3 rounded-lg transition-all duration-200"
-              >
-                Browse More Courses
-                <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Button>
             </div>
 
             {filteredCourses.length === 0 && (
