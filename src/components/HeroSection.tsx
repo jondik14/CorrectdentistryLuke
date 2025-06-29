@@ -8,6 +8,7 @@ const HeroSection = () => {
   const navigate = useNavigate();
   const [imageLoaded, setImageLoaded] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [hasPlayedInitialAnimation, setHasPlayedInitialAnimation] = useState(false);
 
   const heroImages = [
     {
@@ -38,12 +39,10 @@ const HeroSection = () => {
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
-    setImageLoaded(false);
   };
 
   const prevImage = () => {
     setCurrentImageIndex((prev) => (prev - 1 + heroImages.length) % heroImages.length);
-    setImageLoaded(false);
   };
 
   // Auto-cycle through images every 5 seconds
@@ -52,17 +51,29 @@ const HeroSection = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Handle initial image load and animation trigger
+  useEffect(() => {
+    if (imageLoaded && !hasPlayedInitialAnimation) {
+      setHasPlayedInitialAnimation(true);
+    }
+  }, [imageLoaded, hasPlayedInitialAnimation]);
+
   return (
     <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden py-20 md:py-24">
       {/* Dental training background image */}
       <div className="absolute inset-0">
-        <img 
-          src={heroImages[currentImageIndex].src}
-          alt={heroImages[currentImageIndex].alt}
-          className="w-full h-full object-cover object-center transition-opacity duration-500"
-          style={{ objectPosition: heroImages[currentImageIndex].objectPosition }}
-          onLoad={() => setImageLoaded(true)}
-        />
+        {heroImages.map((image, index) => (
+          <img 
+            key={index}
+            src={image.src}
+            alt={image.alt}
+            className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ${
+              index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+            }`}
+            style={{ objectPosition: image.objectPosition }}
+            onLoad={() => index === 0 && setImageLoaded(true)}
+          />
+        ))}
         <div className="absolute inset-0 bg-black/50"></div>
         {/* Gradient overlay */}
         <div 
@@ -106,10 +117,7 @@ const HeroSection = () => {
         {heroImages.map((_, index) => (
           <button
             key={index}
-            onClick={() => {
-              setCurrentImageIndex(index);
-              setImageLoaded(false);
-            }}
+            onClick={() => setCurrentImageIndex(index)}
             className={`w-2 h-2 rounded-full transition-all duration-200 ${
               index === currentImageIndex ? 'bg-white' : 'bg-white/50'
             }`}
@@ -128,22 +136,22 @@ const HeroSection = () => {
       <div className="relative z-10 container mx-auto px-4 text-center text-white">
         <div className="max-w-4xl mx-auto">
           {/* Supporting Text */}
-          <p className={`text-sm md:text-base mb-4 text-white/90 drop-shadow-md opacity-0 ${imageLoaded ? 'animate-fadeInUp' : ''}`}>
+          <p className={`text-sm md:text-base mb-4 text-white/90 drop-shadow-md ${hasPlayedInitialAnimation ? 'opacity-100' : 'opacity-0 animate-fadeInUp'}`}>
             Accredited by top specialists. Trusted by 10,000+ dental professionals.
           </p>
 
           {/* Main Headline */}
-          <h1 className={`mb-6 text-white drop-shadow-lg opacity-0 ${imageLoaded ? 'animate-fadeInUp animate-delay-200' : ''}`}>
+          <h1 className={`mb-6 text-white drop-shadow-lg ${hasPlayedInitialAnimation ? 'opacity-100' : 'opacity-0 animate-fadeInUp animate-delay-200'}`}>
             The Way the Specialists Do It
           </h1>
           
           {/* Subtext */}
-          <p className={`text-xl md:text-2xl mb-10 text-white/95 drop-shadow-md opacity-0 ${imageLoaded ? 'animate-fadeInUp animate-delay-400' : ''}`}>
+          <p className={`text-xl md:text-2xl mb-10 text-white/95 drop-shadow-md ${hasPlayedInitialAnimation ? 'opacity-100' : 'opacity-0 animate-fadeInUp animate-delay-400'}`}>
             Elevate your dental expertise with CorrectDentistry's trusted online learning platform.
           </p>
 
           {/* CTA Buttons */}
-          <div className={`flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 opacity-0 ${imageLoaded ? 'animate-fadeInUp animate-delay-600' : ''}`}>
+          <div className={`flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 ${hasPlayedInitialAnimation ? 'opacity-100' : 'opacity-0 animate-fadeInUp animate-delay-600'}`}>
             <Button
               onClick={handleExploreCourses}
               size="lg"
@@ -154,7 +162,7 @@ const HeroSection = () => {
           </div>
 
           {/* Trust indicators */}
-          <div className={`flex justify-center items-center opacity-0 ${imageLoaded ? 'animate-fadeInUp animate-delay-800' : ''}`}>
+          <div className={`flex justify-center items-center ${hasPlayedInitialAnimation ? 'opacity-100' : 'opacity-0 animate-fadeInUp animate-delay-800'}`}>
             <div className="flex flex-col sm:flex-row justify-center items-center space-y-6 sm:space-y-0 sm:space-x-12 text-white">
               <div className="flex items-center gap-3">
                 <Award className="h-7 w-7 text-white/80" />
