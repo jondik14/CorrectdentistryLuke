@@ -18,16 +18,27 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden py-20 md:py-24">
       {/* Dental training background image */}
       <div className="absolute inset-0">
         <img 
           src="/lovable-uploads/a040261a-5ae0-465d-83f0-430b2c67b064.png"
           alt="Dental training session"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover object-center"
+          style={{ objectPosition: 'center 30%' }}
           onLoad={() => setImageLoaded(true)}
         />
-        <div className="absolute inset-0 bg-black/60"></div>
+        <div className="absolute inset-0 bg-black/50"></div>
+        {/* Gradient overlay */}
+        <div 
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: `url('/lovable-uploads/2c1ad50a-4066-4519-afcd-f6f16071ea8d.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            mixBlendMode: 'overlay'
+          }}
+        ></div>
       </div>
       
       {/* Background pattern */}
@@ -55,7 +66,7 @@ const HeroSection = () => {
           </p>
 
           {/* CTA Buttons */}
-          <div className={`flex flex-col sm:flex-row gap-4 justify-center items-center mb-16 opacity-0 ${imageLoaded ? 'animate-fadeInUp animate-delay-600' : ''}`}>
+          <div className={`flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 opacity-0 ${imageLoaded ? 'animate-fadeInUp animate-delay-600' : ''}`}>
             <Button
               onClick={handleExploreCourses}
               size="lg"
