@@ -246,23 +246,23 @@ const CourseOverview = () => {
           </Card>
 
           {/* CTA Section */}
-          <Card className="bg-gradient-to-r from-dental-blue to-dental-blue-dark text-white">
+          <Card className="bg-gradient-to-r from-dental-blue-light/40 to-dental-blue-light/20 border-dental-blue/20">
             <CardContent className="p-8 text-center">
-              <h3 className="text-2xl font-bold mb-4">
+              <h3 className="text-2xl font-bold text-dental-blue mb-4">
                 {isSubscribed ? 'Ready to Start Learning?' : 'Unlock This Course'}
               </h3>
-              <p className="text-white/90 mb-6 text-lg">
+              <p className="text-dental-gray mb-6 text-lg">
                 {isSubscribed
                   ? 'Begin your journey with this comprehensive course'
-                  : 'Subscribe to access this course and the entire CorrectDentistry library'
+                  : 'Subscribe to CorrectDentistry to access this course and our entire library of professional development content'
                 }
               </p>
               <Button
                 size="lg"
-                className="bg-white text-dental-blue hover:bg-gray-100 px-8"
+                className="bg-dental-blue text-white hover:bg-dental-blue-dark px-8"
                 onClick={isSubscribed ? handleStartLearning : handleSubscribe}
               >
-                {isSubscribed ? 'Start Learning' : 'Subscribe to Access All Courses'}
+                {isSubscribed ? 'Start Learning' : 'Subscribe to Begin Learning'}
               </Button>
             </CardContent>
           </Card>
