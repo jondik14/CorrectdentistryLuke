@@ -49,6 +49,10 @@ const Header = () => {
     navigate('/profile');
   };
 
+  const handleSettingsClick = () => {
+    navigate('/settings');
+  };
+
   const handleLogout = () => {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('userEmail');
@@ -107,7 +111,7 @@ const Header = () => {
                     <User size={16} className="mr-2" />
                     My Profile
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="cursor-pointer">
+                  <DropdownMenuItem onClick={handleSettingsClick} className="cursor-pointer">
                     <Settings size={16} className="mr-2" />
                     Settings
                   </DropdownMenuItem>
@@ -167,7 +171,10 @@ const Header = () => {
                     <User size={16} />
                     <span>My Profile</span>
                   </button>
-                  <button className="flex items-center space-x-2 text-foreground hover:text-primary transition-colors text-left">
+                  <button 
+                    onClick={handleSettingsClick}
+                    className="flex items-center space-x-2 text-foreground hover:text-primary transition-colors text-left"
+                  >
                     <Settings size={16} />
                     <span>Settings</span>
                   </button>
