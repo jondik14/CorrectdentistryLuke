@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Play, Lock, Clock, Users, Award, Tag, CheckCircle } from 'lucide-react';
+import { ArrowLeft, Play, Lock, Clock, Users, Award, Tag, CheckCircle, TrendingUp } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Button } from '../components/ui/button';
@@ -102,6 +102,15 @@ const CourseOverview = () => {
     }
   };
 
+  const getLevelIcon = (level: string) => {
+    switch (level) {
+      case 'Intermediate':
+        return <TrendingUp size={14} className="mr-1" />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -121,7 +130,7 @@ const CourseOverview = () => {
           <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {/* Video Player Section */}
             <div className="lg:col-span-2">
-              <div className="aspect-video bg-black rounded-xl overflow-hidden relative group border-2 border-dental-blue/20">
+              <div className="aspect-video bg-black rounded-xl overflow-hidden relative group border border-dental-blue/30">
                 <img
                   src={course.thumbnail}
                   alt={course.title}
@@ -157,20 +166,22 @@ const CourseOverview = () => {
                 )}
               </div>
               
-              <h1 className="text-3xl font-bold text-dental-blue mt-6 mb-3">
-                {course.title}
-              </h1>
-              <p className="text-dental-gray text-lg leading-relaxed mb-2">
-                This comprehensive course provides hands-on training in creating perfect impressions for veneer cases. Learn from industry experts using proven techniques that ensure optimal fit and patient satisfaction.
-              </p>
-              <p className="text-dental-gray leading-relaxed">
-                {course.description}
-              </p>
+              <div className="mt-8">
+                <h1 className="text-3xl font-bold text-dental-blue mb-4">
+                  {course.title}
+                </h1>
+                <p className="text-dental-gray text-lg leading-relaxed mb-4">
+                  This comprehensive course provides hands-on training in creating perfect impressions for veneer cases. Learn from industry experts using proven techniques that ensure optimal fit and patient satisfaction.
+                </p>
+                <p className="text-dental-gray leading-relaxed">
+                  {course.description}
+                </p>
+              </div>
             </div>
 
             {/* Chapter List Sidebar - Desktop */}
             <div className="lg:col-span-1 hidden lg:block">
-              <Card className="sticky top-24 border-2 border-dental-blue/20">
+              <Card className="sticky top-24 border border-dental-blue/30">
                 <CardHeader className="pb-4">
                   <CardTitle className="flex items-center gap-2 text-lg">
                     <Play size={18} />
@@ -221,7 +232,7 @@ const CourseOverview = () => {
             <div className="lg:hidden col-span-full">
               <Collapsible open={mobileChaptersOpen} onOpenChange={setMobileChaptersOpen}>
                 <CollapsibleTrigger asChild>
-                  <Button variant="outline" className="w-full justify-between border-2 border-dental-blue/20">
+                  <Button variant="outline" className="w-full justify-between border border-dental-blue/30">
                     <span className="flex items-center gap-2">
                       <Play size={18} />
                       Course Content ({course.chapters.length} chapters)
@@ -229,7 +240,7 @@ const CourseOverview = () => {
                   </Button>
                 </CollapsibleTrigger>
                 <CollapsibleContent className="mt-4">
-                  <Card className="border-2 border-dental-blue/20">
+                  <Card className="border border-dental-blue/30">
                     <CardContent className="p-4">
                       <div className="space-y-2">
                         {course.chapters.map((chapter, index) => (
@@ -268,53 +279,54 @@ const CourseOverview = () => {
       </div>
 
       {/* Course Details Section */}
-      <div className="py-12">
+      <div className="py-16">
         <div className="container mx-auto px-4 max-w-7xl">
           {/* Course Info - Two Rows */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
             {/* Row 1: Duration & CPD */}
             <Card className="hover:shadow-md transition-shadow">
-              <CardContent className="p-4 text-center">
-                <Clock className="mx-auto mb-2 text-dental-blue" size={24} />
-                <div className="font-semibold">{course.duration}</div>
-                <div className="text-xs text-dental-gray">Duration</div>
+              <CardContent className="p-6 text-center">
+                <Clock className="mx-auto mb-3 text-dental-blue" size={24} />
+                <div className="font-semibold text-lg">{course.duration}</div>
+                <div className="text-sm text-dental-gray">Duration</div>
               </CardContent>
             </Card>
             
             <Card className="hover:shadow-md transition-shadow">
-              <CardContent className="p-4 text-center">
-                <Award className="mx-auto mb-2 text-dental-blue" size={24} />
-                <div className="font-semibold">{course.cpdHours} Hours</div>
-                <div className="text-xs text-dental-gray">CPD Credit</div>
+              <CardContent className="p-6 text-center">
+                <Award className="mx-auto mb-3 text-dental-blue" size={24} />
+                <div className="font-semibold text-lg">{course.cpdHours} Hours</div>
+                <div className="text-sm text-dental-gray">CPD Credit</div>
               </CardContent>
             </Card>
             
             {/* Row 2: Category & Level */}
             <Card className="hover:shadow-md transition-shadow">
-              <CardContent className="p-4 text-center">
-                <Tag className="mx-auto mb-2 text-dental-blue" size={24} />
-                <div className="font-semibold">{course.category}</div>
-                <div className="text-xs text-dental-gray">Category</div>
+              <CardContent className="p-6 text-center">
+                <Tag className="mx-auto mb-3 text-dental-blue" size={24} />
+                <div className="font-semibold text-lg">{course.category}</div>
+                <div className="text-sm text-dental-gray">Category</div>
               </CardContent>
             </Card>
             
             <Card className="hover:shadow-md transition-shadow">
-              <CardContent className="p-4 text-center">
-                <Badge className={`${getLevelColor(course.level)} mx-auto mb-1`} variant="secondary">
+              <CardContent className="p-6 text-center">
+                <Badge className={`${getLevelColor(course.level)} mx-auto mb-2 flex items-center justify-center w-fit`} variant="secondary">
+                  {getLevelIcon(course.level)}
                   {course.level}
                 </Badge>
-                <div className="text-xs text-dental-gray">Level</div>
+                <div className="text-sm text-dental-gray">Level</div>
               </CardContent>
             </Card>
           </div>
 
           {/* What You'll Learn */}
-          <Card className="mb-8">
+          <Card className="mb-12">
             <CardHeader>
               <CardTitle>What You'll Learn</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid md:grid-cols-2 gap-3">
+              <div className="grid md:grid-cols-2 gap-4">
                 {course.summary.map((point, index) => (
                   <div key={index} className="flex items-start gap-3">
                     <CheckCircle size={18} className="text-dental-blue flex-shrink-0 mt-0.5" />
@@ -325,21 +337,21 @@ const CourseOverview = () => {
             </CardContent>
           </Card>
 
-          {/* Enhanced CTA Section - Removed shadow */}
+          {/* Enhanced CTA Section */}
           <Card className="bg-gradient-to-br from-dental-blue-light/20 via-dental-blue-light/15 to-dental-blue-light/10 border-dental-blue/20">
             <CardContent className="p-8 text-center">
               <h3 className="text-2xl font-bold text-dental-blue mb-3">
-                {isSubscribed ? 'Ready to Start Learning?' : 'Unlock This Course'}
+                {isSubscribed ? 'Ready to Start Learning?' : 'Subscribe to Access This Course'}
               </h3>
               <p className="text-dental-gray mb-2 text-lg">
                 {isSubscribed
                   ? 'Begin your journey with this comprehensive course'
-                  : 'Subscribe to CorrectDentistry to access this course and our entire library'
+                  : 'A subscription is required to access the full course content and earn CPD credits'
                 }
               </p>
               {!isSubscribed && (
                 <p className="text-sm text-dental-blue mb-6 font-medium">
-                  Get unlimited access to all CPD-certified dental courses
+                  Get unlimited access to all CPD-certified dental courses with your subscription
                 </p>
               )}
               <Button
