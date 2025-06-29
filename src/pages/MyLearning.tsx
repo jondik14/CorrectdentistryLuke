@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Progress } from '../components/ui/progress';
-import { BookOpen, Clock, Award, Play } from 'lucide-react';
+import { BookOpen, Clock, Award, Play, ArrowRight } from 'lucide-react';
 
 interface EnrolledCourse {
   id: string;
@@ -75,34 +75,28 @@ const MyLearning = () => {
               Continue your professional development journey
             </p>
             
-            {/* Stats */}
-            <div className="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto">
-              <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg hover:border-dental-blue/20 transition-all duration-300 cursor-pointer group">
+            {/* Stats - Non-interactive informational cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+              <div className="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100">
                 <div className="flex items-center justify-center mb-3">
-                  <div className="w-12 h-12 bg-dental-blue-light rounded-full flex items-center justify-center group-hover:bg-dental-blue/10 transition-colors duration-300">
-                    <BookOpen className="text-dental-blue" size={20} />
-                  </div>
+                  <BookOpen className="text-dental-blue" size={24} />
                 </div>
                 <h3 className="text-2xl font-bold text-dental-blue mb-1">2</h3>
-                <p className="text-dental-gray text-sm">Courses Enrolled</p>
+                <p className="text-dental-gray text-sm font-semibold">Courses Enrolled</p>
               </div>
-              <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg hover:border-dental-blue/20 transition-all duration-300 cursor-pointer group">
+              <div className="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100">
                 <div className="flex items-center justify-center mb-3">
-                  <div className="w-12 h-12 bg-dental-blue-light rounded-full flex items-center justify-center group-hover:bg-dental-blue/10 transition-colors duration-300">
-                    <Clock className="text-dental-blue" size={20} />
-                  </div>
+                  <Clock className="text-dental-blue" size={24} />
                 </div>
                 <h3 className="text-2xl font-bold text-dental-blue mb-1">3.2</h3>
-                <p className="text-dental-gray text-sm">Hours Completed</p>
+                <p className="text-dental-gray text-sm font-semibold">Hours Completed</p>
               </div>
-              <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg hover:border-dental-blue/20 transition-all duration-300 cursor-pointer group">
+              <div className="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100">
                 <div className="flex items-center justify-center mb-3">
-                  <div className="w-12 h-12 bg-dental-blue-light rounded-full flex items-center justify-center group-hover:bg-dental-blue/10 transition-colors duration-300">
-                    <Award className="text-dental-blue" size={20} />
-                  </div>
+                  <Award className="text-dental-blue" size={24} />
                 </div>
                 <h3 className="text-2xl font-bold text-dental-blue mb-1">1</h3>
-                <p className="text-dental-gray text-sm">Certificates Earned</p>
+                <p className="text-dental-gray text-sm font-semibold">Certificates Earned</p>
               </div>
             </div>
           </div>
@@ -116,10 +110,12 @@ const MyLearning = () => {
             <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
               <h2 className="text-3xl font-bold text-dental-blue">Continue Learning</h2>
               <Button 
+                variant="outline"
                 onClick={() => navigate('/courses')}
-                className="bg-dental-blue hover:bg-dental-blue-dark text-white font-medium px-6 py-3 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg md:self-start"
+                className="border-dental-blue text-dental-blue hover:bg-dental-blue hover:text-white font-medium px-6 py-3 rounded-lg transition-all duration-200 md:self-start flex items-center gap-2"
               >
                 Browse More Courses
+                <ArrowRight size={16} />
               </Button>
             </div>
 
@@ -166,10 +162,6 @@ const MyLearning = () => {
                         <Progress 
                           value={course.progress} 
                           className="h-2"
-                          style={{
-                            animationDelay: `${index * 200}ms`,
-                            animation: 'progressLoad 1s ease-out forwards'
-                          }}
                         />
                       </div>
                       <div className="flex items-center justify-between">
