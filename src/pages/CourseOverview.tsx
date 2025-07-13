@@ -91,8 +91,7 @@ const CourseOverview = () => {
     } else if (!isSubscribed) {
       setShowSubscriptionModal(true);
     } else {
-      console.log('Starting course:', course?.title);
-      // In real app, navigate to course player
+      navigate('/course-detail/' + courseId);
     }
   };
 
@@ -102,8 +101,7 @@ const CourseOverview = () => {
     } else if (!isSubscribed) {
       setShowSubscriptionModal(true);
     } else {
-      console.log('Playing course:', course?.title);
-      // In real app, start course player
+      navigate('/course-detail/' + courseId);
     }
   };
 
@@ -247,26 +245,25 @@ const CourseOverview = () => {
                 </CardHeader>
                 <CardContent className="p-0">
                   <ScrollArea className="h-[400px]">
-                    <div className="space-y-1 p-6 pt-0">
+                    <div className="module-list locked neutral-bg space-y-1 p-6 pt-0">
                       {course.chapters.map((chapter, index) => (
                         <Tooltip key={chapter.id}>
                           <TooltipTrigger asChild>
-                            <div className="group flex items-center justify-between p-3 rounded-lg border transition-all duration-200 relative bg-gray-50/80 text-gray-400 cursor-not-allowed border-gray-200 opacity-70">
-                              <div className="absolute inset-0 bg-yellow-50/30 rounded-lg border border-yellow-200/50" />
-                              <div className="flex items-center gap-3 flex-1 min-w-0 relative z-10">
+                            <div className="group flex items-center justify-between p-3 rounded-lg border transition-all duration-200 relative bg-gray-50 text-gray-500 cursor-not-allowed border-gray-200">
+                              <div className="flex items-center gap-3 flex-1 min-w-0">
                                 <div className="flex-shrink-0 w-6 h-6 rounded-full bg-dental-blue-light/20 flex items-center justify-center">
                                   <span className="text-xs font-medium text-dental-blue">
                                     {index + 1}
                                   </span>
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                  <div className="font-medium text-sm truncate transition-colors text-gray-400">
+                                  <div className="font-medium text-sm truncate transition-colors text-gray-500">
                                     {chapter.title}
                                   </div>
                                   <div className="text-xs text-dental-gray mt-1">{chapter.duration}</div>
                                 </div>
                               </div>
-                              <Lock size={14} className="flex-shrink-0 text-gray-400 relative z-10" />
+                              <Lock size={14} className="flex-shrink-0 text-gray-500" />
                             </div>
                           </TooltipTrigger>
                           <TooltipContent>
@@ -308,21 +305,20 @@ const CourseOverview = () => {
                         {course.chapters.map((chapter, index) => (
                           <div
                             key={chapter.id}
-                            className="flex items-center justify-between p-3 rounded-lg border transition-colors relative bg-gray-50/80 text-gray-400 cursor-not-allowed border-gray-200 opacity-70"
+                            className="flex items-center justify-between p-3 rounded-lg border transition-colors bg-gray-50 text-gray-500 cursor-not-allowed border-gray-200"
                           >
-                            <div className="absolute inset-0 bg-yellow-50/30 rounded-lg border border-yellow-200/50" />
-                            <div className="flex items-center gap-3 flex-1 relative z-10">
+                            <div className="flex items-center gap-3 flex-1">
                               <span className="text-sm font-medium text-dental-blue w-6">
                                 {index + 1}
                               </span>
                               <div className="flex-1">
-                                <div className="font-medium text-sm text-gray-400">
+                                <div className="font-medium text-sm text-gray-500">
                                   {chapter.title}
                                 </div>
                                 <div className="text-xs text-dental-gray">{chapter.duration}</div>
                               </div>
                             </div>
-                            <Lock size={16} className="text-gray-400 relative z-10" />
+                            <Lock size={16} className="text-gray-500" />
                           </div>
                         ))}
                       </div>
@@ -341,25 +337,78 @@ const CourseOverview = () => {
         </div>
       </div>
 
-      {/* Course Details Section */}
+      {/* Scrollable Sections - No Tabs */}
       <div className="py-16">
         <div className="container mx-auto px-4 max-w-6xl">
-          {/* What You'll Learn */}
-          <Card className="mb-12">
-            <CardHeader>
-              <CardTitle>What You'll Learn</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid md:grid-cols-2 gap-4">
-                {course.summary.map((point, index) => (
-                  <div key={index} className="flex items-start gap-3">
-                    <CheckCircle size={18} className="text-dental-blue flex-shrink-0 mt-0.5" />
-                    <span className="text-dental-gray text-sm leading-relaxed">{point}</span>
+          {/* What You'll Learn Section */}
+          <section id="what-youll-learn" className="mb-16">
+            <Card>
+              <CardHeader>
+                <CardTitle>What You'll Learn</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid md:grid-cols-2 gap-4">
+                  {course.summary.map((point, index) => (
+                    <div key={index} className="flex items-start gap-3">
+                      <CheckCircle size={18} className="text-dental-blue flex-shrink-0 mt-0.5" />
+                      <span className="text-dental-gray text-sm leading-relaxed">{point}</span>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </section>
+
+          {/* Downloads Section */}
+          <section id="downloads" className="mb-16">
+            <Card>
+              <CardHeader>
+                <CardTitle>Downloads & Resources</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                    <Award className="text-dental-blue" size={20} />
+                    <div>
+                      <div className="font-medium">CPD Certificate</div>
+                      <div className="text-sm text-dental-gray">{course.cpdHours} hours of continuing education</div>
+                    </div>
                   </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+                  <div className="text-sm text-dental-gray">
+                    Additional downloadable resources will be available after subscription.
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </section>
+
+          {/* Reviews Section */}
+          <section id="reviews" className="mb-16">
+            <Card>
+              <CardHeader>
+                <CardTitle>Student Reviews</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-dental-gray">
+                  Student reviews and testimonials will be displayed here.
+                </div>
+              </CardContent>
+            </Card>
+          </section>
+
+          {/* Instructor Section */}
+          <section id="instructor" className="mb-16">
+            <Card>
+              <CardHeader>
+                <CardTitle>About the Instructor</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-dental-gray">
+                  Detailed instructor information and biography will be displayed here.
+                </div>
+              </CardContent>
+            </Card>
+          </section>
 
           {/* Enhanced CTA Section */}
           <Card className="bg-gradient-to-br from-dental-blue-light/20 via-dental-blue-light/15 to-dental-blue-light/10 border-dental-blue/20">

@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '../components/ui/button';
@@ -100,8 +101,8 @@ const SignUp = () => {
       // Store user data and log them in
       localStorage.setItem('isLoggedIn', 'true');
       localStorage.setItem('userEmail', email);
-      // Navigate to homepage instead of subscription
-      navigate('/');
+      // Navigate to courses page instead of forcing subscription
+      navigate('/courses');
     }, 1000);
   };
 
@@ -122,17 +123,17 @@ const SignUp = () => {
     <div className="min-h-screen bg-background relative overflow-hidden">
       <Header data-testid="navbar-signup-visible" />
       
-      {/* Angled background grid */}
+      {/* Background grid with reduced tilt */}
       <div 
-        className="signup-background-grid angled fixed inset-0 z-0" 
+        className="background-grid angled blur-mask fixed inset-0 z-0" 
         data-testid="signup-background-angled-grid"
         style={{
-          transform: 'rotate(-12deg) scale(1.2)',
+          transform: 'rotate(-8deg) scale(1.1)',
           transformOrigin: 'center center',
         }}
       >
-        <div className="grid grid-cols-3 gap-6 h-full w-full p-8">
-          {Array.from({ length: 12 }, (_, index) => (
+        <div className="grid grid-cols-3 gap-8 h-full w-full p-12">
+          {Array.from({ length: 9 }, (_, index) => (
             <div
               key={index}
               className="rounded-xl overflow-hidden"
@@ -140,24 +141,24 @@ const SignUp = () => {
               <img
                 src={courseImages[index % courseImages.length]}
                 alt="Dental course"
-                className="w-full h-full object-cover brightness-125"
+                className="w-full h-full object-cover brightness-110"
                 style={{
-                  filter: 'blur(1.5px)',
+                  filter: 'blur(1px)',
                 }}
               />
             </div>
           ))}
         </div>
         {/* Subtle overlay for readability */}
-        <div className="absolute inset-0 bg-background/15" />
+        <div className="absolute inset-0 bg-background/25" />
       </div>
 
-      {/* Frosted glass panel behind form */}
-      <div className="fixed inset-0 z-5 flex items-center justify-center px-4 py-20">
+      {/* Gradient soft overlay behind form card */}
+      <div className="signup-card-overlay gradient-soft fixed inset-0 z-5 flex items-center justify-center px-4 py-20">
         <div 
-          className="absolute inset-0 backdrop-blur-sm bg-white/10"
+          className="absolute inset-0 bg-gradient-to-br from-white/20 via-white/10 to-transparent"
           style={{
-            clipPath: 'polygon(40% 0%, 100% 0%, 100% 100%, 40% 100%)',
+            clipPath: 'polygon(35% 0%, 100% 0%, 100% 100%, 35% 100%)',
           }}
         />
       </div>
@@ -166,10 +167,10 @@ const SignUp = () => {
       <div className="relative z-10 min-h-screen flex items-center justify-center px-4 py-20">
         <div className="w-full max-w-md">
           <Card 
-            className="signup-form-card elevated backdrop-blur-sm bg-white/98 border-0"
+            className="signup-modal solid-white bg-white border border-gray-100"
             data-testid="signup-form-elevation"
             style={{
-              boxShadow: '0 10px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08)',
+              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.1)',
             }}
           >
             <CardHeader className="space-y-3 pb-6 text-center">
@@ -308,13 +309,13 @@ const SignUp = () => {
                   </Label>
                 </div>
 
-                {/* Submit Button with gradient swipe animation */}
+                {/* Submit Button with gradient hover */}
                 <Button
                   type="submit"
                   disabled={!email || !password || !confirmPassword || !!emailError || !!passwordError || !!confirmPasswordError || !agreedToTerms || isValidating}
-                  className="cta-primary w-full h-12 font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
+                  className="btn btn-primary-gradient-hover w-full h-12 font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
                   style={{
-                    backgroundColor: 'hsl(var(--dental-blue))',
+                    background: 'linear-gradient(135deg, hsl(var(--dental-blue)) 0%, hsl(var(--dental-blue-dark)) 100%)',
                     color: 'white',
                   }}
                   data-testid="signup-submit-button"
@@ -322,13 +323,12 @@ const SignUp = () => {
                   <span className="relative z-10">
                     {isValidating ? 'Creating Account...' : 'Create Account'}
                   </span>
-                  {/* Animated gradient swipe effect */}
+                  {/* Animated gradient shift on hover */}
                   <div 
                     className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                     style={{
-                      background: 'linear-gradient(90deg, transparent, hsl(var(--dental-blue-dark)), transparent)',
+                      background: 'linear-gradient(135deg, hsl(var(--dental-blue-dark)) 0%, hsl(210 100% 25%) 100%)',
                       transform: 'translateX(-100%)',
-                      animation: 'group-hover:slideRight 0.6s ease-out',
                     }}
                   />
                 </Button>
