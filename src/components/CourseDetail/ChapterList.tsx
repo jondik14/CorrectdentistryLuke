@@ -18,7 +18,7 @@ interface ChapterListProps {
 
 const ChapterList = ({ chapters, isSubscribed, onSubscribe }: ChapterListProps) => {
   return (
-    <Card className="border-2 border-dental-blue/20">
+    <Card className="border-2 border-dental-blue/20 shadow-sm">
       <CardHeader className="pb-4">
         <CardTitle className="flex items-center gap-2 text-lg">
           {isSubscribed ? (
@@ -42,9 +42,9 @@ const ChapterList = ({ chapters, isSubscribed, onSubscribe }: ChapterListProps) 
               {chapters.map((chapter, index) => (
                 <li key={chapter.id}>
                   <div
-                    className={`group flex items-center justify-between p-3 rounded-lg border transition-all duration-200 ${
+                    className={`chapter-item group flex items-center justify-between p-3 rounded-lg border transition-all duration-200 ${
                       isSubscribed
-                        ? 'bg-white hover:bg-dental-blue-light/10 border-gray-200 hover:border-dental-blue/30 cursor-pointer'
+                        ? 'bg-white hover:bg-dental-blue-light/20 hover:border-dental-blue/50 border-gray-200 cursor-pointer hover:shadow-sm'
                         : 'bg-[#F0F6FF] border-[#EAF3FF] cursor-not-allowed opacity-80'
                     }`}
                   >
@@ -54,7 +54,7 @@ const ChapterList = ({ chapters, isSubscribed, onSubscribe }: ChapterListProps) 
                           chapter.isCompleted ? (
                             <CheckCircle className="w-5 h-5 text-green-500" />
                           ) : (
-                            <span className="text-xs font-medium text-dental-blue bg-dental-blue-light/20 w-6 h-6 rounded-full flex items-center justify-center">
+                            <span className="text-xs font-semibold text-dental-blue bg-dental-blue-light/30 w-6 h-6 rounded-full flex items-center justify-center">
                               {index + 1}
                             </span>
                           )
@@ -77,7 +77,7 @@ const ChapterList = ({ chapters, isSubscribed, onSubscribe }: ChapterListProps) 
                         </div>
                         <div className="flex items-center gap-1 mt-1">
                           <Clock size={12} className={isSubscribed ? 'text-dental-gray' : 'text-dental-blue/60'} />
-                          <span className={`text-xs ${isSubscribed ? 'text-dental-gray' : 'text-dental-blue/60'}`}>
+                          <span className={`text-xs font-medium ${isSubscribed ? 'text-dental-gray' : 'text-dental-blue/60'}`}>
                             {chapter.duration}
                           </span>
                         </div>
@@ -89,7 +89,7 @@ const ChapterList = ({ chapters, isSubscribed, onSubscribe }: ChapterListProps) 
                         chapter.isCompleted ? (
                           <CheckCircle size={14} className="text-green-500" />
                         ) : (
-                          <Play size={14} className="text-dental-blue opacity-0 group-hover:opacity-100 transition-opacity" />
+                          <Play size={14} className="text-dental-blue opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
                         )
                       ) : (
                         <Lock size={14} className="text-dental-blue/60" />
@@ -107,11 +107,11 @@ const ChapterList = ({ chapters, isSubscribed, onSubscribe }: ChapterListProps) 
           <div className="p-6 pt-4 border-t border-gray-200">
             <Button
               onClick={onSubscribe}
-              className="w-full bg-[#0A66C2] text-white hover:bg-[#0A66C2]/90 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+              className="subscribe-button w-full bg-[#0A66C2] text-white hover:bg-[#0A66C2]/90 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
             >
               Subscribe to Unlock
             </Button>
-            <p className="text-xs text-dental-gray text-center mt-2">
+            <p className="text-xs text-dental-gray text-center mt-2 font-medium">
               Get access to all {chapters.length} chapters
             </p>
           </div>

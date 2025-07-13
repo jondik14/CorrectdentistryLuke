@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../components/Header';
@@ -136,7 +137,7 @@ const CourseDetail = () => {
               </div>
               <Button 
                 onClick={handleSubscribe}
-                className="cta-subscribe bg-[#0A66C2] hover:bg-[#0A66C2]/90 text-white px-8 py-2 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                className="subscribe-button cta-subscribe bg-[#0A66C2] hover:bg-[#0A66C2]/90 text-white px-8 py-2 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
                 data-testid="subscribe-button-locked"
               >
                 Subscribe & Start Learning
@@ -156,33 +157,33 @@ const CourseDetail = () => {
                 <p className="text-lg text-dental-gray mb-4">{course.subtitle}</p>
                 
                 <div className="flex flex-wrap items-center gap-4 mb-4">
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1 course-stats">
                     <Star className="w-5 h-5 text-yellow-400 fill-current" />
-                    <span className="font-medium">{course.rating}</span>
+                    <span className="font-semibold">{course.rating}</span>
                   </div>
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1 course-stats">
                     <Clock className="w-5 h-5 text-dental-blue" />
-                    <span>{course.duration}</span>
+                    <span className="font-semibold">{course.duration}</span>
                   </div>
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1 course-stats">
                     <Users className="w-5 h-5 text-dental-blue" />
-                    <span>{course.enrolledCount.toLocaleString()} students</span>
+                    <span className="font-semibold">{course.enrolledCount.toLocaleString()} students</span>
                   </div>
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1 course-stats">
                     <Award className="w-5 h-5 text-dental-blue" />
-                    <span>{course.cpdHours} CPD Hours</span>
+                    <span className="font-semibold course-info-badge">{course.cpdHours} CPD Hours</span>
                   </div>
                 </div>
 
                 <p className="text-dental-gray">
-                  Instructor: <span className="font-medium">{course.instructor}</span>
+                  Instructor: <span className="font-semibold">{course.instructor}</span>
                 </p>
               </div>
 
               {/* [[POST-SUBSCRIPTION STATE]] - Progress Badge */}
               {isSubscribed && (
                 <div className="flex flex-col items-end gap-2">
-                  <Badge className="bg-green-100 text-green-800">
+                  <Badge className="bg-green-100 text-green-800 course-info-badge font-semibold">
                     {progress}% Complete
                   </Badge>
                 </div>
@@ -210,17 +211,17 @@ const CourseDetail = () => {
                 />
               )}
 
-              {/* Continuous Scrollable Sections - No Tabs */}
-              <div className="mt-8 space-y-12">
+              {/* Continuous Scrollable Sections - Reduced Spacing */}
+              <div className="mt-8 space-y-8">
                 {/* What You'll Learn Section */}
-                <section id="what-youll-learn" data-testid="scroll-section-learn">
-                  <h2 className="text-2xl font-bold text-dental-blue mb-6">What You'll Learn</h2>
+                <section id="section-what-youll-learn" data-testid="scroll-section-learn" className="info-card">
+                  <h2 className="text-2xl font-bold text-dental-blue mb-4">What You'll Learn</h2>
                   <CourseInfo.LearningObjectives objectives={course.learningObjectives} />
                 </section>
                 
                 {/* Downloads Section */}
-                <section id="downloads" data-testid="scroll-section-downloads">
-                  <h2 className="text-2xl font-bold text-dental-blue mb-6">Downloads & CPD</h2>
+                <section id="section-downloads" data-testid="scroll-section-downloads" className="info-card">
+                  <h2 className="text-2xl font-bold text-dental-blue mb-4">Downloads & CPD</h2>
                   <CourseInfo.Downloads 
                     downloads={course.downloads} 
                     cpdHours={course.cpdHours}
@@ -229,14 +230,14 @@ const CourseDetail = () => {
                 </section>
                 
                 {/* Reviews Section */}
-                <section id="reviews" data-testid="scroll-section-reviews">
-                  <h2 className="text-2xl font-bold text-dental-blue mb-6">Student Reviews</h2>
+                <section id="section-student-reviews" data-testid="scroll-section-reviews" className="info-card">
+                  <h2 className="text-2xl font-bold text-dental-blue mb-4">Student Reviews</h2>
                   <CourseInfo.Testimonials testimonials={course.testimonials} />
                 </section>
                 
                 {/* Instructor Section */}
-                <section id="instructor" data-testid="scroll-section-instructor">
-                  <h2 className="text-2xl font-bold text-dental-blue mb-6">About the Instructor</h2>
+                <section id="section-about-instructor" data-testid="scroll-section-instructor" className="info-card">
+                  <h2 className="text-2xl font-bold text-dental-blue mb-4">About the Instructor</h2>
                   <CourseInfo.InstructorBio 
                     instructor={course.instructor}
                     bio={course.instructorBio}
@@ -246,7 +247,7 @@ const CourseDetail = () => {
             </div>
 
             {/* Sidebar */}
-            <div className="lg:col-span-1">
+            <div className="lg:col-span-1" id="course-sidebar">
               {isSubscribed ? (
                 /* [[POST-SUBSCRIPTION STATE]] - Unlocked Chapter List */
                 <div className="user-progress" data-testid="user-chapter-progress">
@@ -263,6 +264,33 @@ const CourseDetail = () => {
                   isSubscribed={isSubscribed}
                   onSubscribe={handleSubscribe}
                 />
+              )}
+              
+              {/* Subscribe All Box */}
+              {!isSubscribed && (
+                <div id="subscribe-all-box" className="mt-6 p-4 bg-dental-blue-light/10 rounded-xl border border-dental-blue-light/30">
+                  <h3 className="font-bold text-dental-blue mb-3">Unlock Everything</h3>
+                  <div className="space-y-2 mb-4">
+                    <div className="flex items-center gap-2 text-sm text-dental-gray">
+                      <Award className="w-4 h-4 text-dental-blue" />
+                      <span>Unlimited course access</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-dental-gray">
+                      <Star className="w-4 h-4 text-dental-blue" />
+                      <span>CPD certificates</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-dental-gray">
+                      <Users className="w-4 h-4 text-dental-blue" />
+                      <span>Expert support</span>
+                    </div>
+                  </div>
+                  <Button 
+                    onClick={handleSubscribe}
+                    className="subscribe-button w-full bg-[#0A66C2] hover:bg-[#0A66C2]/90 text-white transition-all duration-300 hover:scale-105"
+                  >
+                    Start Subscription
+                  </Button>
+                </div>
               )}
             </div>
           </div>
