@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import VideoPlayer from '../components/CourseDetail/VideoPlayer';
 import CoursePreview from '../components/CourseDetail/CoursePreview';
 import ChapterList from '../components/CourseDetail/ChapterList';
-import CourseInfo from '../components/CourseDetail/CourseInfo';
+import CourseInfoSection from '../components/CourseDetail/CourseInfoSection';
+import ContentSections from '../components/CourseDetail/ContentSections';
 import LessonDetailPanel from '../components/CourseDetail/LessonDetailPanel';
 import SubscriptionModal from '../components/SubscriptionModal';
-import { Badge } from '../components/ui/badge';
-import { Star, Clock, Users, Award, Lock } from 'lucide-react';
+import { BreadcrumbSimple } from '../components/ui/breadcrumb-simple';
+import { Lock } from 'lucide-react';
 import { Button } from '../components/ui/button';
 
 interface Course {
@@ -45,6 +46,7 @@ interface Testimonial {
 
 const CourseDetail = () => {
   const { courseId } = useParams();
+  const navigate = useNavigate();
   const [course, setCourse] = useState<Course | null>(null);
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -142,23 +144,20 @@ const CourseDetail = () => {
       <Header />
       
       <div className="pt-20">
-        {/* [[PRE-SUBSCRIPTION STATE]] - Course Locked Warning Banner */}
+        {/* Course Locked Warning Banner */}
         {!isSubscribed && (
-          <div 
-            className="course-lock-warning bg-dental-blue-light/20 border-b border-dental-blue-light/30 py-4"
-            data-testid="course-locked-warning"
-          >
+          <div className="bg-primary/10 border-b border-primary/20 py-3">
             <div className="container mx-auto px-4 text-center">
               <div className="flex items-center justify-center gap-2 mb-2">
-                <Lock className="w-5 h-5 text-dental-blue" />
-                <p className="text-dental-blue font-medium">
+                <Lock className="w-4 h-4 text-primary" />
+                <p className="text-primary font-medium text-sm">
                   Subscribe to unlock this course and earn CPD credits
                 </p>
               </div>
               <Button 
                 onClick={handleSubscribe}
-                className="subscribe-button cta-subscribe bg-[#0A66C2] hover:bg-[#0A66C2]/90 text-white px-8 py-2 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
-                data-testid="subscribe-button-locked"
+                size="sm"
+                className="px-6"
               >
                 Subscribe & Start Learning
               </Button>
@@ -166,74 +165,33 @@ const CourseDetail = () => {
           </div>
         )}
 
-        <div className="container mx-auto px-4 py-8">
-          {/* Course Header */}
-          <div className="mb-8">
-            <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
-              <div className="flex-1">
-                <h1 className="text-3xl lg:text-4xl font-bold text-dental-blue mb-2">
-                  {course.title}
-                </h1>
-                <p className="text-lg text-dental-gray mb-4">{course.subtitle}</p>
-                
-                <div className="flex flex-wrap items-center gap-4 mb-4">
-                  <div className="flex items-center gap-1 course-stats">
-                    <Star className="w-5 h-5 text-yellow-400 fill-current" />
-                    <span className="font-semibold">{course.rating}</span>
-                  </div>
-                  <div className="flex items-center gap-1 course-stats">
-                    <Clock className="w-5 h-5 text-dental-blue" />
-                    <span className="font-semibold">{course.duration}</span>
-                  </div>
-                  <div className="flex items-center gap-1 course-stats">
-                    <Users className="w-5 h-5 text-dental-blue" />
-                    <span className="font-semibold">{course.enrolledCount.toLocaleString()} students</span>
-                  </div>
-                  <div className="flex items-center gap-1 course-stats">
-                    <Award className="w-5 h-5 text-dental-blue" />
-                    <span className="font-semibold course-info-badge">{course.cpdHours} CPD Hours</span>
-                  </div>
-                </div>
-
-                <p className="text-dental-gray">
-                  Instructor: <span className="font-semibold">{course.instructor}</span>
-                </p>
-              </div>
-
-              {/* [[POST-SUBSCRIPTION STATE]] - Progress Badge */}
-              {isSubscribed && (
-                <div className="flex flex-col items-end gap-2">
-                  <Badge className="bg-green-100 text-green-800 course-info-badge font-semibold">
-                    {progress}% Complete
-                  </Badge>
-                </div>
-              )}
-            </div>
-          </div>
+        <div className="container mx-auto px-4 py-6">
+          {/* Breadcrumb */}
+          <BreadcrumbSimple 
+            onBack={() => navigate('/courses')}
+            label="Back to Courses"
+          />
 
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Main Content */}
-            <div className="lg:col-span-2">
-              {/* [[POST-SUBSCRIPTION STATE]] - Video Player */}
+            <div className="lg:col-span-2 space-y-6">
+              {/* Course Info Section */}
+              <CourseInfoSection 
+                course={course}
+                progress={isSubscribed ? progress : undefined}
+                isSubscribed={isSubscribed}
+              />
+
+              {/* Video Player */}
               {isSubscribed ? (
-                <div className="course-player" data-testid="course-video-player">
+                <div className="space-y-4">
                   <VideoPlayer 
                     course={course}
                     progress={progress}
                     onProgressUpdate={setProgress}
                   />
-                </div>
-              ) : (
-                /* [[PRE-SUBSCRIPTION STATE]] - Course Preview */
-                <CoursePreview 
-                  course={course}
-                  onSubscribe={handleSubscribe}
-                />
-              )}
-
-              {/* New Lesson Detail Panel - Only show when subscribed */}
-              {isSubscribed && (
-                <div className="mt-6">
+                  
+                  {/* Lesson Detail Panel */}
                   <LessonDetailPanel
                     currentLesson={currentLesson}
                     downloads={course.downloads}
@@ -246,89 +204,35 @@ const CourseDetail = () => {
                     canGoNext={currentLessonIndex < course.chapters.length - 1}
                   />
                 </div>
+              ) : (
+                <CoursePreview 
+                  course={course}
+                  onSubscribe={handleSubscribe}
+                />
               )}
 
-              {/* Continuous Scrollable Sections - Reduced Spacing */}
-              <div className="mt-6 space-y-6">
-                {/* What You'll Learn Section */}
-                <section id="section-what-youll-learn" data-testid="scroll-section-learn" className="info-card">
-                  <h2 className="text-2xl font-bold text-dental-blue mb-4">What You'll Learn</h2>
-                  <CourseInfo.LearningObjectives objectives={course.learningObjectives} />
-                </section>
-                
-                {/* Downloads Section */}
-                <section id="section-downloads" data-testid="scroll-section-downloads" className="info-card">
-                  <h2 className="text-2xl font-bold text-dental-blue mb-4">Downloads & CPD</h2>
-                  <CourseInfo.Downloads 
-                    downloads={course.downloads} 
-                    cpdHours={course.cpdHours}
-                    isSubscribed={isSubscribed}
-                  />
-                </section>
-                
-                {/* Reviews Section */}
-                <section id="section-student-reviews" data-testid="scroll-section-reviews" className="info-card">
-                  <h2 className="text-2xl font-bold text-dental-blue mb-4">Student Reviews</h2>
-                  <CourseInfo.Testimonials testimonials={course.testimonials} />
-                </section>
-                
-                {/* Instructor Section */}
-                <section id="section-about-instructor" data-testid="scroll-section-instructor" className="info-card">
-                  <h2 className="text-2xl font-bold text-dental-blue mb-4">About the Instructor</h2>
-                  <CourseInfo.InstructorBio 
-                    instructor={course.instructor}
-                    bio={course.instructorBio}
-                  />
-                </section>
-              </div>
+              {/* Content Sections */}
+              <ContentSections
+                learningObjectives={course.learningObjectives}
+                downloads={course.downloads}
+                testimonials={course.testimonials}
+                instructor={course.instructor}
+                instructorBio={course.instructorBio}
+                cpdHours={course.cpdHours}
+                isSubscribed={isSubscribed}
+                onSubscribe={handleSubscribe}
+              />
             </div>
 
             {/* Sidebar */}
-            <div className="lg:col-span-1" id="course-sidebar">
-              {isSubscribed ? (
-                /* [[POST-SUBSCRIPTION STATE]] - Unlocked Chapter List */
-                <div className="user-progress sticky top-24" data-testid="user-chapter-progress">
-                  <ChapterList 
-                    chapters={course.chapters}
-                    isSubscribed={isSubscribed}
-                    onSubscribe={handleSubscribe}
-                  />
-                </div>
-              ) : (
-                /* [[PRE-SUBSCRIPTION STATE]] - Locked Chapter List */
+            <div className="lg:col-span-1">
+              <div className="sticky top-24">
                 <ChapterList 
                   chapters={course.chapters}
                   isSubscribed={isSubscribed}
                   onSubscribe={handleSubscribe}
                 />
-              )}
-              
-              {/* Subscribe All Box */}
-              {!isSubscribed && (
-                <div id="subscribe-all-box" className="mt-6 p-4 bg-dental-blue-light/10 rounded-xl border border-dental-blue-light/30">
-                  <h3 className="font-bold text-dental-blue mb-3">Unlock Everything</h3>
-                  <div className="space-y-2 mb-4">
-                    <div className="flex items-center gap-2 text-sm text-dental-gray">
-                      <Award className="w-4 h-4 text-dental-blue" />
-                      <span>Unlimited course access</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-dental-gray">
-                      <Star className="w-4 h-4 text-dental-blue" />
-                      <span>CPD certificates</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-dental-gray">
-                      <Users className="w-4 h-4 text-dental-blue" />
-                      <span>Expert support</span>
-                    </div>
-                  </div>
-                  <Button 
-                    onClick={handleSubscribe}
-                    className="subscribe-button w-full bg-[#0A66C2] hover:bg-[#0A66C2]/90 text-white transition-all duration-300 hover:scale-105"
-                  >
-                    Start Subscription
-                  </Button>
-                </div>
-              )}
+              </div>
             </div>
           </div>
         </div>

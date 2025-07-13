@@ -122,39 +122,30 @@
     animation-delay: 0.6s;
   }
 
-  /* Course Overview specific styles */
+  /* Course Detail specific styles - Updated */
   .course-title {
-    @apply text-3xl font-bold text-dental-blue;
+    @apply text-3xl font-bold text-foreground;
     font-size: 2rem;
     font-weight: 700;
   }
   
   .course-tagline {
-    @apply text-dental-gray/80 text-lg font-medium;
+    @apply text-lg text-muted-foreground font-medium;
   }
   
   .course-description {
-    @apply text-dental-gray;
+    @apply text-muted-foreground;
     line-height: 1.6;
-  }
-  
-  .section-divider {
-    @apply border-t border-gray-200;
   }
 
   .course-stats {
-    @apply font-semibold text-dental-gray;
-    font-weight: 600;
+    @apply font-medium text-foreground;
+    font-weight: 500;
   }
   
   .course-info-badge {
     @apply font-semibold;
     font-weight: 600;
-  }
-  
-  .info-card {
-    @apply bg-white rounded-lg border border-gray-200 shadow-sm;
-    padding: 2rem;
   }
   
   .course-content-list {
@@ -181,35 +172,33 @@
     @apply transform scale-105 shadow-lg;
   }
 
-  /* New Lesson Detail Panel Styles */
+  /* Updated Lesson Detail Panel Styles */
   .lesson-detail-panel {
-    @apply bg-white border border-gray-200 shadow-lg rounded-xl;
-    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    @apply bg-card border border-border shadow-sm rounded-lg;
   }
 
   .lesson-title {
-    @apply text-xl font-bold text-dental-blue;
-    font-weight: 700;
+    @apply text-lg font-semibold text-foreground;
   }
 
   .difficulty-tag {
-    @apply px-3 py-1 rounded-full text-xs font-semibold;
+    @apply px-2 py-1 rounded-full text-xs font-medium;
   }
 
   .lesson-actions {
-    @apply flex flex-wrap gap-3;
+    @apply flex flex-wrap gap-2;
   }
 
   .lesson-actions button {
-    @apply transition-all duration-200 hover:shadow-md;
+    @apply transition-all duration-200;
   }
 
   .course-navigation-arrows {
-    @apply flex items-center justify-between pt-4 border-t border-gray-200;
+    @apply flex items-center justify-between pt-4 border-t border-border;
   }
 
   .course-navigation-arrows button {
-    @apply transition-all duration-200 hover:bg-dental-blue-light/20;
+    @apply transition-all duration-200;
   }
 
   .course-navigation-arrows button:disabled {
