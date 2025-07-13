@@ -35,13 +35,13 @@ const ContentSections = ({
       {/* What You'll Learn */}
       <Card>
         <CardHeader className="pb-4">
-          <CardTitle className="text-xl font-semibold">What You'll Learn</CardTitle>
+          <CardTitle className="text-xl font-semibold text-primary">What You'll Learn</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid md:grid-cols-2 gap-3">
+          <div className="grid md:grid-cols-2 gap-4">
             {learningObjectives.map((objective, index) => (
               <div key={index} className="flex items-start gap-3">
-                <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                 <span className="text-sm text-muted-foreground leading-relaxed">{objective}</span>
               </div>
             ))}

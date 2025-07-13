@@ -1,3 +1,4 @@
+
 import { Lock, Play, CheckCircle, Clock } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
@@ -19,7 +20,7 @@ interface ChapterListProps {
 const ChapterList = ({ chapters, isSubscribed, onSubscribe }: ChapterListProps) => {
   return (
     <Card className="border-2 border-dental-blue/20 shadow-sm">
-      <CardHeader className="pb-4">
+      <CardHeader className="pb-3">
         <CardTitle className="flex items-center gap-2 text-lg">
           {isSubscribed ? (
             <>
@@ -37,7 +38,7 @@ const ChapterList = ({ chapters, isSubscribed, onSubscribe }: ChapterListProps) 
       
       <CardContent className="p-0">
         <ScrollArea className="h-[400px]">
-          <div className="space-y-1 p-6 pt-0">
+          <div className="space-y-1 px-6">
             <ul className="chapter-list" data-testid={isSubscribed ? "unlocked-chapter-list" : "locked-chapter-list"}>
               {chapters.map((chapter, index) => (
                 <li key={chapter.id}>
@@ -102,9 +103,9 @@ const ChapterList = ({ chapters, isSubscribed, onSubscribe }: ChapterListProps) 
           </div>
         </ScrollArea>
         
-        {/* [[PRE-SUBSCRIPTION STATE]] - Subscribe CTA */}
+        {/* Subscribe CTA with reduced spacing */}
         {!isSubscribed && (
-          <div className="p-6 pt-4 border-t border-gray-200">
+          <div className="px-6 py-4 border-t border-gray-200">
             <Button
               onClick={onSubscribe}
               className="subscribe-button w-full bg-[#0A66C2] text-white hover:bg-[#0A66C2]/90 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
