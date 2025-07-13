@@ -6,18 +6,29 @@ import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Checkbox } from '../components/ui/checkbox';
 import { Card, CardContent, CardHeader } from '../components/ui/card';
-import { Mail, CheckCircle, AlertCircle } from 'lucide-react';
+import { Mail, Lock, CheckCircle, AlertCircle, Eye, EyeOff } from 'lucide-react';
+import Header from '../components/Header';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
   const [isValidating, setIsValidating] = useState(false);
   const navigate = useNavigate();
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
+  };
+
+  const validatePassword = (password: string) => {
+    return password.length >= 8;
   };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,16 +42,50 @@ const SignUp = () => {
     }
   };
 
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setPassword(value);
+    
+    if (value && !validatePassword(value)) {
+      setPasswordError('Password must be at least 8 characters long');
+    } else {
+      setPasswordError('');
+    }
+  };
+
+  const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setConfirmPassword(value);
+    
+    if (value && value !== password) {
+      setConfirmPasswordError('Passwords do not match');
+    } else {
+      setConfirmPasswordError('');
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!email) {
-      setEmailError('Email is required');
+    if (!email || !password || !confirmPassword) {
+      if (!email) setEmailError('Email is required');
+      if (!password) setPasswordError('Password is required');
+      if (!confirmPassword) setConfirmPasswordError('Please confirm your password');
       return;
     }
     
     if (!validateEmail(email)) {
       setEmailError('Please enter a valid email address');
+      return;
+    }
+    
+    if (!validatePassword(password)) {
+      setPasswordError('Password must be at least 8 characters long');
+      return;
+    }
+    
+    if (password !== confirmPassword) {
+      setConfirmPasswordError('Passwords do not match');
       return;
     }
     
@@ -50,133 +95,240 @@ const SignUp = () => {
 
     setIsValidating(true);
     
-    // Simulate email validation
+    // Simulate account creation
     setTimeout(() => {
       setIsValidating(false);
-      // Store email for the subscription flow
+      // Store user data for the subscription flow
       localStorage.setItem('signupEmail', email);
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('userEmail', email);
       // Navigate to subscription/payment plan selection
       navigate('/course-subscription/1');
     }, 1000);
   };
 
+  // Course thumbnail images for the grid background
+  const courseImages = [
+    '/lovable-uploads/a040261a-5ae0-465d-83f0-430b2c67b064.png',
+    '/lovable-uploads/10aa0220-71b9-474c-ad0a-0656b85e32c9.png',
+    '/lovable-uploads/49ac1a3e-4bba-442e-a648-00c73776b5b1.png',
+    '/lovable-uploads/16b5aafa-0533-4ad2-9897-92b8639ddc5e.png',
+    '/lovable-uploads/2c1ad50a-4066-4519-afcd-f6f16071ea8d.png',
+    '/lovable-uploads/368c6b6a-e95a-4dd2-b51a-e03063a74279.png',
+    '/lovable-uploads/4bd9d5d8-b153-4b4d-bd4d-fe5fdfe884b2.png',
+    '/lovable-uploads/a789cbd9-0692-4db5-9658-3da85ff73e3e.png',
+    '/lovable-uploads/be0a9319-69c6-47c3-9019-671d5ffc8fd6.png',
+  ];
+
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* Background with gradient and subtle texture */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#E0F0FF] to-[#C2DFFF]">
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-20 left-20 w-64 h-64 bg-white/20 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 right-20 w-80 h-80 bg-dental-blue/10 rounded-full blur-3xl"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
-        </div>
-      </div>
+    <div className="min-h-screen bg-background">
+      <Header />
       
-      {/* Content */}
-      <div className="relative z-10 min-h-screen flex items-center justify-center px-4 py-8">
-        <div className="w-full max-w-md">
-          {/* Logo */}
-          <div className="text-center mb-8">
-            <img 
-              src="/lovable-uploads/b5b93f05-f98a-4fa9-887e-ceb54e5c52a8.png" 
-              alt="CorrectDentistry Logo" 
-              className="h-10 w-auto mx-auto mb-6"
-            />
+      <div className="flex min-h-screen pt-16">
+        {/* Left Side - Visual Grid Background */}
+        <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-dental-blue-light to-dental-blue/10" />
+          <div className="grid grid-cols-3 gap-4 p-8 opacity-30">
+            {courseImages.map((image, index) => (
+              <div
+                key={index}
+                className="aspect-square rounded-xl overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300"
+                style={{
+                  animationDelay: `${index * 0.1}s`,
+                }}
+              >
+                <img
+                  src={image}
+                  alt="Dental course"
+                  className="w-full h-full object-cover filter blur-sm"
+                />
+              </div>
+            ))}
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/20 to-background/80" />
+        </div>
+
+        {/* Right Side - Form Section */}
+        <div className="w-full lg:w-1/2 flex items-center justify-center px-4 py-8 relative">
+          {/* Mobile background overlay */}
+          <div className="lg:hidden absolute inset-0 opacity-10">
+            <div className="grid grid-cols-2 gap-2 h-full p-4">
+              {courseImages.slice(0, 6).map((image, index) => (
+                <div key={index} className="aspect-square rounded-lg overflow-hidden">
+                  <img
+                    src={image}
+                    alt="Dental course"
+                    className="w-full h-full object-cover filter blur-sm"
+                  />
+                </div>
+              ))}
+            </div>
+            <div className="absolute inset-0 bg-background/90" />
           </div>
 
-          {/* Sign-up Card */}
-          <Card className="shadow-2xl border-0 backdrop-blur-sm bg-white/95">
-            <CardHeader className="space-y-2 pb-6 text-center">
-              <h1 className="text-2xl font-bold text-dental-blue mb-2">Create Your Account</h1>
-              <p className="text-dental-gray text-sm">Start your journey with CorrectDentistry</p>
-            </CardHeader>
-            
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Email Input */}
-                <div className="space-y-2">
-                  <Label htmlFor="email" className="text-sm font-medium text-dental-gray">
-                    Email Address
-                  </Label>
-                  <div className="relative">
-                    <Input
-                      id="email"
-                      type="email"
-                      placeholder="you@example.com"
-                      value={email}
-                      onChange={handleEmailChange}
-                      required
-                      className={`h-12 rounded-lg border-gray-200 focus:border-dental-blue focus:ring-dental-blue pl-10 ${
-                        emailError ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
-                      }`}
-                    />
-                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-dental-gray" size={18} />
-                    {email && !emailError && (
-                      <CheckCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 text-green-500" size={18} />
-                    )}
+          <div className="w-full max-w-md relative z-10">
+            <Card className="shadow-2xl border-0 backdrop-blur-sm bg-white/95">
+              <CardHeader className="space-y-3 pb-6 text-center">
+                <h1 className="text-3xl font-bold text-dental-blue">Create your account</h1>
+                <p className="text-dental-gray text-base">Start your learning journey with trusted dental specialists</p>
+              </CardHeader>
+              
+              <CardContent>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Email Input */}
+                  <div className="space-y-2">
+                    <Label htmlFor="email" className="text-sm font-medium text-dental-gray">
+                      Email Address
+                    </Label>
+                    <div className="relative">
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="you@example.com"
+                        value={email}
+                        onChange={handleEmailChange}
+                        required
+                        className={`h-12 rounded-lg border-gray-200 focus:border-dental-blue focus:ring-dental-blue pl-10 ${
+                          emailError ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
+                        }`}
+                      />
+                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-dental-gray" size={18} />
+                      {email && !emailError && (
+                        <CheckCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 text-green-500" size={18} />
+                      )}
+                      {emailError && (
+                        <AlertCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 text-red-500" size={18} />
+                      )}
+                    </div>
                     {emailError && (
-                      <AlertCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 text-red-500" size={18} />
+                      <p className="text-red-500 text-sm flex items-center">
+                        <AlertCircle size={14} className="mr-1" />
+                        {emailError}
+                      </p>
                     )}
                   </div>
-                  {emailError && (
-                    <p className="text-red-500 text-sm flex items-center">
-                      <AlertCircle size={14} className="mr-1" />
-                      {emailError}
-                    </p>
-                  )}
-                </div>
 
-                {/* Terms Checkbox */}
-                <div className="flex items-start space-x-3">
-                  <Checkbox
-                    id="terms"
-                    checked={agreedToTerms}
-                    onCheckedChange={(checked) => setAgreedToTerms(checked as boolean)}
-                    className="mt-1"
-                  />
-                  <Label htmlFor="terms" className="text-sm text-dental-gray leading-relaxed cursor-pointer">
-                    I agree to the{' '}
-                    <button
-                      type="button"
-                      className="text-dental-blue hover:text-dental-blue-dark underline font-medium"
-                      onClick={() => console.log('Terms clicked')}
-                    >
-                      Terms
-                    </button>
-                    {' & '}
-                    <button
-                      type="button"
-                      className="text-dental-blue hover:text-dental-blue-dark underline font-medium"
-                      onClick={() => console.log('Privacy Policy clicked')}
-                    >
-                      Privacy Policy
-                    </button>
-                  </Label>
-                </div>
+                  {/* Password Input */}
+                  <div className="space-y-2">
+                    <Label htmlFor="password" className="text-sm font-medium text-dental-gray">
+                      Password
+                    </Label>
+                    <div className="relative">
+                      <Input
+                        id="password"
+                        type={showPassword ? 'text' : 'password'}
+                        placeholder="Create a strong password"
+                        value={password}
+                        onChange={handlePasswordChange}
+                        required
+                        className={`h-12 rounded-lg border-gray-200 focus:border-dental-blue focus:ring-dental-blue pl-10 pr-10 ${
+                          passwordError ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
+                        }`}
+                      />
+                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-dental-gray" size={18} />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-dental-gray hover:text-dental-blue"
+                      >
+                        {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                      </button>
+                    </div>
+                    {passwordError && (
+                      <p className="text-red-500 text-sm flex items-center">
+                        <AlertCircle size={14} className="mr-1" />
+                        {passwordError}
+                      </p>
+                    )}
+                  </div>
 
-                {/* Submit Button */}
-                <Button
-                  type="submit"
-                  disabled={!email || !!emailError || !agreedToTerms || isValidating}
-                  className="w-full h-12 bg-gradient-to-r from-[#3D8BFF] to-[#5BBEFF] hover:from-[#2E7AFF] to-[#4AADFF] text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-                >
-                  {isValidating ? 'Validating...' : 'Next: Choose Plan'}
-                </Button>
-              </form>
+                  {/* Confirm Password Input */}
+                  <div className="space-y-2">
+                    <Label htmlFor="confirmPassword" className="text-sm font-medium text-dental-gray">
+                      Confirm Password
+                    </Label>
+                    <div className="relative">
+                      <Input
+                        id="confirmPassword"
+                        type={showConfirmPassword ? 'text' : 'password'}
+                        placeholder="Confirm your password"
+                        value={confirmPassword}
+                        onChange={handleConfirmPasswordChange}
+                        required
+                        className={`h-12 rounded-lg border-gray-200 focus:border-dental-blue focus:ring-dental-blue pl-10 pr-10 ${
+                          confirmPasswordError ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
+                        }`}
+                      />
+                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-dental-gray" size={18} />
+                      <button
+                        type="button"
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-dental-gray hover:text-dental-blue"
+                      >
+                        {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                      </button>
+                    </div>
+                    {confirmPasswordError && (
+                      <p className="text-red-500 text-sm flex items-center">
+                        <AlertCircle size={14} className="mr-1" />
+                        {confirmPasswordError}
+                      </p>
+                    )}
+                  </div>
 
-              {/* Footer */}
-              <div className="mt-6 text-center">
-                <p className="text-sm text-dental-gray">
-                  Already have an account?{' '}
-                  <Link 
-                    to="/login" 
-                    className="text-dental-blue hover:text-dental-blue-dark font-medium transition-colors underline"
+                  {/* Terms Checkbox */}
+                  <div className="flex items-start space-x-3">
+                    <Checkbox
+                      id="terms"
+                      checked={agreedToTerms}
+                      onCheckedChange={(checked) => setAgreedToTerms(checked as boolean)}
+                      className="mt-1"
+                    />
+                    <Label htmlFor="terms" className="text-sm text-dental-gray leading-relaxed cursor-pointer">
+                      I agree to the{' '}
+                      <button
+                        type="button"
+                        className="text-dental-blue hover:text-dental-blue-dark underline font-medium"
+                        onClick={() => console.log('Terms clicked')}
+                      >
+                        Terms of Service
+                      </button>
+                      {' and '}
+                      <button
+                        type="button"
+                        className="text-dental-blue hover:text-dental-blue-dark underline font-medium"
+                        onClick={() => console.log('Privacy Policy clicked')}
+                      >
+                        Privacy Policy
+                      </button>
+                    </Label>
+                  </div>
+
+                  {/* Submit Button */}
+                  <Button
+                    type="submit"
+                    disabled={!email || !password || !confirmPassword || !!emailError || !!passwordError || !!confirmPasswordError || !agreedToTerms || isValidating}
+                    className="w-full h-12 bg-gradient-to-r from-[#3D8BFF] to-[#5BBEFF] hover:from-[#2E7AFF] hover:to-[#4AADFF] text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                   >
-                    Log in
-                  </Link>
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+                    {isValidating ? 'Creating Account...' : 'Create Account'}
+                  </Button>
+                </form>
+
+                {/* Footer */}
+                <div className="mt-6 text-center">
+                  <p className="text-sm text-dental-gray">
+                    Already have an account?{' '}
+                    <Link 
+                      to="/login" 
+                      className="text-dental-blue hover:text-dental-blue-dark font-medium transition-colors underline"
+                    >
+                      Log in
+                    </Link>
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
     </div>
