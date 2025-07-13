@@ -105,7 +105,7 @@ const SignUp = () => {
     }, 1000);
   };
 
-  // Course thumbnail images for the grid background
+  // Course thumbnail images for the grid background (reduced set)
   const courseImages = [
     '/lovable-uploads/a040261a-5ae0-465d-83f0-430b2c67b064.png',
     '/lovable-uploads/10aa0220-71b9-474c-ad0a-0656b85e32c9.png',
@@ -119,43 +119,57 @@ const SignUp = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background relative">
+    <div className="min-h-screen bg-background relative overflow-hidden">
       <Header data-testid="navbar-signup-visible" />
       
-      {/* Full-width background grid */}
+      {/* Angled background grid */}
       <div 
-        className="signup-grid-bg fixed inset-0 z-0" 
-        data-testid="signup-background-grid"
+        className="signup-background-grid angled fixed inset-0 z-0" 
+        data-testid="signup-background-angled-grid"
+        style={{
+          transform: 'rotate(-12deg) scale(1.2)',
+          transformOrigin: 'center center',
+        }}
       >
-        <div className="grid grid-cols-6 gap-1 h-full w-full p-1">
-          {Array.from({ length: 48 }, (_, index) => (
+        <div className="grid grid-cols-3 gap-6 h-full w-full p-8">
+          {Array.from({ length: 12 }, (_, index) => (
             <div
               key={index}
-              className="rounded-lg overflow-hidden"
+              className="rounded-xl overflow-hidden"
             >
               <img
                 src={courseImages[index % courseImages.length]}
                 alt="Dental course"
-                className="w-full h-full object-cover brightness-110"
+                className="w-full h-full object-cover brightness-125"
                 style={{
-                  filter: 'blur(2px)',
+                  filter: 'blur(1.5px)',
                 }}
               />
             </div>
           ))}
         </div>
         {/* Subtle overlay for readability */}
-        <div className="absolute inset-0 bg-background/20" />
+        <div className="absolute inset-0 bg-background/15" />
+      </div>
+
+      {/* Frosted glass panel behind form */}
+      <div className="fixed inset-0 z-5 flex items-center justify-center px-4 py-20">
+        <div 
+          className="absolute inset-0 backdrop-blur-sm bg-white/10"
+          style={{
+            clipPath: 'polygon(40% 0%, 100% 0%, 100% 100%, 40% 100%)',
+          }}
+        />
       </div>
 
       {/* Form Card Overlay */}
       <div className="relative z-10 min-h-screen flex items-center justify-center px-4 py-20">
         <div className="w-full max-w-md">
           <Card 
-            className="signup-card backdrop-blur-sm bg-white/95 border-0"
-            data-testid="signup-form-card"
+            className="signup-form-card elevated backdrop-blur-sm bg-white/98 border-0"
+            data-testid="signup-form-elevation"
             style={{
-              boxShadow: '0px 6px 20px rgba(0, 0, 0, 0.1)',
+              boxShadow: '0 10px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08)',
             }}
           >
             <CardHeader className="space-y-3 pb-6 text-center">
