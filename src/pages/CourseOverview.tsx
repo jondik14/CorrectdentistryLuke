@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Play, Lock, Clock, Users, Award, Tag, CheckCircle, TrendingUp, BarChart3 } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import SubscriptionModal from '../components/SubscriptionModal';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
@@ -36,12 +37,16 @@ const CourseOverview = () => {
   const navigate = useNavigate();
   const [course, setCourse] = useState<Course | null>(null);
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [mobileChaptersOpen, setMobileChaptersOpen] = useState(false);
+  const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
 
   useEffect(() => {
-    // Check subscription status
+    // Check login and subscription status
     const loggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    setIsSubscribed(loggedIn); // For demo purposes, treat logged in as subscribed
+    const subscribed = localStorage.getItem('isSubscribed') === 'true';
+    setIsLoggedIn(loggedIn);
+    setIsSubscribed(subscribed);
 
     // Mock course data - in real app, this would be fetched from API
     const mockCourse: Course = {
@@ -55,10 +60,10 @@ const CourseOverview = () => {
       cpdHours: 2,
       totalRuntime: '45:32',
       chapters: [
-        { id: '1', title: 'Introduction to Veneer Impressions', duration: '8:45', isLocked: !loggedIn },
-        { id: '2', title: 'Material Selection and Preparation', duration: '12:30', isLocked: !loggedIn },
-        { id: '3', title: 'Advanced Impression Techniques', duration: '15:20', isLocked: !loggedIn },
-        { id: '4', title: 'Common Mistakes and Solutions', duration: '8:57', isLocked: !loggedIn },
+        { id: '1', title: 'Introduction to Veneer Impressions', duration: '8:45', isLocked: !subscribed },
+        { id: '2', title: 'Material Selection and Preparation', duration: '12:30', isLocked: !subscribed },
+        { id: '3', title: 'Advanced Impression Techniques', duration: '15:20', isLocked: !subscribed },
+        { id: '4', title: 'Common Mistakes and Solutions', duration: '8:57', isLocked: !subscribed },
       ],
       summary: [
         'Learn advanced impression techniques for optimal veneer fit',
@@ -73,12 +78,33 @@ const CourseOverview = () => {
   }, [courseId]);
 
   const handleSubscribe = () => {
-    navigate('/course-subscription/' + courseId);
+    if (!isLoggedIn) {
+      navigate('/signup');
+    } else {
+      navigate('/course-subscription/' + courseId);
+    }
   };
 
   const handleStartLearning = () => {
-    console.log('Starting course:', course?.title);
-    // In real app, navigate to course player
+    if (!isLoggedIn) {
+      navigate('/signup');
+    } else if (!isSubscribed) {
+      setShowSubscriptionModal(true);
+    } else {
+      console.log('Starting course:', course?.title);
+      // In real app, navigate to course player
+    }
+  };
+
+  const handlePlayClick = () => {
+    if (!isLoggedIn) {
+      navigate('/signup');
+    } else if (!isSubscribed) {
+      setShowSubscriptionModal(true);
+    } else {
+      console.log('Playing course:', course?.title);
+      // In real app, start course player
+    }
   };
 
   if (!course) {
@@ -136,7 +162,10 @@ const CourseOverview = () => {
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                  <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-transform cursor-pointer">
+                  <div 
+                    className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-transform cursor-pointer"
+                    onClick={handlePlayClick}
+                  >
                     <Play className="text-white ml-1" size={32} />
                   </div>
                 </div>
@@ -365,6 +394,13 @@ const CourseOverview = () => {
       </div>
 
       <Footer />
+      
+      {/* Subscription Modal */}
+      <SubscriptionModal
+        isOpen={showSubscriptionModal}
+        onClose={() => setShowSubscriptionModal(false)}
+        courseTitle={course.title}
+      />
     </div>
   );
 };

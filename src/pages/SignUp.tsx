@@ -98,12 +98,11 @@ const SignUp = () => {
     // Simulate account creation
     setTimeout(() => {
       setIsValidating(false);
-      // Store user data for the subscription flow
-      localStorage.setItem('signupEmail', email);
+      // Store user data and log them in
       localStorage.setItem('isLoggedIn', 'true');
       localStorage.setItem('userEmail', email);
-      // Navigate to subscription/payment plan selection
-      navigate('/course-subscription/1');
+      // Navigate to homepage instead of subscription
+      navigate('/');
     }, 1000);
   };
 
@@ -125,40 +124,55 @@ const SignUp = () => {
       <Header />
       
       <div className="flex min-h-screen pt-16">
-        {/* Left Side - Visual Grid Background */}
+        {/* Left Side - Enhanced Visual Grid Background */}
         <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-dental-blue-light to-dental-blue/10" />
-          <div className="grid grid-cols-3 gap-4 p-8 opacity-30">
-            {courseImages.map((image, index) => (
-              <div
-                key={index}
-                className="aspect-square rounded-xl overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300"
-                style={{
-                  animationDelay: `${index * 0.1}s`,
-                }}
-              >
-                <img
-                  src={image}
-                  alt="Dental course"
-                  className="w-full h-full object-cover filter blur-sm"
-                />
-              </div>
-            ))}
+          {/* Improved Pinterest-style grid with diagonal layout */}
+          <div className="absolute inset-0 p-4">
+            <div className="grid grid-cols-3 gap-2 h-full transform rotate-1">
+              {courseImages.map((image, index) => (
+                <div
+                  key={index}
+                  className={`
+                    rounded-xl overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300
+                    ${index % 4 === 0 ? 'row-span-2' : ''}
+                    ${index % 3 === 1 ? '-rotate-2' : ''}
+                    ${index % 3 === 2 ? 'rotate-1' : ''}
+                  `}
+                  style={{
+                    animationDelay: `${index * 0.1}s`,
+                  }}
+                >
+                  <img
+                    src={image}
+                    alt="Dental course"
+                    className="w-full h-full object-cover filter blur-sm opacity-80"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/20 to-background/80" />
         </div>
 
         {/* Right Side - Form Section */}
         <div className="w-full lg:w-1/2 flex items-center justify-center px-4 py-8 relative">
-          {/* Mobile background overlay */}
-          <div className="lg:hidden absolute inset-0 opacity-10">
-            <div className="grid grid-cols-2 gap-2 h-full p-4">
-              {courseImages.slice(0, 6).map((image, index) => (
-                <div key={index} className="aspect-square rounded-lg overflow-hidden">
+          {/* Mobile background overlay with tighter grid */}
+          <div className="lg:hidden absolute inset-0 opacity-20">
+            <div className="grid grid-cols-2 gap-1 h-full p-2 transform rotate-1">
+              {courseImages.slice(0, 8).map((image, index) => (
+                <div 
+                  key={index} 
+                  className={`
+                    rounded-lg overflow-hidden
+                    ${index % 3 === 1 ? '-rotate-1' : ''}
+                    ${index % 3 === 2 ? 'rotate-1' : ''}
+                  `}
+                >
                   <img
                     src={image}
                     alt="Dental course"
-                    className="w-full h-full object-cover filter blur-sm"
+                    className="w-full h-full object-cover filter blur-sm opacity-70"
                   />
                 </div>
               ))}
@@ -304,13 +318,17 @@ const SignUp = () => {
                     </Label>
                   </div>
 
-                  {/* Submit Button */}
+                  {/* Submit Button with animated gradient hover */}
                   <Button
                     type="submit"
                     disabled={!email || !password || !confirmPassword || !!emailError || !!passwordError || !!confirmPasswordError || !agreedToTerms || isValidating}
-                    className="w-full h-12 bg-gradient-to-r from-[#3D8BFF] to-[#5BBEFF] hover:from-[#2E7AFF] hover:to-[#4AADFF] text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                    className="w-full h-12 bg-gradient-to-r from-[#3D8BFF] to-[#5BBEFF] hover:from-[#2E7AFF] hover:to-[#4AADFF] text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 relative overflow-hidden group"
                   >
-                    {isValidating ? 'Creating Account...' : 'Create Account'}
+                    <span className="relative z-10">
+                      {isValidating ? 'Creating Account...' : 'Create Account'}
+                    </span>
+                    {/* Animated gradient swipe effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#2A6EFF] to-[#3A9AFF] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out"></div>
                   </Button>
                 </form>
 

@@ -15,14 +15,17 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userEmail, setUserEmail] = useState('');
+  const [isSubscribed, setIsSubscribed] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
     const loggedIn = localStorage.getItem('isLoggedIn') === 'true';
     const email = localStorage.getItem('userEmail') || '';
+    const subscribed = localStorage.getItem('isSubscribed') === 'true';
     setIsLoggedIn(loggedIn);
     setUserEmail(email);
+    setIsSubscribed(subscribed);
   }, [location]);
 
   const handleLogoClick = () => {
@@ -49,6 +52,19 @@ const Header = () => {
     navigate('/signup');
   };
 
+  const handleStartLearningClick = () => {
+    if (!isLoggedIn) {
+      // Not logged in: take them to Sign-Up page
+      navigate('/signup');
+    } else if (!isSubscribed) {
+      // Logged in but unsubscribed: take them to subscription flow
+      navigate('/course-subscription/1');
+    } else {
+      // Subscribed: take them to course access
+      navigate('/my-learning');
+    }
+  };
+
   const handleProfileClick = () => {
     navigate('/profile');
   };
@@ -60,8 +76,10 @@ const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('userEmail');
+    localStorage.removeItem('isSubscribed');
     setIsLoggedIn(false);
     setUserEmail('');
+    setIsSubscribed(false);
     navigate('/');
   };
 
@@ -130,7 +148,7 @@ const Header = () => {
                 <button onClick={handleLoginClick} className="btn-secondary">
                   Log In
                 </button>
-                <button onClick={handleSignUpClick} className="btn-primary">
+                <button onClick={handleStartLearningClick} className="btn-primary">
                   Start learning now
                 </button>
               </div>
@@ -200,7 +218,7 @@ const Header = () => {
                   <button onClick={handleLoginClick} className="btn-secondary w-full">
                     Log In
                   </button>
-                  <button onClick={handleSignUpClick} className="btn-primary w-full">
+                  <button onClick={handleStartLearningClick} className="btn-primary w-full">
                     Start learning now
                   </button>
                 </div>
