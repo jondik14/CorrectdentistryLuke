@@ -11,6 +11,7 @@ import About from "./pages/About";
 import CourseSubscription from "./pages/CourseSubscription";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 import MyLearning from "./pages/MyLearning";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/course/:courseId" element={<CourseOverview />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route path="/my-learning" element={<MyLearning />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />

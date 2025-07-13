@@ -45,6 +45,10 @@ const Header = () => {
     navigate('/login');
   };
 
+  const handleSignUpClick = () => {
+    navigate('/signup');
+  };
+
   const handleProfileClick = () => {
     navigate('/profile');
   };
@@ -122,9 +126,14 @@ const Header = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <button onClick={handleLoginClick} className="btn-secondary">
-                Log In
-              </button>
+              <div className="flex items-center space-x-3">
+                <button onClick={handleLoginClick} className="btn-secondary">
+                  Log In
+                </button>
+                <button onClick={handleSignUpClick} className="btn-primary">
+                  Start learning now
+                </button>
+              </div>
             )}
           </nav>
 
@@ -187,9 +196,14 @@ const Header = () => {
                   </button>
                 </div>
               ) : (
-                <button onClick={handleLoginClick} className="btn-secondary w-full">
-                  Log In
-                </button>
+                <div className="space-y-3 pt-3 border-t border-border">
+                  <button onClick={handleLoginClick} className="btn-secondary w-full">
+                    Log In
+                  </button>
+                  <button onClick={handleSignUpClick} className="btn-primary w-full">
+                    Start learning now
+                  </button>
+                </div>
               )}
             </div>
           </nav>
