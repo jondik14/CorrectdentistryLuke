@@ -124,21 +124,16 @@ const SignUp = () => {
       <Header />
       
       <div className="flex min-h-screen pt-16">
-        {/* Left Side - Enhanced Visual Grid Background */}
+        {/* Left Side - Clean Pinterest-style Grid Background */}
         <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-dental-blue-light to-dental-blue/10" />
-          {/* Improved Pinterest-style grid with diagonal layout */}
-          <div className="absolute inset-0 p-4">
-            <div className="grid grid-cols-3 gap-2 h-full transform rotate-1">
+          <div className="absolute inset-0 bg-gradient-to-br from-dental-blue-light/20 to-dental-blue/5" />
+          {/* Clean Pinterest-style grid with consistent spacing */}
+          <div className="absolute inset-0 p-6">
+            <div className="grid grid-cols-3 gap-3 h-full">
               {courseImages.map((image, index) => (
                 <div
                   key={index}
-                  className={`
-                    rounded-xl overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300
-                    ${index % 4 === 0 ? 'row-span-2' : ''}
-                    ${index % 3 === 1 ? '-rotate-2' : ''}
-                    ${index % 3 === 2 ? 'rotate-1' : ''}
-                  `}
+                  className="rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
                   style={{
                     animationDelay: `${index * 0.1}s`,
                   }}
@@ -146,38 +141,31 @@ const SignUp = () => {
                   <img
                     src={image}
                     alt="Dental course"
-                    className="w-full h-full object-cover filter blur-sm opacity-80"
+                    className="w-full h-full object-cover opacity-90"
                   />
                 </div>
               ))}
             </div>
           </div>
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/20 to-background/80" />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/10 to-background/60" />
         </div>
 
         {/* Right Side - Form Section */}
         <div className="w-full lg:w-1/2 flex items-center justify-center px-4 py-8 relative">
-          {/* Mobile background overlay with tighter grid */}
-          <div className="lg:hidden absolute inset-0 opacity-20">
-            <div className="grid grid-cols-2 gap-1 h-full p-2 transform rotate-1">
+          {/* Mobile background overlay with clean grid */}
+          <div className="lg:hidden absolute inset-0 opacity-30">
+            <div className="grid grid-cols-2 gap-2 h-full p-4">
               {courseImages.slice(0, 8).map((image, index) => (
-                <div 
-                  key={index} 
-                  className={`
-                    rounded-lg overflow-hidden
-                    ${index % 3 === 1 ? '-rotate-1' : ''}
-                    ${index % 3 === 2 ? 'rotate-1' : ''}
-                  `}
-                >
+                <div key={index} className="rounded-lg overflow-hidden">
                   <img
                     src={image}
                     alt="Dental course"
-                    className="w-full h-full object-cover filter blur-sm opacity-70"
+                    className="w-full h-full object-cover opacity-80"
                   />
                 </div>
               ))}
             </div>
-            <div className="absolute inset-0 bg-background/90" />
+            <div className="absolute inset-0 bg-background/85" />
           </div>
 
           <div className="w-full max-w-md relative z-10">
@@ -318,17 +306,17 @@ const SignUp = () => {
                     </Label>
                   </div>
 
-                  {/* Submit Button with animated gradient hover */}
+                  {/* Submit Button with shimmer effect */}
                   <Button
                     type="submit"
                     disabled={!email || !password || !confirmPassword || !!emailError || !!passwordError || !!confirmPasswordError || !agreedToTerms || isValidating}
-                    className="w-full h-12 bg-gradient-to-r from-[#3D8BFF] to-[#5BBEFF] hover:from-[#2E7AFF] hover:to-[#4AADFF] text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 relative overflow-hidden group"
+                    className="w-full h-12 bg-dental-blue hover:bg-dental-blue-dark text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 relative overflow-hidden group"
                   >
                     <span className="relative z-10">
                       {isValidating ? 'Creating Account...' : 'Create Account'}
                     </span>
-                    {/* Animated gradient swipe effect */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#2A6EFF] to-[#3A9AFF] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out"></div>
+                    {/* Animated shimmer effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>
                   </Button>
                 </form>
 

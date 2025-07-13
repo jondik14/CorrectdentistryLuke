@@ -9,23 +9,24 @@ const CourseSubscription = () => {
   const { courseId } = useParams();
   const navigate = useNavigate();
 
-  // Mock course data - in real app this would come from your backend
+  // Updated course data with $20/month pricing
   const course = {
-    title: 'Impressions for Veneers',
-    subtitle: 'Master the art of creating precise impressions for veneer procedures',
-    price: '$149',
-    originalPrice: '$199',
-    instructor: 'Dr. Michael Mandikos',
+    title: 'Monthly Subscription',
+    subtitle: 'Access all courses with unlimited learning',
+    price: '$20',
+    originalPrice: '$29',
+    monthlyBilling: '/month',
+    instructor: 'Expert Dental Faculty',
     rating: 4.9,
     students: '1,200+',
-    duration: '45 min'
+    duration: 'Unlimited Access'
   };
 
   const features = [
     {
       icon: <Check className="text-green-500" size={20} />,
-      title: 'Lifetime Access',
-      description: 'Watch anytime, anywhere, on any device'
+      title: 'Unlimited Course Access',
+      description: 'Watch all courses anytime, anywhere, on any device'
     },
     {
       icon: <Check className="text-green-500" size={20} />,
@@ -34,8 +35,8 @@ const CourseSubscription = () => {
     },
     {
       icon: <Check className="text-green-500" size={20} />,
-      title: 'CPD Certificate',
-      description: 'Earn continuing education credits'
+      title: 'CPD Certificates',
+      description: 'Earn continuing education credits for all courses'
     },
     {
       icon: <Check className="text-green-500" size={20} />,
@@ -44,8 +45,8 @@ const CourseSubscription = () => {
     },
     {
       icon: <Check className="text-green-500" size={20} />,
-      title: '30-Day Guarantee',
-      description: 'Full refund if not completely satisfied'
+      title: 'Monthly Flexibility',
+      description: 'Cancel anytime with no long-term commitment'
     },
     {
       icon: <Check className="text-green-500" size={20} />,
@@ -58,13 +59,13 @@ const CourseSubscription = () => {
     {
       name: 'Dr. Sarah Johnson',
       role: 'General Dentist',
-      content: 'This course completely transformed my approach to veneer impressions. The techniques are practical and immediately applicable.',
+      content: 'The monthly subscription gives me access to everything I need. The flexibility to learn at my own pace is invaluable.',
       rating: 5
     },
     {
       name: 'Dr. Michael Chen',
       role: 'Prosthodontist',
-      content: 'Excellent content delivered by true experts. The step-by-step approach makes complex procedures manageable.',
+      content: 'Excellent value for money. The quality of content and instruction is top-notch across all courses.',
       rating: 5
     }
   ];
@@ -135,7 +136,7 @@ const CourseSubscription = () => {
               {/* What You'll Get */}
               <div className="bg-white rounded-2xl p-8 shadow-md">
                 <h2 className="text-2xl font-bold text-dental-blue mb-6">
-                  What You'll Get
+                  What You'll Get with Your Subscription
                 </h2>
                 <div className="grid md:grid-cols-2 gap-6">
                   {features.map((feature, index) => (
@@ -191,16 +192,21 @@ const CourseSubscription = () => {
                   
                   {/* Pricing */}
                   <div className="text-center mb-6">
-                    <div className="flex items-center justify-center gap-3 mb-2">
+                    <div className="flex items-center justify-center gap-2 mb-2">
                       <span className="text-3xl font-bold text-dental-blue">
                         {course.price}
                       </span>
+                      <span className="text-lg text-dental-gray">
+                        {course.monthlyBilling}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-center gap-2 mb-2">
                       <span className="text-lg text-gray-400 line-through">
-                        {course.originalPrice}
+                        {course.originalPrice}{course.monthlyBilling}
                       </span>
                     </div>
                     <p className="text-sm text-green-600 font-medium">
-                      Save $50 - Limited Time Offer
+                      Save $9/month - Limited Time Offer
                     </p>
                   </div>
 
@@ -209,13 +215,13 @@ const CourseSubscription = () => {
                     <div className="flex items-center gap-3 p-3 bg-green-50 rounded-lg">
                       <Shield className="text-green-500" size={20} />
                       <span className="text-sm font-medium text-green-700">
-                        30-Day Money-Back Guarantee
+                        Cancel Anytime
                       </span>
                     </div>
                     <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-lg">
                       <Award className="text-dental-blue" size={20} />
                       <span className="text-sm font-medium text-dental-blue">
-                        CPD Accredited Course
+                        CPD Accredited Courses
                       </span>
                     </div>
                   </div>
@@ -245,7 +251,7 @@ const CourseSubscription = () => {
                           {course.instructor}
                         </p>
                         <p className="text-sm text-dental-gray">
-                          Professor of Prosthodontics
+                          Leading Dental Professionals
                         </p>
                       </div>
                     </div>
