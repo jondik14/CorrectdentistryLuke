@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '../components/ui/button';
@@ -98,11 +97,8 @@ const SignUp = () => {
     // Simulate account creation
     setTimeout(() => {
       setIsValidating(false);
-      // Store user data and log them in
-      localStorage.setItem('isLoggedIn', 'true');
-      localStorage.setItem('userEmail', email);
-      // Navigate to courses page to allow exploration
-      navigate('/courses');
+      // Navigate to email verification instead of directly to courses
+      navigate('/verify-email', { state: { email } });
     }, 1000);
   };
 
