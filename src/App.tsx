@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Courses from "./pages/Courses";
 import CourseOverview from "./pages/CourseOverview";
+import CourseDetail from "./pages/CourseDetail";
 import About from "./pages/About";
 import CourseSubscription from "./pages/CourseSubscription";
 import NotFound from "./pages/NotFound";
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/course/:courseId" element={<CourseOverview />} />
+          <Route path="/course-detail/:courseId" element={<CourseDetail />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
