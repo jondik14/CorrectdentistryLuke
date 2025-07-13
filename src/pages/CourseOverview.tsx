@@ -185,23 +185,26 @@ const CourseOverview = () => {
               
               {/* Course Title and Description */}
               <div className="mb-6">
-                <h1 className="text-3xl font-bold text-dental-blue mb-2">
+                <h1 className="course-title text-3xl font-bold text-dental-blue mb-3">
                   {course.title}
                 </h1>
-                <p className="text-dental-gray/80 text-lg mb-4">
+                <p className="course-tagline text-dental-gray/80 text-lg mb-4 font-medium">
                   Master the art of creating precise impressions for veneer procedures with advanced techniques.
                 </p>
-                <p className="text-dental-gray leading-relaxed">
+                <p className="course-description text-dental-gray leading-relaxed mb-6">
                   This comprehensive course provides hands-on training in creating perfect impressions for veneer cases. Learn from industry experts using proven techniques that ensure optimal fit and patient satisfaction.
                 </p>
+                
+                {/* Section Divider */}
+                <div className="section-divider border-t border-gray-200 mb-6"></div>
               </div>
 
               {/* Metadata Cards - Horizontal Layout */}
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
                 <div className="flex items-center gap-2 bg-white p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
                   <Clock className="text-dental-blue flex-shrink-0" size={16} />
                   <div>
-                    <div className="font-semibold text-sm">{course.duration}</div>
+                    <div className="font-semibold text-sm course-stats">{course.duration}</div>
                     <div className="text-xs text-dental-gray">Duration</div>
                   </div>
                 </div>
@@ -209,7 +212,7 @@ const CourseOverview = () => {
                 <div className="flex items-center gap-2 bg-white p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
                   <Award className="text-dental-blue flex-shrink-0" size={16} />
                   <div>
-                    <div className="font-semibold text-sm">{course.cpdHours} Hours</div>
+                    <div className="font-semibold text-sm course-stats">{course.cpdHours} Hours</div>
                     <div className="text-xs text-dental-gray">CPD Credit</div>
                   </div>
                 </div>
@@ -217,14 +220,14 @@ const CourseOverview = () => {
                 <div className="flex items-center gap-2 bg-white p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
                   <Tag className="text-dental-blue flex-shrink-0" size={16} />
                   <div>
-                    <div className="font-semibold text-sm">{course.category}</div>
+                    <div className="font-semibold text-sm course-stats">{course.category}</div>
                     <div className="text-xs text-dental-gray">Category</div>
                   </div>
                 </div>
                 
                 <div className="flex items-center gap-2 bg-white p-3 rounded-lg border border-gray-200 hover:shadow-sm transition-shadow">
                   <div className="flex-shrink-0">
-                    <Badge className={`${getLevelColor(course.level)} flex items-center text-xs`} variant="secondary">
+                    <Badge className={`${getLevelColor(course.level)} flex items-center text-xs course-info-badge font-semibold`} variant="secondary">
                       {getLevelIcon(course.level)}
                       {course.level}
                     </Badge>
@@ -245,7 +248,7 @@ const CourseOverview = () => {
                 </CardHeader>
                 <CardContent className="p-0">
                   <ScrollArea className="h-[400px]">
-                    <div className="module-list locked neutral-bg space-y-1 p-6 pt-0">
+                    <div className="course-content-list locked neutral-bg space-y-1 p-6 pt-0 mb-4">
                       {course.chapters.map((chapter, index) => (
                         <Tooltip key={chapter.id}>
                           <TooltipTrigger asChild>
@@ -275,7 +278,7 @@ const CourseOverview = () => {
                   </ScrollArea>
                   
                   {/* Subscribe CTA in Course Content */}
-                  <div className="p-6 pt-4 border-t border-gray-200">
+                  <div id="subscribe-to-unlock-button" className="p-6 pt-0 border-t border-gray-200">
                     <Button
                       className="w-full bg-dental-blue text-white hover:bg-dental-blue-dark"
                       onClick={handleSubscribe}
@@ -338,13 +341,13 @@ const CourseOverview = () => {
       </div>
 
       {/* Scrollable Sections - No Tabs */}
-      <div className="py-16">
+      <div className="py-12">
         <div className="container mx-auto px-4 max-w-6xl">
           {/* What You'll Learn Section */}
-          <section id="what-youll-learn" className="mb-16">
-            <Card>
-              <CardHeader>
-                <CardTitle>What You'll Learn</CardTitle>
+          <section id="what-youll-learn" className="mb-8">
+            <Card className="info-card border border-gray-200 shadow-sm">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-2xl font-bold text-dental-blue">What You'll Learn</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid md:grid-cols-2 gap-4">
@@ -360,18 +363,18 @@ const CourseOverview = () => {
           </section>
 
           {/* Downloads Section */}
-          <section id="downloads" className="mb-16">
-            <Card>
-              <CardHeader>
-                <CardTitle>Downloads & Resources</CardTitle>
+          <section id="downloads" className="mb-8">
+            <Card className="info-card border border-gray-200 shadow-sm">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-2xl font-bold text-dental-blue">Downloads & Resources</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
                   <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                     <Award className="text-dental-blue" size={20} />
                     <div>
-                      <div className="font-medium">CPD Certificate</div>
-                      <div className="text-sm text-dental-gray">{course.cpdHours} hours of continuing education</div>
+                      <div className="font-medium course-info-badge">{course.cpdHours} Hours CPD Certificate</div>
+                      <div className="text-sm text-dental-gray">Continuing education credit</div>
                     </div>
                   </div>
                   <div className="text-sm text-dental-gray">
@@ -383,10 +386,10 @@ const CourseOverview = () => {
           </section>
 
           {/* Reviews Section */}
-          <section id="reviews" className="mb-16">
-            <Card>
-              <CardHeader>
-                <CardTitle>Student Reviews</CardTitle>
+          <section id="reviews" className="mb-8">
+            <Card className="info-card border border-gray-200 shadow-sm">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-2xl font-bold text-dental-blue">Student Reviews</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-dental-gray">
@@ -397,10 +400,10 @@ const CourseOverview = () => {
           </section>
 
           {/* Instructor Section */}
-          <section id="instructor" className="mb-16">
-            <Card>
-              <CardHeader>
-                <CardTitle>About the Instructor</CardTitle>
+          <section id="instructor" className="mb-8">
+            <Card className="info-card border border-gray-200 shadow-sm">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-2xl font-bold text-dental-blue">About the Instructor</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-dental-gray">
