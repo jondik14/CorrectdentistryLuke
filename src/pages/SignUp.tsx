@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '../components/ui/button';
@@ -120,223 +119,233 @@ const SignUp = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
+    <div className="min-h-screen bg-background relative">
+      <Header data-testid="navbar-signup-visible" />
       
-      <div className="flex min-h-screen pt-16">
-        {/* Left Side - Clean Pinterest-style Grid Background */}
-        <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-dental-blue-light/20 to-dental-blue/5" />
-          {/* Clean Pinterest-style grid with consistent spacing */}
-          <div className="absolute inset-0 p-6">
-            <div className="grid grid-cols-3 gap-3 h-full">
-              {courseImages.map((image, index) => (
-                <div
-                  key={index}
-                  className="rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
-                  style={{
-                    animationDelay: `${index * 0.1}s`,
-                  }}
-                >
-                  <img
-                    src={image}
-                    alt="Dental course"
-                    className="w-full h-full object-cover opacity-90"
-                  />
-                </div>
-              ))}
+      {/* Full-width background grid */}
+      <div 
+        className="signup-grid-bg fixed inset-0 z-0" 
+        data-testid="signup-background-grid"
+      >
+        <div className="grid grid-cols-6 gap-1 h-full w-full p-1">
+          {Array.from({ length: 48 }, (_, index) => (
+            <div
+              key={index}
+              className="rounded-lg overflow-hidden"
+            >
+              <img
+                src={courseImages[index % courseImages.length]}
+                alt="Dental course"
+                className="w-full h-full object-cover brightness-110"
+                style={{
+                  filter: 'blur(2px)',
+                }}
+              />
             </div>
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/10 to-background/60" />
+          ))}
         </div>
+        {/* Subtle overlay for readability */}
+        <div className="absolute inset-0 bg-background/20" />
+      </div>
 
-        {/* Right Side - Form Section */}
-        <div className="w-full lg:w-1/2 flex items-center justify-center px-4 py-8 relative">
-          {/* Mobile background overlay with clean grid */}
-          <div className="lg:hidden absolute inset-0 opacity-30">
-            <div className="grid grid-cols-2 gap-2 h-full p-4">
-              {courseImages.slice(0, 8).map((image, index) => (
-                <div key={index} className="rounded-lg overflow-hidden">
-                  <img
-                    src={image}
-                    alt="Dental course"
-                    className="w-full h-full object-cover opacity-80"
-                  />
-                </div>
-              ))}
-            </div>
-            <div className="absolute inset-0 bg-background/85" />
-          </div>
-
-          <div className="w-full max-w-md relative z-10">
-            <Card className="shadow-2xl border-0 backdrop-blur-sm bg-white/95">
-              <CardHeader className="space-y-3 pb-6 text-center">
-                <h1 className="text-3xl font-bold text-dental-blue">Create your account</h1>
-                <p className="text-dental-gray text-base">Start your learning journey with trusted dental specialists</p>
-              </CardHeader>
-              
-              <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Email Input */}
-                  <div className="space-y-2">
-                    <Label htmlFor="email" className="text-sm font-medium text-dental-gray">
-                      Email Address
-                    </Label>
-                    <div className="relative">
-                      <Input
-                        id="email"
-                        type="email"
-                        placeholder="you@example.com"
-                        value={email}
-                        onChange={handleEmailChange}
-                        required
-                        className={`h-12 rounded-lg border-gray-200 focus:border-dental-blue focus:ring-dental-blue pl-10 ${
-                          emailError ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
-                        }`}
-                      />
-                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-dental-gray" size={18} />
-                      {email && !emailError && (
-                        <CheckCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 text-green-500" size={18} />
-                      )}
-                      {emailError && (
-                        <AlertCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 text-red-500" size={18} />
-                      )}
-                    </div>
-                    {emailError && (
-                      <p className="text-red-500 text-sm flex items-center">
-                        <AlertCircle size={14} className="mr-1" />
-                        {emailError}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Password Input */}
-                  <div className="space-y-2">
-                    <Label htmlFor="password" className="text-sm font-medium text-dental-gray">
-                      Password
-                    </Label>
-                    <div className="relative">
-                      <Input
-                        id="password"
-                        type={showPassword ? 'text' : 'password'}
-                        placeholder="Create a strong password"
-                        value={password}
-                        onChange={handlePasswordChange}
-                        required
-                        className={`h-12 rounded-lg border-gray-200 focus:border-dental-blue focus:ring-dental-blue pl-10 pr-10 ${
-                          passwordError ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
-                        }`}
-                      />
-                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-dental-gray" size={18} />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-dental-gray hover:text-dental-blue"
-                      >
-                        {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                      </button>
-                    </div>
-                    {passwordError && (
-                      <p className="text-red-500 text-sm flex items-center">
-                        <AlertCircle size={14} className="mr-1" />
-                        {passwordError}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Confirm Password Input */}
-                  <div className="space-y-2">
-                    <Label htmlFor="confirmPassword" className="text-sm font-medium text-dental-gray">
-                      Confirm Password
-                    </Label>
-                    <div className="relative">
-                      <Input
-                        id="confirmPassword"
-                        type={showConfirmPassword ? 'text' : 'password'}
-                        placeholder="Confirm your password"
-                        value={confirmPassword}
-                        onChange={handleConfirmPasswordChange}
-                        required
-                        className={`h-12 rounded-lg border-gray-200 focus:border-dental-blue focus:ring-dental-blue pl-10 pr-10 ${
-                          confirmPasswordError ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
-                        }`}
-                      />
-                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-dental-gray" size={18} />
-                      <button
-                        type="button"
-                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-dental-gray hover:text-dental-blue"
-                      >
-                        {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                      </button>
-                    </div>
-                    {confirmPasswordError && (
-                      <p className="text-red-500 text-sm flex items-center">
-                        <AlertCircle size={14} className="mr-1" />
-                        {confirmPasswordError}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Terms Checkbox */}
-                  <div className="flex items-start space-x-3">
-                    <Checkbox
-                      id="terms"
-                      checked={agreedToTerms}
-                      onCheckedChange={(checked) => setAgreedToTerms(checked as boolean)}
-                      className="mt-1"
+      {/* Form Card Overlay */}
+      <div className="relative z-10 min-h-screen flex items-center justify-center px-4 py-20">
+        <div className="w-full max-w-md">
+          <Card 
+            className="signup-card backdrop-blur-sm bg-white/95 border-0"
+            data-testid="signup-form-card"
+            style={{
+              boxShadow: '0px 6px 20px rgba(0, 0, 0, 0.1)',
+            }}
+          >
+            <CardHeader className="space-y-3 pb-6 text-center">
+              <h1 className="text-3xl font-bold text-dental-blue">Create your account</h1>
+              <p className="text-dental-gray text-base">Start your learning journey with trusted dental specialists</p>
+            </CardHeader>
+            
+            <CardContent>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Email Input */}
+                <div className="space-y-2">
+                  <Label htmlFor="email" className="text-sm font-medium text-dental-gray">
+                    Email Address
+                  </Label>
+                  <div className="relative">
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="you@example.com"
+                      value={email}
+                      onChange={handleEmailChange}
+                      required
+                      className={`h-12 rounded-lg border-gray-200 focus:border-dental-blue focus:ring-dental-blue pl-10 ${
+                        emailError ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
+                      }`}
                     />
-                    <Label htmlFor="terms" className="text-sm text-dental-gray leading-relaxed cursor-pointer">
-                      I agree to the{' '}
-                      <button
-                        type="button"
-                        className="text-dental-blue hover:text-dental-blue-dark underline font-medium"
-                        onClick={() => console.log('Terms clicked')}
-                      >
-                        Terms of Service
-                      </button>
-                      {' and '}
-                      <button
-                        type="button"
-                        className="text-dental-blue hover:text-dental-blue-dark underline font-medium"
-                        onClick={() => console.log('Privacy Policy clicked')}
-                      >
-                        Privacy Policy
-                      </button>
-                    </Label>
+                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-dental-gray" size={18} />
+                    {email && !emailError && (
+                      <CheckCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 text-green-500" size={18} />
+                    )}
+                    {emailError && (
+                      <AlertCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 text-red-500" size={18} />
+                    )}
                   </div>
-
-                  {/* Submit Button with shimmer effect */}
-                  <Button
-                    type="submit"
-                    disabled={!email || !password || !confirmPassword || !!emailError || !!passwordError || !!confirmPasswordError || !agreedToTerms || isValidating}
-                    className="w-full h-12 bg-dental-blue hover:bg-dental-blue-dark text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 relative overflow-hidden group"
-                  >
-                    <span className="relative z-10">
-                      {isValidating ? 'Creating Account...' : 'Create Account'}
-                    </span>
-                    {/* Animated shimmer effect */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>
-                  </Button>
-                </form>
-
-                {/* Footer */}
-                <div className="mt-6 text-center">
-                  <p className="text-sm text-dental-gray">
-                    Already have an account?{' '}
-                    <Link 
-                      to="/login" 
-                      className="text-dental-blue hover:text-dental-blue-dark font-medium transition-colors underline"
-                    >
-                      Log in
-                    </Link>
-                  </p>
+                  {emailError && (
+                    <p className="text-red-500 text-sm flex items-center">
+                      <AlertCircle size={14} className="mr-1" />
+                      {emailError}
+                    </p>
+                  )}
                 </div>
-              </CardContent>
-            </Card>
-          </div>
+
+                {/* Password Input */}
+                <div className="space-y-2">
+                  <Label htmlFor="password" className="text-sm font-medium text-dental-gray">
+                    Password
+                  </Label>
+                  <div className="relative">
+                    <Input
+                      id="password"
+                      type={showPassword ? 'text' : 'password'}
+                      placeholder="Create a strong password"
+                      value={password}
+                      onChange={handlePasswordChange}
+                      required
+                      className={`h-12 rounded-lg border-gray-200 focus:border-dental-blue focus:ring-dental-blue pl-10 pr-10 ${
+                        passwordError ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
+                      }`}
+                    />
+                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-dental-gray" size={18} />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-dental-gray hover:text-dental-blue"
+                    >
+                      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </button>
+                  </div>
+                  {passwordError && (
+                    <p className="text-red-500 text-sm flex items-center">
+                      <AlertCircle size={14} className="mr-1" />
+                      {passwordError}
+                    </p>
+                  )}
+                </div>
+
+                {/* Confirm Password Input */}
+                <div className="space-y-2">
+                  <Label htmlFor="confirmPassword" className="text-sm font-medium text-dental-gray">
+                    Confirm Password
+                  </Label>
+                  <div className="relative">
+                    <Input
+                      id="confirmPassword"
+                      type={showConfirmPassword ? 'text' : 'password'}
+                      placeholder="Confirm your password"
+                      value={confirmPassword}
+                      onChange={handleConfirmPasswordChange}
+                      required
+                      className={`h-12 rounded-lg border-gray-200 focus:border-dental-blue focus:ring-dental-blue pl-10 pr-10 ${
+                        confirmPasswordError ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
+                      }`}
+                    />
+                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-dental-gray" size={18} />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-dental-gray hover:text-dental-blue"
+                    >
+                      {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </button>
+                  </div>
+                  {confirmPasswordError && (
+                    <p className="text-red-500 text-sm flex items-center">
+                      <AlertCircle size={14} className="mr-1" />
+                      {confirmPasswordError}
+                    </p>
+                  )}
+                </div>
+
+                {/* Terms Checkbox */}
+                <div className="flex items-start space-x-3">
+                  <Checkbox
+                    id="terms"
+                    checked={agreedToTerms}
+                    onCheckedChange={(checked) => setAgreedToTerms(checked as boolean)}
+                    className="mt-1"
+                  />
+                  <Label htmlFor="terms" className="text-sm text-dental-gray leading-relaxed cursor-pointer">
+                    I agree to the{' '}
+                    <button
+                      type="button"
+                      className="text-dental-blue hover:text-dental-blue-dark underline font-medium"
+                      onClick={() => console.log('Terms clicked')}
+                    >
+                      Terms of Service
+                    </button>
+                    {' and '}
+                    <button
+                      type="button"
+                      className="text-dental-blue hover:text-dental-blue-dark underline font-medium"
+                      onClick={() => console.log('Privacy Policy clicked')}
+                    >
+                      Privacy Policy
+                    </button>
+                  </Label>
+                </div>
+
+                {/* Submit Button with gradient swipe animation */}
+                <Button
+                  type="submit"
+                  disabled={!email || !password || !confirmPassword || !!emailError || !!passwordError || !!confirmPasswordError || !agreedToTerms || isValidating}
+                  className="cta-primary w-full h-12 font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
+                  style={{
+                    backgroundColor: 'hsl(var(--dental-blue))',
+                    color: 'white',
+                  }}
+                  data-testid="signup-submit-button"
+                >
+                  <span className="relative z-10">
+                    {isValidating ? 'Creating Account...' : 'Create Account'}
+                  </span>
+                  {/* Animated gradient swipe effect */}
+                  <div 
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{
+                      background: 'linear-gradient(90deg, transparent, hsl(var(--dental-blue-dark)), transparent)',
+                      transform: 'translateX(-100%)',
+                      animation: 'group-hover:slideRight 0.6s ease-out',
+                    }}
+                  />
+                </Button>
+              </form>
+
+              {/* Footer */}
+              <div className="mt-6 text-center">
+                <p className="text-sm text-dental-gray">
+                  Already have an account?{' '}
+                  <Link 
+                    to="/login" 
+                    className="text-dental-blue hover:text-dental-blue-dark font-medium transition-colors underline"
+                  >
+                    Log in
+                  </Link>
+                </p>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes slideRight {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
+        }
+        .group:hover .absolute {
+          animation: slideRight 0.6s ease-out;
+        }
+      `}</style>
     </div>
   );
 };
