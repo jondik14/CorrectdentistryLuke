@@ -134,7 +134,7 @@ const CourseDetail = () => {
     id: course.chapters[currentLessonIndex].id,
     title: course.chapters[currentLessonIndex].title,
     number: currentLessonIndex + 1,
-    difficulty: currentLessonIndex < 2 ? 'Beginner' : currentLessonIndex < 4 ? 'Intermediate' : 'Advanced' as const
+    difficulty: (currentLessonIndex < 2 ? 'Beginner' : currentLessonIndex < 4 ? 'Intermediate' : 'Advanced') as 'Beginner' | 'Intermediate' | 'Advanced'
   };
 
   return (
