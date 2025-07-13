@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../components/Header';
@@ -7,6 +6,7 @@ import VideoPlayer from '../components/CourseDetail/VideoPlayer';
 import CoursePreview from '../components/CourseDetail/CoursePreview';
 import ChapterList from '../components/CourseDetail/ChapterList';
 import CourseInfo from '../components/CourseDetail/CourseInfo';
+import LessonDetailPanel from '../components/CourseDetail/LessonDetailPanel';
 import SubscriptionModal from '../components/SubscriptionModal';
 import { Badge } from '../components/ui/badge';
 import { Star, Clock, Users, Award, Lock } from 'lucide-react';
@@ -50,6 +50,7 @@ const CourseDetail = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
   const [progress, setProgress] = useState(50); // Mock progress
+  const [currentLessonIndex, setCurrentLessonIndex] = useState(1); // Current lesson (0-based)
 
   useEffect(() => {
     // Check login and subscription status
@@ -113,9 +114,28 @@ const CourseDetail = () => {
     setShowSubscriptionModal(true);
   };
 
+  const handlePreviousLesson = () => {
+    if (currentLessonIndex > 0) {
+      setCurrentLessonIndex(currentLessonIndex - 1);
+    }
+  };
+
+  const handleNextLesson = () => {
+    if (course && currentLessonIndex < course.chapters.length - 1) {
+      setCurrentLessonIndex(currentLessonIndex + 1);
+    }
+  };
+
   if (!course) {
     return <div>Loading...</div>;
   }
+
+  const currentLesson = {
+    id: course.chapters[currentLessonIndex].id,
+    title: course.chapters[currentLessonIndex].title,
+    number: currentLessonIndex + 1,
+    difficulty: currentLessonIndex < 2 ? 'Beginner' : currentLessonIndex < 4 ? 'Intermediate' : 'Advanced' as const
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -211,8 +231,25 @@ const CourseDetail = () => {
                 />
               )}
 
+              {/* New Lesson Detail Panel - Only show when subscribed */}
+              {isSubscribed && (
+                <div className="mt-6">
+                  <LessonDetailPanel
+                    currentLesson={currentLesson}
+                    downloads={course.downloads}
+                    isSubscribed={isSubscribed}
+                    progress={progress}
+                    totalLessons={course.chapters.length}
+                    onPreviousLesson={handlePreviousLesson}
+                    onNextLesson={handleNextLesson}
+                    canGoPrevious={currentLessonIndex > 0}
+                    canGoNext={currentLessonIndex < course.chapters.length - 1}
+                  />
+                </div>
+              )}
+
               {/* Continuous Scrollable Sections - Reduced Spacing */}
-              <div className="mt-8 space-y-8">
+              <div className="mt-6 space-y-6">
                 {/* What You'll Learn Section */}
                 <section id="section-what-youll-learn" data-testid="scroll-section-learn" className="info-card">
                   <h2 className="text-2xl font-bold text-dental-blue mb-4">What You'll Learn</h2>
@@ -250,7 +287,7 @@ const CourseDetail = () => {
             <div className="lg:col-span-1" id="course-sidebar">
               {isSubscribed ? (
                 /* [[POST-SUBSCRIPTION STATE]] - Unlocked Chapter List */
-                <div className="user-progress" data-testid="user-chapter-progress">
+                <div className="user-progress sticky top-24" data-testid="user-chapter-progress">
                   <ChapterList 
                     chapters={course.chapters}
                     isSubscribed={isSubscribed}

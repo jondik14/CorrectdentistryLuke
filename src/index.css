@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
@@ -180,6 +179,41 @@
   
   .subscribe-button:hover {
     @apply transform scale-105 shadow-lg;
+  }
+
+  /* New Lesson Detail Panel Styles */
+  .lesson-detail-panel {
+    @apply bg-white border border-gray-200 shadow-lg rounded-xl;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  }
+
+  .lesson-title {
+    @apply text-xl font-bold text-dental-blue;
+    font-weight: 700;
+  }
+
+  .difficulty-tag {
+    @apply px-3 py-1 rounded-full text-xs font-semibold;
+  }
+
+  .lesson-actions {
+    @apply flex flex-wrap gap-3;
+  }
+
+  .lesson-actions button {
+    @apply transition-all duration-200 hover:shadow-md;
+  }
+
+  .course-navigation-arrows {
+    @apply flex items-center justify-between pt-4 border-t border-gray-200;
+  }
+
+  .course-navigation-arrows button {
+    @apply transition-all duration-200 hover:bg-dental-blue-light/20;
+  }
+
+  .course-navigation-arrows button:disabled {
+    @apply opacity-50 cursor-not-allowed;
   }
 }
 
