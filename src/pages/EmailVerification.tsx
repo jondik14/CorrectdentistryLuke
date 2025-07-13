@@ -14,6 +14,19 @@ const EmailVerification = () => {
   // Get email from navigation state (passed from signup)
   const email = location.state?.email || 'your email';
 
+  // Course thumbnail images for the grid background
+  const courseImages = [
+    '/lovable-uploads/a040261a-5ae0-465d-83f0-430b2c67b064.png',
+    '/lovable-uploads/10aa0220-71b9-474c-ad0a-0656b85e32c9.png',
+    '/lovable-uploads/49ac1a3e-4bba-442e-a648-00c73776b5b1.png',
+    '/lovable-uploads/16b5aafa-0533-4ad2-9897-92b8639ddc5e.png',
+    '/lovable-uploads/2c1ad50a-4066-4519-afcd-f6f16071ea8d.png',
+    '/lovable-uploads/368c6b6a-e95a-4dd2-b51a-e03063a74279.png',
+    '/lovable-uploads/4bd9d5d8-b153-4b4d-bd4d-fe5fdfe884b2.png',
+    '/lovable-uploads/a789cbd9-0692-4db5-9658-3da85ff73e3e.png',
+    '/lovable-uploads/be0a9319-69c6-47c3-9019-671d5ffc8fd6.png',
+  ];
+
   const handleResendEmail = async () => {
     setIsResending(true);
     // Simulate API call
@@ -49,7 +62,7 @@ const EmailVerification = () => {
           {Array.from({ length: 30 }, (_, index) => (
             <div key={index} className="rounded-lg overflow-hidden">
               <img
-                src="/lovable-uploads/a040261a-5ae0-465d-83f0-430b2c67b064.png"
+                src={courseImages[index % courseImages.length]}
                 alt="Dental course"
                 className="w-full h-full object-cover brightness-110"
                 style={{ filter: 'blur(1px)' }}
