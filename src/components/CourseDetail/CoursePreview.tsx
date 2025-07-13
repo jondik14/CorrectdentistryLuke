@@ -1,5 +1,5 @@
 
-import { Play, Lock } from 'lucide-react';
+import { Play, Lock, CheckCircle, Smartphone, Download, Award, Video } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
 
@@ -17,7 +17,7 @@ interface CoursePreviewProps {
 const CoursePreview = ({ course, onSubscribe }: CoursePreviewProps) => {
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-      {/* [[UNSUBSCRIBED VIEW]] - Preview Thumbnail */}
+      {/* [[PRE-SUBSCRIPTION STATE]] - Preview Thumbnail */}
       <div className="aspect-video bg-black relative">
         <img
           src={course.thumbnail}
@@ -37,7 +37,7 @@ const CoursePreview = ({ course, onSubscribe }: CoursePreviewProps) => {
             </p>
             <Button 
               onClick={onSubscribe}
-              className="bg-gradient-to-r from-dental-blue to-dental-blue-dark hover:from-dental-blue-dark hover:to-dental-blue text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+              className="bg-[#0A66C2] hover:bg-[#0A66C2]/90 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
             >
               Subscribe & Start Learning
             </Button>
@@ -59,26 +59,26 @@ const CoursePreview = ({ course, onSubscribe }: CoursePreviewProps) => {
         </div>
       </div>
 
-      {/* Preview Benefits */}
-      <div className="p-6 bg-dental-blue-light/10 border-t border-dental-blue-light/30">
+      {/* Enhanced Subscription Benefits */}
+      <div className="p-6 bg-dental-blue-light/5 border-t border-dental-blue-light/30">
         <div className="text-center">
-          <h4 className="font-semibold text-dental-blue mb-3">What you'll get with a subscription:</h4>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-dental-gray">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-dental-blue rounded-full flex-shrink-0"></div>
-              <span>Full HD video access</span>
+          <h4 className="font-semibold text-dental-blue mb-4 text-lg">What you'll get with a subscription:</h4>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+            <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-dental-blue-light/20">
+              <Video className="w-5 h-5 text-dental-blue flex-shrink-0" />
+              <span className="text-dental-gray font-medium">Full HD video access</span>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-dental-blue rounded-full flex-shrink-0"></div>
-              <span>Downloadable resources</span>
+            <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-dental-blue-light/20">
+              <Download className="w-5 h-5 text-dental-blue flex-shrink-0" />
+              <span className="text-dental-gray font-medium">Downloadable resources</span>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-dental-blue rounded-full flex-shrink-0"></div>
-              <span>CPD certification</span>
+            <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-dental-blue-light/20">
+              <Award className="w-5 h-5 text-dental-blue flex-shrink-0" />
+              <span className="text-dental-gray font-medium">CPD certification</span>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-dental-blue rounded-full flex-shrink-0"></div>
-              <span>Mobile app access</span>
+            <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-dental-blue-light/20">
+              <Smartphone className="w-5 h-5 text-dental-blue flex-shrink-0" />
+              <span className="text-dental-gray font-medium">Mobile app access</span>
             </div>
           </div>
         </div>

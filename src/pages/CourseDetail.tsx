@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../components/Header';
@@ -8,9 +7,9 @@ import CoursePreview from '../components/CourseDetail/CoursePreview';
 import ChapterList from '../components/CourseDetail/ChapterList';
 import CourseInfo from '../components/CourseDetail/CourseInfo';
 import SubscriptionModal from '../components/SubscriptionModal';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { Badge } from '../components/ui/badge';
-import { Star, Clock, Users, Award } from 'lucide-react';
+import { Star, Clock, Users, Award, Lock } from 'lucide-react';
+import { Button } from '../components/ui/button';
 
 interface Course {
   id: string;
@@ -122,13 +121,26 @@ const CourseDetail = () => {
       <Header />
       
       <div className="pt-20">
-        {/* [[UNSUBSCRIBED VIEW]] - Preview Banner */}
+        {/* [[PRE-SUBSCRIPTION STATE]] - Course Locked Warning Banner */}
         {!isSubscribed && (
-          <div className="bg-dental-blue-light/20 border-b border-dental-blue-light/30 py-3">
+          <div 
+            className="course-lock-warning bg-dental-blue-light/20 border-b border-dental-blue-light/30 py-4"
+            data-testid="course-locked-warning"
+          >
             <div className="container mx-auto px-4 text-center">
-              <p className="text-dental-blue font-medium">
-                You're viewing a preview. Subscribe to access the full course and earn CPD credit.
-              </p>
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Lock className="w-5 h-5 text-dental-blue" />
+                <p className="text-dental-blue font-medium">
+                  Subscribe to unlock this course and earn CPD credits
+                </p>
+              </div>
+              <Button 
+                onClick={handleSubscribe}
+                className="cta-subscribe bg-[#0A66C2] hover:bg-[#0A66C2]/90 text-white px-8 py-2 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                data-testid="subscribe-button-locked"
+              >
+                Subscribe & Start Learning
+              </Button>
             </div>
           </div>
         )}
@@ -167,7 +179,7 @@ const CourseDetail = () => {
                 </p>
               </div>
 
-              {/* [[SUBSCRIBED VIEW]] - Progress Badge */}
+              {/* [[POST-SUBSCRIPTION STATE]] - Progress Badge */}
               {isSubscribed && (
                 <div className="flex flex-col items-end gap-2">
                   <Badge className="bg-green-100 text-green-800">
@@ -181,64 +193,77 @@ const CourseDetail = () => {
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Main Content */}
             <div className="lg:col-span-2">
-              {/* [[SUBSCRIBED VIEW]] - Video Player */}
+              {/* [[POST-SUBSCRIPTION STATE]] - Video Player */}
               {isSubscribed ? (
-                <VideoPlayer 
-                  course={course}
-                  progress={progress}
-                  onProgressUpdate={setProgress}
-                />
+                <div className="course-player" data-testid="course-video-player">
+                  <VideoPlayer 
+                    course={course}
+                    progress={progress}
+                    onProgressUpdate={setProgress}
+                  />
+                </div>
               ) : (
-                /* [[UNSUBSCRIBED VIEW]] - Course Preview */
+                /* [[PRE-SUBSCRIPTION STATE]] - Course Preview */
                 <CoursePreview 
                   course={course}
                   onSubscribe={handleSubscribe}
                 />
               )}
 
-              {/* Course Information Tabs */}
-              <div className="mt-8">
-                <Tabs defaultValue="learn" className="w-full">
-                  <TabsList className="grid w-full grid-cols-4">
-                    <TabsTrigger value="learn">What You'll Learn</TabsTrigger>
-                    <TabsTrigger value="downloads">Downloads</TabsTrigger>
-                    <TabsTrigger value="testimonials">Reviews</TabsTrigger>
-                    <TabsTrigger value="instructor">Instructor</TabsTrigger>
-                  </TabsList>
-                  
-                  <TabsContent value="learn" className="mt-6">
-                    <CourseInfo.LearningObjectives objectives={course.learningObjectives} />
-                  </TabsContent>
-                  
-                  <TabsContent value="downloads" className="mt-6">
-                    <CourseInfo.Downloads 
-                      downloads={course.downloads} 
-                      cpdHours={course.cpdHours}
-                      isSubscribed={isSubscribed}
-                    />
-                  </TabsContent>
-                  
-                  <TabsContent value="testimonials" className="mt-6">
-                    <CourseInfo.Testimonials testimonials={course.testimonials} />
-                  </TabsContent>
-                  
-                  <TabsContent value="instructor" className="mt-6">
-                    <CourseInfo.InstructorBio 
-                      instructor={course.instructor}
-                      bio={course.instructorBio}
-                    />
-                  </TabsContent>
-                </Tabs>
+              {/* Continuous Scrollable Sections - No Tabs */}
+              <div className="mt-8 space-y-12">
+                {/* What You'll Learn Section */}
+                <section id="what-youll-learn" data-testid="scroll-section-learn">
+                  <h2 className="text-2xl font-bold text-dental-blue mb-6">What You'll Learn</h2>
+                  <CourseInfo.LearningObjectives objectives={course.learningObjectives} />
+                </section>
+                
+                {/* Downloads Section */}
+                <section id="downloads" data-testid="scroll-section-downloads">
+                  <h2 className="text-2xl font-bold text-dental-blue mb-6">Downloads & CPD</h2>
+                  <CourseInfo.Downloads 
+                    downloads={course.downloads} 
+                    cpdHours={course.cpdHours}
+                    isSubscribed={isSubscribed}
+                  />
+                </section>
+                
+                {/* Reviews Section */}
+                <section id="reviews" data-testid="scroll-section-reviews">
+                  <h2 className="text-2xl font-bold text-dental-blue mb-6">Student Reviews</h2>
+                  <CourseInfo.Testimonials testimonials={course.testimonials} />
+                </section>
+                
+                {/* Instructor Section */}
+                <section id="instructor" data-testid="scroll-section-instructor">
+                  <h2 className="text-2xl font-bold text-dental-blue mb-6">About the Instructor</h2>
+                  <CourseInfo.InstructorBio 
+                    instructor={course.instructor}
+                    bio={course.instructorBio}
+                  />
+                </section>
               </div>
             </div>
 
-            {/* [[SUBSCRIBED VIEW]] / [[UNSUBSCRIBED VIEW]] - Sidebar */}
+            {/* Sidebar */}
             <div className="lg:col-span-1">
-              <ChapterList 
-                chapters={course.chapters}
-                isSubscribed={isSubscribed}
-                onSubscribe={handleSubscribe}
-              />
+              {isSubscribed ? (
+                /* [[POST-SUBSCRIPTION STATE]] - Unlocked Chapter List */
+                <div className="user-progress" data-testid="user-chapter-progress">
+                  <ChapterList 
+                    chapters={course.chapters}
+                    isSubscribed={isSubscribed}
+                    onSubscribe={handleSubscribe}
+                  />
+                </div>
+              ) : (
+                /* [[PRE-SUBSCRIPTION STATE]] - Locked Chapter List */
+                <ChapterList 
+                  chapters={course.chapters}
+                  isSubscribed={isSubscribed}
+                  onSubscribe={handleSubscribe}
+                />
+              )}
             </div>
           </div>
         </div>
