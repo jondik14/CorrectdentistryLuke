@@ -101,12 +101,12 @@ const SignUp = () => {
       // Store user data and log them in
       localStorage.setItem('isLoggedIn', 'true');
       localStorage.setItem('userEmail', email);
-      // Navigate to courses page instead of forcing subscription
+      // Navigate to courses page to allow exploration
       navigate('/courses');
     }, 1000);
   };
 
-  // Course thumbnail images for the grid background (reduced set)
+  // Course thumbnail images for the grid background
   const courseImages = [
     '/lovable-uploads/a040261a-5ae0-465d-83f0-430b2c67b064.png',
     '/lovable-uploads/10aa0220-71b9-474c-ad0a-0656b85e32c9.png',
@@ -128,15 +128,15 @@ const SignUp = () => {
         className="background-grid angled blur-mask fixed inset-0 z-0" 
         data-testid="signup-background-angled-grid"
         style={{
-          transform: 'rotate(-8deg) scale(1.1)',
+          transform: 'rotate(-4deg) scale(1.1)',
           transformOrigin: 'center center',
         }}
       >
-        <div className="grid grid-cols-3 gap-8 h-full w-full p-12">
-          {Array.from({ length: 9 }, (_, index) => (
+        <div className="grid grid-cols-6 gap-1 h-full w-full p-8">
+          {Array.from({ length: 30 }, (_, index) => (
             <div
               key={index}
-              className="rounded-xl overflow-hidden"
+              className="rounded-lg overflow-hidden"
             >
               <img
                 src={courseImages[index % courseImages.length]}
@@ -149,36 +149,23 @@ const SignUp = () => {
             </div>
           ))}
         </div>
-        {/* Subtle overlay for readability */}
-        <div className="absolute inset-0 bg-background/25" />
-      </div>
-
-      {/* Gradient soft overlay behind form card */}
-      <div className="signup-card-overlay gradient-soft fixed inset-0 z-5 flex items-center justify-center px-4 py-20">
-        <div 
-          className="absolute inset-0 bg-gradient-to-br from-white/20 via-white/10 to-transparent"
-          style={{
-            clipPath: 'polygon(35% 0%, 100% 0%, 100% 100%, 35% 100%)',
-          }}
-        />
+        {/* Light blur and semi-transparent white overlay */}
+        <div className="absolute inset-0 bg-white/30 backdrop-blur-sm" />
       </div>
 
       {/* Form Card Overlay */}
       <div className="relative z-10 min-h-screen flex items-center justify-center px-4 py-20">
-        <div className="w-full max-w-md">
+        <div className="w-full max-w-[460px]">
           <Card 
-            className="signup-modal solid-white bg-white border border-gray-100"
+            className="signup-modal bg-white shadow-2xl border border-gray-100 rounded-xl"
             data-testid="signup-form-elevation"
-            style={{
-              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.1)',
-            }}
           >
             <CardHeader className="space-y-3 pb-6 text-center">
-              <h1 className="text-3xl font-bold text-dental-blue">Create your account</h1>
+              <h1 className="text-2xl font-bold text-dental-blue">Create your account</h1>
               <p className="text-dental-gray text-base">Start your learning journey with trusted dental specialists</p>
             </CardHeader>
             
-            <CardContent>
+            <CardContent className="px-8 py-6">
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Email Input */}
                 <div className="space-y-2">
@@ -193,7 +180,7 @@ const SignUp = () => {
                       value={email}
                       onChange={handleEmailChange}
                       required
-                      className={`h-12 rounded-lg border-gray-200 focus:border-dental-blue focus:ring-dental-blue pl-10 ${
+                      className={`input-field w-full h-12 rounded-md border border-gray-300 focus:border-dental-blue focus:ring-dental-blue pl-10 ${
                         emailError ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
                       }`}
                     />
@@ -226,7 +213,7 @@ const SignUp = () => {
                       value={password}
                       onChange={handlePasswordChange}
                       required
-                      className={`h-12 rounded-lg border-gray-200 focus:border-dental-blue focus:ring-dental-blue pl-10 pr-10 ${
+                      className={`input-field w-full h-12 rounded-md border border-gray-300 focus:border-dental-blue focus:ring-dental-blue pl-10 pr-10 ${
                         passwordError ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
                       }`}
                     />
@@ -260,7 +247,7 @@ const SignUp = () => {
                       value={confirmPassword}
                       onChange={handleConfirmPasswordChange}
                       required
-                      className={`h-12 rounded-lg border-gray-200 focus:border-dental-blue focus:ring-dental-blue pl-10 pr-10 ${
+                      className={`input-field w-full h-12 rounded-md border border-gray-300 focus:border-dental-blue focus:ring-dental-blue pl-10 pr-10 ${
                         confirmPasswordError ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
                       }`}
                     />
@@ -313,24 +300,10 @@ const SignUp = () => {
                 <Button
                   type="submit"
                   disabled={!email || !password || !confirmPassword || !!emailError || !!passwordError || !!confirmPasswordError || !agreedToTerms || isValidating}
-                  className="btn btn-primary-gradient-hover w-full h-12 font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
-                  style={{
-                    background: 'linear-gradient(135deg, hsl(var(--dental-blue)) 0%, hsl(var(--dental-blue-dark)) 100%)',
-                    color: 'white',
-                  }}
+                  className="btn-primary w-full h-12 py-3 rounded-md font-semibold transition-all bg-gradient-to-r from-dental-blue to-dental-blue-dark text-white hover:from-dental-blue-dark hover:to-[hsl(210_100%_25%)] disabled:opacity-50 disabled:cursor-not-allowed"
                   data-testid="signup-submit-button"
                 >
-                  <span className="relative z-10">
-                    {isValidating ? 'Creating Account...' : 'Create Account'}
-                  </span>
-                  {/* Animated gradient shift on hover */}
-                  <div 
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{
-                      background: 'linear-gradient(135deg, hsl(var(--dental-blue-dark)) 0%, hsl(210 100% 25%) 100%)',
-                      transform: 'translateX(-100%)',
-                    }}
-                  />
+                  {isValidating ? 'Creating Account...' : 'Create Account'}
                 </Button>
               </form>
 
@@ -350,16 +323,6 @@ const SignUp = () => {
           </Card>
         </div>
       </div>
-
-      <style>{`
-        @keyframes slideRight {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-        .group:hover .absolute {
-          animation: slideRight 0.6s ease-out;
-        }
-      `}</style>
     </div>
   );
 };

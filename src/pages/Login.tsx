@@ -29,31 +29,67 @@ const Login = () => {
     }, 1000);
   };
 
+  // Course thumbnail images for the grid background
+  const courseImages = [
+    '/lovable-uploads/a040261a-5ae0-465d-83f0-430b2c67b064.png',
+    '/lovable-uploads/10aa0220-71b9-474c-ad0a-0656b85e32c9.png',
+    '/lovable-uploads/49ac1a3e-4bba-442e-a648-00c73776b5b1.png',
+    '/lovable-uploads/16b5aafa-0533-4ad2-9897-92b8639ddc5e.png',
+    '/lovable-uploads/2c1ad50a-4066-4519-afcd-f6f16071ea8d.png',
+    '/lovable-uploads/368c6b6a-e95a-4dd2-b51a-e03063a74279.png',
+    '/lovable-uploads/4bd9d5d8-b153-4b4d-bd4d-fe5fdfe884b2.png',
+    '/lovable-uploads/a789cbd9-0692-4db5-9658-3da85ff73e3e.png',
+    '/lovable-uploads/be0a9319-69c6-47c3-9019-671d5ffc8fd6.png',
+  ];
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background relative overflow-hidden">
       <Header />
       
-      <div className="flex items-center justify-center px-4 pt-20 pb-8">
-        <div className="w-full max-w-md">
-          {/* Logo */}
-          <div className="text-center mb-8">
-            <img 
-              src="/lovable-uploads/b5b93f05-f98a-4fa9-887e-ceb54e5c52a8.png" 
-              alt="CorrectDentistry Logo" 
-              className="h-10 w-auto mx-auto mb-6"
-            />
-            <h1 className="text-2xl font-bold text-dental-blue mb-2">Welcome Back</h1>
-            <p className="text-dental-gray">Sign in to access your courses</p>
-          </div>
+      {/* Background grid with reduced tilt */}
+      <div 
+        className="background-grid angled blur-mask fixed inset-0 z-0" 
+        data-testid="login-background-angled-grid"
+        style={{
+          transform: 'rotate(-4deg) scale(1.1)',
+          transformOrigin: 'center center',
+        }}
+      >
+        <div className="grid grid-cols-6 gap-1 h-full w-full p-8">
+          {Array.from({ length: 30 }, (_, index) => (
+            <div
+              key={index}
+              className="rounded-lg overflow-hidden"
+            >
+              <img
+                src={courseImages[index % courseImages.length]}
+                alt="Dental course"
+                className="w-full h-full object-cover brightness-110"
+                style={{
+                  filter: 'blur(1px)',
+                }}
+              />
+            </div>
+          ))}
+        </div>
+        {/* Light blur and semi-transparent white overlay */}
+        <div className="absolute inset-0 bg-white/30 backdrop-blur-sm" />
+      </div>
 
-          <Card className="shadow-lg border-0">
-            <CardHeader className="space-y-1 pb-6">
-              <CardTitle className="text-xl font-semibold text-center">Log In</CardTitle>
-              <CardDescription className="text-center text-dental-gray">
-                Enter your credentials to continue
+      {/* Form Card Overlay */}
+      <div className="relative z-10 min-h-screen flex items-center justify-center px-4 py-20">
+        <div className="w-full max-w-[460px]">
+          <Card 
+            className="login-modal bg-white shadow-2xl border border-gray-100 rounded-xl"
+            data-testid="login-form-elevation"
+          >
+            <CardHeader className="space-y-1 pb-6 text-center">
+              <CardTitle className="text-2xl font-bold text-dental-blue mb-2">Welcome Back</CardTitle>
+              <CardDescription className="text-dental-gray">
+                Sign in to access your courses
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="px-8 py-6">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="email" className="text-sm font-medium text-dental-gray">
@@ -66,7 +102,7 @@ const Login = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="h-12 rounded-lg border-gray-200 focus:border-dental-blue focus:ring-dental-blue"
+                    className="input-field w-full h-12 rounded-md border border-gray-300 focus:border-dental-blue focus:ring-dental-blue"
                   />
                 </div>
 
@@ -82,7 +118,7 @@ const Login = () => {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
-                      className="h-12 rounded-lg border-gray-200 focus:border-dental-blue focus:ring-dental-blue pr-10"
+                      className="input-field w-full h-12 rounded-md border border-gray-300 focus:border-dental-blue focus:ring-dental-blue pr-10"
                     />
                     <button
                       type="button"
@@ -94,34 +130,28 @@ const Login = () => {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between">
-                  <button
-                    type="button"
-                    className="text-sm text-dental-blue hover:text-dental-blue-dark transition-colors"
-                  >
-                    Forgot Password?
-                  </button>
-                </div>
-
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full h-12 bg-dental-blue hover:bg-dental-blue-dark text-white font-medium rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
+                  className="btn-primary w-full h-12 py-3 rounded-md font-semibold transition-all bg-gradient-to-r from-dental-blue to-dental-blue-dark text-white hover:from-dental-blue-dark hover:to-[hsl(210_100%_25%)]"
                 >
                   {isLoading ? 'Signing In...' : 'Log In'}
                 </Button>
               </form>
 
-              <div className="mt-6 text-center">
-                <p className="text-sm text-dental-gray">
-                  Don't have an account?{' '}
-                  <Link 
-                    to="/signup" 
-                    className="text-dental-blue hover:text-dental-blue-dark font-medium transition-colors"
-                  >
-                    Sign Up
-                  </Link>
-                </p>
+              <div className="mt-6 flex items-center justify-between text-sm">
+                <button
+                  type="button"
+                  className="text-dental-blue hover:text-dental-blue-dark transition-colors"
+                >
+                  Forgot Password?
+                </button>
+                <Link 
+                  to="/signup" 
+                  className="text-dental-blue hover:text-dental-blue-dark font-medium transition-colors"
+                >
+                  Sign Up
+                </Link>
               </div>
             </CardContent>
           </Card>
